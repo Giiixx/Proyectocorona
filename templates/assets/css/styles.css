@@ -1,0 +1,9 @@
+.fil_1 th, 
+.fil_2 th,
+.fil_3 th{
+    border: solid 4px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
