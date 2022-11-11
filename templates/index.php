@@ -1,3 +1,12 @@
+<?php 
+    require '../conections/basededatos.php';
+    require '../entity/ListaProductos.php';
+
+    $productos = new ListaProductos($conn);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +56,24 @@
                 <th >TRANSFE./DEVOLUCION frascos (e)</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+
+        <?php for($i=0;$i<54;$i++){?>
+        <tr>
+            <td class="a1">
+                <?php echo $productos->getCodigo($i) ?>
+            </td>
+            <td class="a1">
+                <?php echo $productos->getNombre($i) ?>
+            </td>
+            <td class="a1">
+                <?php echo $productos->getUnidad($i) ?>
+            </td>
+        </tr>
+        <?php } ?> 
+        
+
+        </tbody>
 </table>
     
 </body>
