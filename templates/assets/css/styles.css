@@ -7,3 +7,25 @@
     padding-right: 2px;
 }
 
+.fil_1_dat , 
+.fil_2_dat ,
+.fil_3_dat {
+    border: solid 4px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.datosreporte{
+    margin: 1% 5% 1% 5%;
+}   
+
+.contenedor_add{
+    padding-left: 8%;
+    padding-top: 1%;
+
+}
+.comboboxRegistrar{
+    width: 100%;
+}
+
