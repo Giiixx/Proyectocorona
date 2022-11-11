@@ -61,13 +61,13 @@
         <?php for($i=0;$i<54;$i++){?>
             <tr>
                 <td class="a1">
-                    <?php echo $producto->getCodigo($i) ?>
+                    <?php echo $productos->getCodigo($i) ?>
                 </td>
                 <td class="a1">
-                    <?php echo $producto->getNombre($i) ?>
+                    <?php echo $productos->getNombre($i) ?>
                 </td>
                 <td class="a1">
-                    <?php echo $producto->getUnidad($i) ?>
+                    <?php echo $productos->getUnidad($i) ?>
                 </td>
             </tr>
             <?php } ?>
