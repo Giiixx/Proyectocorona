@@ -4,33 +4,11 @@
         public $usuarios_selection;
 
         public function __construct($conexion){
-            $usuarios_select = $conexion->prepare("Select usuarios.idUsuarios,
-            usuarios.UsuarioRis,
-            usuarios.UsuariosDescEstablecimiento,
-            usuarios.UsuarioNombre,
-            usuarios.UsuariosContrasena,
-            roles.RolesDesc
-            from
-            usuarios
-            inner join Roles On usuarios.Roles_idRoles = roles.idRoles");
+            $usuarios_select = $conexion->prepare("Select * From usuarios");
             $usuarios_select->execute();
             $this->usuarios = $usuarios_select->fetchALL(PDO::FETCH_ASSOC);
         }
 
-        public function init($conexion){
-            $usuarios_select = $conexion->prepare("Select usuarios.idUsuarios,
-            usuarios.UsuarioRis,
-            usuarios.UsuariosDescEstablecimiento,
-            usuarios.UsuarioNombre,
-            usuarios.UsuariosContrasena,
-            roles.RolesDesc
-            from
-            usuarios
-            inner join Roles On usuarios.Roles_idRoles = roles.idRoles");
-            $usuarios_select->execute();
-            $this->usuarios = $usuarios_select->fetchALL(PDO::FETCH_ASSOC);
-        }   
-        
         public function getId($position){
             return $this->usuarios[$position]['idUsuarios'];
         }
@@ -47,7 +25,7 @@
             return $this->usuarios[$position]['UsuariosContrasena'];
         }
         public function getId_Roles($position){
-            return $this->usuarios[$position]['RolesDesc'];
+            return $this->usuarios[$position]['Roles_idRoles'];
         }
      
     }

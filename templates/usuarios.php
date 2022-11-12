@@ -1,8 +1,8 @@
 <?php
     require '../conections/basededatos.php';
-    require '../entity/ListaUsuarios.php';
+    require '../entity/ListaCategoria.php';
 
-    $usuarios = new ListaUsuarios($conn);
+    $categoria = new ListaCategoria($conn);
 
 ?>
 
@@ -58,23 +58,16 @@
         </thead>
         <tbody>
 
-        <?php for($i=0;$i<95;$i++){?>
+        <?php for($i=0;$i<4;$i++){?>
             <tr>
                 <td class="a1">
-                    <?php echo $usuarios->getRis($i) ?>
+                    <?php echo $categoria->getId($i) ?>
                 </td>
                 <td class="a1">
-                    <?php echo $usuarios->getEstablecimiento($i) ?>
+                    <?php echo $categoria->getRis($i) ?>
                 </td>
-                <td class="a1">
-                    <?php echo $usuarios->getNombre($i) ?>
-                </td>
-                <td class="a1">
-                    <?php echo $usuarios->getContrasena($i) ?>
-                </td>
-                <td class="a1">
-                    <?php echo $usuarios->getId_Roles($i) ?>
-                </td>
+             
+              
                 
             </tr>
             <?php } ?>
