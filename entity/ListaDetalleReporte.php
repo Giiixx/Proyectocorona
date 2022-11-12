@@ -1,6 +1,7 @@
 <?php
     class ListaDetalleReporte{
         public $detalleReporte;
+        public $vistadetallReporte;
         
         public function __construct($conn) {
             $select = $conn->prepare("SELECT * FROM detallereportes");
@@ -36,6 +37,13 @@
         public function getFrascosAbiertos($position){
             return $this->detalleReporte[$position]['FrascosAbiertos'];
         }
+
+        public function VistaDetalleReporte($conn){
+            $select = $conn->prepare("SELECT bio.BiologicosCod , bio.BiologicosNom ,bio.BiologicosUnidad  ,det.ReportesIngresos ,det.ReportesIngresosExtra ,det.ReportesFrascosAbiertos ,det.ReportesDosis,det.ReportesDevolucion ,det.ReportesExpiracionFecha ,det.ReportesLote ,det.ReportesRequerimientoMes ,det.ReporteObservaciones,det.ReportesArchivo  from detallereportes det inner join biologicos bio on det.Biologicos_idBiologicos=bio.idBiologicos inner join categoria cat on bio.Categoria_idCategoria=cat.idCategoria");
+            
+            $select->execute();
+            $this->vistadetallReporte = $select->fetchALL(PDO::FETCH_ASSOC);
+        }
         
         public function IngresarDetalleReporte($conn,
                                         $ReportesIngresos, 
@@ -46,8 +54,8 @@
                                         $ReportesExpiracionFecha, 
                                         $ReportesLote, 
                                         $ReportesRequerimientoMes,
-                                        $ReportesArchivo,
                                         $ReporteObservaciones, 
+                                        $ReportesArchivo,
                                         $ReportesFechaAdd,
                                         $Biologicos_idBiologicos, 
                                         $Usuarios_idUsuarios){
@@ -60,8 +68,8 @@
                         ReportesExpiracionFecha, 
                         ReportesLote, 
                         ReportesRequerimientoMes,
-                        ReportesArchivo,
                         ReporteObservaciones, 
+                        ReportesArchivo,
                         ReportesFechaAdd, 
                         Biologicos_idBiologicos, 
                         Usuarios_idUsuarios) 
@@ -74,8 +82,8 @@
                         :ReportesExpiracionFecha, 
                         :ReportesLote, 
                         :ReportesRequerimientoMes,
-                        :ReportesArchivo,
                         :ReporteObservaciones, 
+                        :ReportesArchivo,
                         :ReportesFechaAdd,
                         :Biologicos_idBiologicos, 
                         :Usuarios_idUsuarios)";
@@ -97,6 +105,10 @@
 
             return $stmt->execute() ? TRUE : FALSE;
         }
+        
+
+        
+        
 
         /*public function updateRequerimiento($conn,
                                         $saldo_anterior, 

@@ -15,6 +15,7 @@
             $this->productos = $productos_select->fetchALL(PDO::FETCH_ASSOC);
         }
 
+
         /*public function searchByCodigo($conexion, $codigo){
             $productos_select = $conexion->prepare("SELECT id FROM productos WHERE codigo = :codigo");
             $productos_select->bindParam(':codigo', $codigo);
@@ -39,7 +40,7 @@
         }
 
         public function getCodigo($position){
-            return $this->productos[$position]['BiologicosdesCod'];
+            return $this->productos[$position]['BiologicosCod'];
         }
 
         public function getNombre($position){
@@ -56,6 +57,14 @@
         public function getId_cat($position){
             return $this->productos[$position]['Categoria_idCategoria'];
         }   
+
+        public function SearchIdByName($conn,$BiologicosNom){
+            $productos_select = $conn->prepare("SELECT idBiologicos FROM biologicos WHERE BiologicosNom = :BiologicosNom");
+            $productos_select->bindParam(':BiologicosNom', $BiologicosNom);
+            $productos_select->execute();
+            $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
+    
+        }
 
     }
 ?>
