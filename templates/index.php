@@ -96,7 +96,7 @@
     </div>
 
     <div>
-        <table class="datosreporte" >
+        <table id="example" class="datosreporte" >
             <thead>
                 <tr class="fil_1">
                     <th scope="rowgroup" rowspan="3" >CODIGO</th>
@@ -200,6 +200,6 @@
         </table>
     </div>
 </div>
-    
+  
 </body>
 </html>
