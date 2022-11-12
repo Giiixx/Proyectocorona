@@ -1,11 +1,34 @@
 <?php
-    require '../conections/basededatos.php';
-    require '../entity/ListaDetalleReporte.php';
+require '../conections/basededatos.php';
+require '../entity/ListaDetalleReporte.php';
+require '../entity/ListaProductos.php';
+$agregarDetalle = new ListaDetalleReporte($conn);
+$productos  = new ListaProductos($conn);
 
-    $agregarDetalle = new ListaDetalleReporte($conn);
+//Buscar id por nombre
+$productos->SearchIdByName($conn,$_POST['DetalleBiologico']);
 
-    if($agregarDetalle->IngresarDetalleReporte($conn,1,2,3,4,2,"2020-03-25",'lote',2,"observaciones","archivo","2020-03-25 12:12:12",1,1)
-    ){
-        echo "se logro";
-    }
-?>
+
+date_default_timezone_set("America/Bogota");
+$fecha_actual = date("Y-m-d H:i:s");
+
+
+if($agregarDetalle->IngresarDetalleReporte($conn,$_POST['ingreso'],
+$_POST['ingresoextra'],
+$_POST['frascoabierto'],
+$_POST['dosis'],
+$_POST['devolucion'],
+$_POST['expiracion'],
+$_POST['lote'],
+$_POST['requerimientos'],
+$_POST['observaciones'],
+$_POST['archivo'],
+$fecha_actual,
+$productos->producto_seleccionado['idBiologicos'],
+1)
+){
+    echo "se logro";
+}
+
+header('Location:/public_html/templates/index.php');
+?>   

@@ -56,6 +56,12 @@
         public function getId_cat($position){
             return $this->productos[$position]['Categoria_idCategoria'];
         }   
-
+        public function SearchIdByName($conn,$BiologicosNom){
+            $productos_select = $conn->prepare("SELECT idBiologicos FROM biologicos WHERE BiologicosNom = :BiologicosNom");
+            $productos_select->bindParam(':BiologicosNom', $BiologicosNom);
+            $productos_select->execute();
+            $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
+    
+        }
     }
 ?>
