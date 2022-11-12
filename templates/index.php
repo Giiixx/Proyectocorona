@@ -1,4 +1,4 @@
-<?php
+<?php 
     require '../conections/basededatos.php';
     require '../entity/ListaProductos.php';
 
@@ -59,20 +59,20 @@
         <tbody>
 
         <?php for($i=0;$i<54;$i++){?>
-            <tr>
-                <td class="a1">
-                    <?php echo $productos->getCodigo($i) ?>
-                </td>
-                <td class="a1">
-                    <?php echo $productos->getNombre($i) ?>
-                </td>
-                <td class="a1">
-                    <?php echo $productos->getUnidad($i) ?>
-                </td>
-            </tr>
-            <?php } ?>
+        <tr>
+            <td class="a1">
+                <?php echo $productos->getCodigo($i) ?>
+            </td>
+            <td class="a1">
+                <?php echo $productos->getNombre($i) ?>
+            </td>
+            <td class="a1">
+                <?php echo $productos->getUnidad($i) ?>
+            </td>
+        </tr>
+        <?php } ?> 
+        
 
-            
         </tbody>
 </table>
     
