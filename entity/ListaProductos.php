@@ -2,6 +2,7 @@
     class ListaProductos{
         public $productos;
         public $producto_seleccionado;
+        public $producto_selec;
         
         public function __construct($conexion) {
             $productos_select = $conexion->prepare("SELECT * FROM biologicos");
@@ -63,6 +64,14 @@
             $productos_select->bindParam(':BiologicosNom', $BiologicosNom);
             $productos_select->execute();
             $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
+    
+        }
+        public function SearchStockByCod($conn,$idUsuarioBiologico,$BiologicosCod){
+            $productos_select = $conn->prepare("SELECT usu.UsuarioBiologicoStock FROM biologicos bio inner join usuariobiologico usu on bio.idBiologicos=usu.Biologicos_idBiologicos where usu.Usuarios_idUsuarios = :idUsuarioBiologico and bio.BiologicosCod = :BiologicosCod");
+            $productos_select->bindParam(':idUsuarioBiologico', $idUsuarioBiologico);
+            $productos_select->bindParam(':BiologicosCod', $BiologicosCod);
+            $productos_select->execute();
+            $this->producto_selec = $productos_select->fetch(PDO::FETCH_ASSOC);
     
         }
 

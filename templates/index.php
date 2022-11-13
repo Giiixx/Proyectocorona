@@ -15,9 +15,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -93,6 +93,75 @@
             </div>
         </div>
     </div>
+    <!-- Modal Editar -->
+    <div class="modal fade me_1" id="modalEditForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog m_2">
+            <div class="modal-content m_3">
+                <div class="modal-header m_4">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Biologico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m_4_1">
+                    <form action="../Functions/AddDetalleReporte.php" method="post">
+                        <input type="hidden"  id="idEditarDetalles" name="idEditarDetalles"/>
+                        <div class="mb-3">
+                            <label class="form-label">Descripcion Biologico</label>
+                            <select class="comboboxRegistrar" onchange="combobox()" name="DetalleBiologico1" id="DetalleBiologico1" >
+                            <?php foreach($productos->productos as $valor=>$value){?>
+                                <option  class="opcion">
+                                <?php echo $productos->getNombre($valor) ?></option>
+                            <?php } ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Ingresos</label>
+                            <input type="number" class="form-control"  id="ingreso1" name="ingreso1" placeholder="Ingresos..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Ingresos Extra</label>
+                            <input type="number" class="form-control"  id="ingresoextra1" name="ingresoextra1" placeholder="Ingresos Extra..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Frascos Abiertos</label>
+                            <input type="number" class="form-control" id="frascoabierto1" name="frascoabierto1" placeholder="Frascos Abiertos..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Dosis</label>
+                            <input type="number" class="form-control"  id="dosis1" name="dosis1" placeholder="Dosis..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Devolución</label>
+                            <input type="number" class="form-control" id="devolucion1" name="devolucion1" placeholder="Devolución..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Expiracion</label>
+                            <input type="date" class="form-control" id="expiracion1" name="expiracion1" placeholder="Expiración..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Lote</label>
+                            <input type="text" class="form-control" id="lote1" name="lote1"  placeholder="Lote..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Requerimientos</label>
+                            <input type="number" class="form-control" id="requerimientos1" name="requerimientos1"  placeholder="Requerimientos..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Observaciones</label>
+                            <input type="text" class="form-control" id="observaciones1" name="observaciones1" placeholder="Observaciones..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Archivo</label>
+                            <input type="file" class="form-control" id="archivo1" name="archivo1" placeholder="Archivo..." required/>
+                        </div>
+
+                        <div class="modal-footer d-block btn-block">
+                            <button type="submit" class=""><i class="fas fa-plus"></i>&nbsp&nbspEditar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div>
         <table class="datosreporte" >
@@ -138,7 +207,9 @@
             <?php foreach ($detalleReporte->vistadetallReporte as $valor=>$value) { ?>
                 <tr>
                     <td class="fil_1_dat">
-                        <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosCod']?>
+                        <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'];
+                        
+                        ?>
                     </td>
                     <td class="fil_2_dat">
                         <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosNom']?>
@@ -147,7 +218,10 @@
                         <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosUnidad']?>
                     </td>
                     <td class="fil_4_dat">
-                        stock
+                        <?php
+                        $productos->SearchStockByCod($conn,1,$detalleReporte->vistadetallReporte[$valor]['BiologicosCod']); 
+                        $aux= $productos->producto_selec['UsuarioBiologicoStock'];
+                        echo $aux?>
                     </td>
                     <td class="fil_5_dat">
                         <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos']?>
@@ -156,7 +230,8 @@
                         <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra']?>
                     </td>
                     <td class="fil_7_dat">
-                        total
+                        <?php $aux2 = $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] +$detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra']+$aux;
+                        echo $aux2?>
                     </td>
                     <td class="fil_8_dat">
                         <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos']?>
@@ -168,10 +243,11 @@
                         <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']?>
                     </td>
                     <td class="fil_11_dat">
-                        total salida
+                    <?php $aux3 = $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos']+$detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'];
+                        echo $aux3 ?>
                     </td>
                     <td class="fil_12_dat">
-                        Saldo Disponible
+                        <?php echo $aux2-$aux3 ?>
                     </td>
                     <td class="fil_13_dat">
                         <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionFecha']?>
@@ -189,10 +265,29 @@
                         <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo']?>
                     </td>
                     <td class="fil_18_dat">
-                        btn
+                        <a href="" 
+                        id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes']?>"
+                        param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom']?>"
+                        param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos']?>"}
+                        param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra']?>"
+                        param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos']?>"
+                        param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis']?>"
+                        param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']?>"
+                        param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionFecha']?>"
+                        param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote']?>"
+                        param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes']?>"
+                        param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones']?>"
+                        param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo']?>"
+                        class="editarDetalleReporte"
+                        data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+                        <a href="" onclick="return confirm('DESEA ELIMINAR?')"><img src="assets/bootstrap-icons-1.10.1/trash.svg"></a>
                     </td>
                 </tr>
             <?php } ?> 
+            <script src="assets/js/bootstrap.bundle.min.js"></script>
+            <script src="assets/js/scripts.js"></script>
+            <script src="assets/js/jquery.js"></script>
+            <script src="assets/js/EditarDetalle.js"></script>
             
 
             </tbody>
