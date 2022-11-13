@@ -110,63 +110,56 @@
         
         
 
-        /*public function updateRequerimiento($conn,
-                                        $saldo_anterior, 
-                                        $ingresos,
-                                        $ingresos_extra, 
-                                        $total_1, 
-                                        $fco, 
-                                        $dosis, 
-                                        $devolucion, 
-                                        $total_2, 
-                                        $saldo_final, 
-                                        $fecha_expiracion, 
-                                        $lote, 
-                                        $requerimientos, 
-                                        $observaciones,
-                                        $requerimiento_id){
-            $sql = "UPDATE requerimientos SET 
-                        saldo_anterior = :saldo_anterior, 
-                        ingresos = :ingresos,
-                        ingresos_extra = :ingresos_extra, 
-                        total_1 = :total_1, 
-                        fco = :fco, 
-                        dosis = :dosis, 
-                        devolucion = :devolucion, 
-                        total_2 = :total_2, 
-                        saldo_final = :saldo_final, 
-                        fecha_expiracion = :fecha_expiracion, 
-                        lote = :lote, 
-                        requerimientos = :requerimientos, 
-                        observaciones = :observaciones
-                        WHERE requerimientos.id = :requerimientos_id";
+        public function UpdateDetalleReporte($conn,
+                                        $ReportesIngresos, 
+                                        $ReportesIngresosExtra, 
+                                        $ReportesFrascosAbiertos, 
+                                        $ReportesDosis,
+                                        $ReportesDevolucion, 
+                                        $ReportesExpiracionFecha, 
+                                        $ReportesLote, 
+                                        $ReportesRequerimientoMes,
+                                        $ReporteObservaciones, 
+                                        $ReportesArchivo,
+                                        $Biologicos_idBiologicos, 
+                                        $idReportes){
+            $sql = "UPDATE detallereportes SET 
+                        Biologicos_idBiologicos=:Biologicos_idBiologicos,
+                        ReportesIngresos=:ReportesIngresos,
+                        ReportesIngresosExtra=:ReportesIngresosExtra,
+                        ReportesFrascosAbiertos=:ReportesFrascosAbiertos,
+                        ReportesDosis=:ReportesDosis,
+                        ReportesDevolucion=:ReportesDevolucion,
+                        ReportesExpiracionFecha=:ReportesExpiracionFecha,
+                        ReportesLote=:ReportesLote,
+                        ReportesRequerimientoMes=:ReportesRequerimientoMes,
+                        ReporteObservaciones=:ReporteObservaciones,
+                        ReportesArchivo=:ReportesArchivo
+                        WHERE idReportes=:idReportes";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':saldo_anterior', $saldo_anterior);
-            $stmt->bindParam(':ingresos', $ingresos);
-            $stmt->bindParam(':ingresos_extra', $ingresos_extra);
-            $stmt->bindParam(':total_1', $total_1);
-            $stmt->bindParam(':fco', $fco);
-            $stmt->bindParam(':dosis', $dosis);
-            $stmt->bindParam(':devolucion', $devolucion);
-            $stmt->bindParam(':total_2', $total_2);
-            $stmt->bindParam(':saldo_final', $saldo_final);
-            $stmt->bindParam(':fecha_expiracion', $fecha_expiracion);
-            $stmt->bindParam(':lote', $lote);
-            $stmt->bindParam(':requerimientos', $requerimientos);
-            $stmt->bindParam(':observaciones', $observaciones);
-            $stmt->bindParam(':requerimientos_id', $requerimiento_id);
+            $stmt->bindParam(':ReportesIngresos', $ReportesIngresos);
+            $stmt->bindParam(':ReportesIngresosExtra', $ReportesIngresosExtra);
+            $stmt->bindParam(':ReportesFrascosAbiertos', $ReportesFrascosAbiertos);
+            $stmt->bindParam(':ReportesDosis', $ReportesDosis);
+            $stmt->bindParam(':ReportesDevolucion', $ReportesDevolucion);
+            $stmt->bindParam(':ReportesExpiracionFecha', $ReportesExpiracionFecha);
+            $stmt->bindParam(':ReportesLote', $ReportesLote);
+            $stmt->bindParam(':ReportesRequerimientoMes', $ReportesRequerimientoMes);
+            $stmt->bindParam(':ReporteObservaciones', $ReporteObservaciones);
+            $stmt->bindParam(':ReportesArchivo', $ReportesArchivo);
+            $stmt->bindParam(':Biologicos_idBiologicos', $Biologicos_idBiologicos);
+            $stmt->bindParam(':idReportes', $idReportes);
 
             return $stmt->execute() ? TRUE : FALSE;
         }
         
-        public function deleteRequerimiento($conn,$requerimiento_id){
-            $sql="DELETE FROM requerimientos WHERE requerimientos.id=:requerimientos_id";
+        public function DeleteDetallleReporte($conn,$idReportes){
+            $sql="DELETE FROM detallereportes WHERE idReportes=:idReportes";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':requerimientos_id', $requerimiento_id);
+            $stmt->bindParam(':idReportes', $idReportes);
             return $stmt->execute() ? TRUE : FALSE;
         }
-        */
         /*
 
         public function init_selectById($conexion, $user_id){

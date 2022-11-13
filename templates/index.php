@@ -102,7 +102,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body m_4_1">
-                    <form action="../Functions/AddDetalleReporte.php" method="post">
+                    <form action="../Functions/EditDetalleReporte.php" method="post">
                         <input type="hidden"  id="idEditarDetalles" name="idEditarDetalles"/>
                         <div class="mb-3">
                             <label class="form-label">Descripcion Biologico</label>
@@ -280,7 +280,7 @@
                         param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo']?>"
                         class="editarDetalleReporte"
                         data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
-                        <a href="" onclick="return confirm('DESEA ELIMINAR?')"><img src="assets/bootstrap-icons-1.10.1/trash.svg"></a>
+                        <a  class="btneliminar" href="../Functions/DeleteDetalleReporte.php?id=<?=$detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>"  onclick="return confirm('DESEA ELIMINAR?')"><img src="assets/bootstrap-icons-1.10.1/trash.svg"></a>
                     </td>
                 </tr>
             <?php } ?> 

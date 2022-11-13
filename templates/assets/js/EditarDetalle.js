@@ -11,7 +11,8 @@ $(document).ready(function (){
         $('#lote1').val($(this).attr('param8'));
 		$('#requerimientos1').val($(this).attr('param9'));
         $('#observaciones1').val($(this).attr('param10'));
-		$('#archivo1').val($(this).attr('param11'));
+		//Pendiente cuando creamos la carpeta para archivos
+		//$('#archivo1').val($(this).attr('param11'));
 		
 	})
 });
