@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('body').on('change','.comboboxRegistrar',function(){
+        //$('body').off();
         $.ajax(
             {
             url:'/public_html/Functions/PasarDatosBiologicos.php',
@@ -8,24 +9,50 @@ $(document).ready(function(){
                 aux:$("#DetalleBiologico").val(),
             }
         }).done(function(res){
-            var link = document.getElementById("dosis");
-
+            $("#dosis").val("");
+            $("#frascoabierto").val("");
             if(res!=1){
-                let canDosis=$("#frascoabierto").val()*res;
-
                 $("#dosis").css("pointer-events","visiblePainted"); 
                 $("#dosis").css("background","white"); 
-                link.setAttribute("max",canDosis);
     
 
             }
             else{
                 $("#dosis").css("pointer-events","none"); 
                 $("#dosis").css("background","rgb(161, 160, 161)");
-                $("#dosis").val($("#frascoabierto").val());
 
             }
         });
 
     })
+
+    $('input').focusout('.frascosDosis',function(){
+        $.ajax(
+            {
+            url:'/public_html/Functions/PasarDatosBiologicos.php',
+            method:"POST",
+            data:{
+                aux:$("#DetalleBiologico").val(),
+            }
+        }).done(function(res){
+            let link = document.getElementById("dosis");
+
+            if(res!=1){
+                let canDosis=$("#frascoabierto").val()*res;
+                link.setAttribute("max",canDosis);
+            }
+            else{
+                $("#dosis").val($("#frascoabierto").val());
+            }
+        });
+
+    })
+    if("VACUNA ANTINEUMOCOCICA CONJUGADA 13-VALENTE INY 1 DOSIS"==$("#DetalleBiologico").val()){
+        $("#dosis").css("pointer-events","none"); 
+        $("#dosis").css("background","rgb(161, 160, 161)");
+        $('#frascosDosis').focusout('.frascosDosis',function(){
+            $("#dosis").val($("#frascoabierto").val());
+        })
+    }
+    
 })
