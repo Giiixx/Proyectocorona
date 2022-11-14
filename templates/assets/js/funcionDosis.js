@@ -16,6 +16,8 @@ $(document).ready(function(){
                 $("#dosis").css("pointer-events","visiblePainted"); 
                 $("#dosis").css("background","white"); 
                 link.setAttribute("max",canDosis);
+    
+
             }
             else{
                 $("#dosis").css("pointer-events","none"); 
