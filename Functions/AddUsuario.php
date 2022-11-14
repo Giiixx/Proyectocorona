@@ -1,11 +1,21 @@
 <?php
     require '../conections/basededatos.php';
     require '../entity/ListaUsuarios.php';
+    require '../entity/ListaRoles.php';
+    $roles = new ListaRoles($conn)
+    $agregarUsuario = new ListaUsuarios($conn);
 
-    $agregarDetalle = new ListaUsuarios($conn);
+    // Buscar id por nombre
+    $roles->SearchIdByName($conn,$_POST['ListaRoles']);
 
-    if($agregarDetalle->IngresarDetalleReporte($conn,1,2,3,4,2,"2020-03-25",'lote',2,"observaciones","archivo","2020-03-25 12:12:12",1,1)
+    if($agregarUsuario->IngresarUsuario($conn,$_POST['UsuarioRis'],
+    $_POST['UsuariosDescEstablecimiento'],
+    $_POST['UsuarioNombre'],
+    $_POST['UsuarioContrasena'],
+    $roles->roles_selection['idRoles'],
+    1)
     ){
-        echo "se logro";
+        echo 'se logro';
     }
+   header('Location:/public_html/templates/modeloregistro.php');
 ?>

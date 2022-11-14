@@ -1,7 +1,7 @@
 <?php
     class ListaUsuarios{
         public $usuarios;
-        public $usuarios_selection;
+        public $vistausuario;
 
         public function __construct($conexion){
             $usuarios_select = $conexion->prepare("Select * From usuarios");
@@ -27,6 +27,13 @@
         public function getId_Roles($position){
             return $this->usuarios[$position]['Roles_idRoles'];
         }
-     
+        public function VistaUsuario($conn){
+            $usuarios_select= $conn->prepare("SELECT  usu.UsuarioRis, usu.UsuariosDescEstablecimiento ,usu.UsuarioNombre,usu.UsuariosContrasena,  rol.RolesDesc  FROM
+            usuarios usu inner join 
+            roles rol on usu.Roles_idRoles=rol.idRoles");
+            $usuarios_select->execute();
+            $this->vistausuario = $select->FetchAll(PDO::FETCH_ASSOC);
+
+        }
     }
 ?>

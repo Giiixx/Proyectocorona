@@ -1,11 +1,10 @@
 <?php 
     require '../conections/basededatos.php';
-    require '../entity/ListaProductos.php';
-    require '../entity/ListaDetalleReporte.php';
+    require '../entity/ListaUsuarios.php';
+    require '../entity/ListaRoles.php';
 
-    $productos = new ListaProductos($conn);
-    $detalleReporte = new ListaDetalleReporte($conn);
-    $detalleReporte->VistaDetalleReporte($conn);
+    $usuario = new ListaUsuarios($conn);
+    $roles = new ListaRoles($conn);
 
 ?>
 <!DOCTYPE html>
@@ -26,68 +25,43 @@
 <body>
     <div>   
         <div class="contenedor_add">
-            <button  class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
+            <button  class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Usuario</button>
         </div>    
         <!-- Modal Registrar -->
         <div class="modal fade m_1" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog m_2">
                 <div class="modal-content m_3">
                     <div class="modal-header m_4">
-                        <h5 class="modal-title" id="exampleModalLabel">Registrar nueva Biologico</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar nuevo Usuario</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body m_4_1">
-                        <form action="../Functions/AddDetalleReporte.php" method="post">
+                        <form action="../Functions/AddUsuario.php.php" method="post">
                             <div class="mb-3">
-                                <label class="form-label">Descripcion Biologico</label>
-                                <select class="comboboxRegistrar" onchange="combobox()" name="DetalleBiologico" id="DetalleBiologico" >
-                                <?php foreach($productos->productos as $valor=>$value){?>
-                                    <option  class="opcion">
-                                    <?php echo $productos->getNombre($valor) ?></option>
+                                <label class="form-label">Roles</label>
+                                <select class="comboboxRegistrar" onchange="combobox()" name="Roles" id="Roles" >
+                                <?php foreach($roles->roles as $valor=>$value){?>
+                                    <option class="opcion">
+                                    <?php echo $roles->getRolesDesc($valor) ?></option>
                                 <?php } ?>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" >Ingresos</label>
-                                <input type="number" class="form-control"  id="ingreso" name="ingreso" placeholder="Ingresos..." required/>
+                                <label class="form-label" >Usuario Ris</label>
+                                <input type="number" class="form-control"  id="usuario" name="usuario" placeholder="RIS..." required/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" >Ingresos Extra</label>
-                                <input type="number" class="form-control"  id="ingresoextra" name="ingresoextra" placeholder="Ingresos Extra..." required/>
+                                <label class="form-label" >Establecimiento</label>
+                                <input type="number" class="form-control"  id="establecimiento" name="establecimiento" placeholder="Establecimiento..." required/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" >Frascos Abiertos</label>
-                                <input type="number" class="form-control" id="frascoabierto" name="frascoabierto" placeholder="Frascos Abiertos..." required/>
+                                <label class="form-label" >Nombre de usuario</label>
+                                <input type="number" class="form-control" id="nombre" name="nombre" placeholder="Nombre de usuario..." required/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" >Dosis</label>
+                                <label class="form-label" >Contraseña</label>
                                 <input type="number" class="form-control"  id="dosis" name="dosis" placeholder="Dosis..." required/>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label" >Devolución</label>
-                                <input type="number" class="form-control" id="devolucion" name="devolucion" placeholder="Devolución..." required/>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" >Expiracion</label>
-                                <input type="date" class="form-control" id="expiracion" name="expiracion" placeholder="Expiración..." required/>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" >Lote</label>
-                                <input type="text" class="form-control" id="lote" name="lote"  placeholder="Lote..." required/>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" >Requerimientos</label>
-                                <input type="number" class="form-control" id="requerimientos" name="requerimientos"  placeholder="Requerimientos..." required/>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" >Observaciones</label>
-                                <input type="text" class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones..." required/>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" >Archivo</label>
-                                <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Archivo..." required/>
-                            </div>
-
                             <div class="modal-footer d-block btn-block">
                                 <button type="submit" class="btn-agregar float-end"><i class="fas fa-plus"></i>&nbsp&nbspAgregar</button>
                             </div>
@@ -98,7 +72,7 @@
         </div>
 
 
-    <!--Tablas Reportes-->
+    <!--Tablas Usuario-->
         <div class="">
             <div class="row">
                 <div class="col-12">
@@ -106,81 +80,35 @@
                         <table id="example" class="table table-striped table-bordered">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>CODIGO</th>
-                                    <th>DESCRIPCION</th>
-                                    <th>UNIDAD DE MEDIDA</th>
-                                    <th>INGRESO</th>
-                                    <th>SALIDAS</th>
-                                    <th>DISPONIBLE</th>
-                                    <th>Requerimiento MES</th>
-                                    <th>Observaciones</th>
-                                    <th>Archivos</th>
-                                    <th>Acciones</th>
-                                    <th>Saldo del mes anterior (frascos)</th>
-                                    <th>Ingresos (frascos)</th>
-                                    <th>Ingresos adicionales (frascos)</th>
-                                    <th>Total (Saldo + Ingreso) (frascos)</th>
-                                    <th>INTERVENCION SANITARIA</th>
-                                    <th>OTRAS SALIDAS</th>
-                                    <th>Total salidas (frascos) (f) d + er</th>
-                                    <th>Saldo final disponible (frascos) (g)  c - f</th>
+                                    <th>RIS</th>
+                                    <th>Establecimiento</th>
+                                    <th>Nombre</th>
+                                    <th>Contraseña</th>
+                                    <th>Rol</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                <?php foreach ($detalleReporte->vistadetallReporte as $valor=>$value) { ?>
+                <?php foreach ($usuario->usuarios as $valor=>$value) { ?>
                     <tr>
                         <td class="fil_1_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosCod']?>
+                            <?php echo $usuario->usuarios[$valor]['UsuarioRis']?>
                         </td>
                         <td class="fil_2_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosNom']?>
+                            <?php echo $usuario->usuarios[$valor]['UsuariosDescEstablecimiento']?>
                         </td>
                         <td class="fil_3_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosUnidad']?>
+                            <?php echo $usuario->usuarios[$valor]['UsuarioNombre']?>
+                        </td>
+                        <td class="fil_3_dat">
+                            <?php echo $usuario->usuarios[$valor]['UsuariosContrasena']?>
                         </td>
                         <td class="fil_4_dat">
-                            stock
+                            <?php  $roles->SearchNameByCod($conn,1,$usuarios->vistausuario[$valor]['idRoles']); 
+                        $aux= $roles->$roles_select['RolesDesc'];
+                        echo $aux?>
                         </td>
                         <td class="fil_5_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos']?>
-                        </td>
-                        <td class="fil_6_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra']?>
-                        </td>
-                        <td class="fil_7_dat">
-                            total
-                        </td>
-                        <td class="fil_8_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos']?>
-                        </td>
-                        <td class="fil_9_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDosis']?>
-                        </td>
-                        <td class="fil_10_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']?>
-                        </td>
-                        <td class="fil_11_dat">
-                            total salida
-                        </td>
-                        <td class="fil_12_dat">
-                            Saldo Disponible
-                        </td>
-                        <td class="fil_13_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionFecha']?>
-                        </td>
-                        <td class="fil_14_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesLote']?>
-                        </td>
-                        <td class="fil_15_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes']?>
-                        </td>
-                        <td class="fil_16_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones']?>
-                        </td>
-                        <td class="fil_17_dat">
-                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo']?>
-                        </td>
-                        <td class="fil_18_dat">
                             btn
                         </td>
                     </tr>
