@@ -22,11 +22,11 @@
 </head>
 <body>
 <div>
-     <div class="contenedor_add">
+    <div class="contenedor_add">
         <button  class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
     </div>    
-     <!-- Modal Registrar -->
-     <div class="modal fade m_1" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Registrar -->
+    <div class="modal fade m_1" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog m_2">
             <div class="modal-content m_3">
                 <div class="modal-header m_4">
@@ -37,7 +37,7 @@
                     <form action="../Functions/AddDetalleReporte.php" method="post">
                         <div class="mb-3">
                             <label class="form-label">Descripcion Biologico</label>
-                            <select class="comboboxRegistrar" onchange="combobox()" name="DetalleBiologico" id="DetalleBiologico" >
+                            <select class="comboboxRegistrar"  name="DetalleBiologico" id="DetalleBiologico" >
                             <?php foreach($productos->productos as $valor=>$value){?>
                                 <option  class="opcion">
                                 <?php echo $productos->getNombre($valor) ?></option>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Ingresos Extra</label>
-                            <input type="number" class="form-control"  id="ingresoextra" name="ingresoextra" placeholder="Ingresos Extra..." required/>
+                            <input type="number" class="form-control"  id="ingresoextra" name="ingresoextra" placeholder="Ingresos Extra..."/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Frascos Abiertos</label>
@@ -58,11 +58,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Dosis</label>
-                            <input type="number" class="form-control"  id="dosis" name="dosis" placeholder="Dosis..." required/>
+                            <input type="number" class="form-control"  id="dosis" name="dosis"  max="100" placeholder="Dosis..." required/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Devolución</label>
-                            <input type="number" class="form-control" id="devolucion" name="devolucion" placeholder="Devolución..." required/>
+                            <input type="number" class="form-control" id="devolucion" name="devolucion" placeholder="Devolución..."/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Expiracion</label>
@@ -78,11 +78,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Observaciones</label>
-                            <input type="text" class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones..." required/>
+                            <input type="text" class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones..."/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Archivo</label>
-                            <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Archivo..." required/>
+                            <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Archivo..."/>
                         </div>
 
                         <div class="modal-footer d-block btn-block">
@@ -122,7 +122,7 @@
                             <input type="number" class="form-control"  id="ingresoextra1" name="ingresoextra1" placeholder="Ingresos Extra..." required/>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" >Frascos Abiertos</label>
+                            <label class="frascosDosis" >Frascos Abiertos</label>
                             <input type="number" class="form-control" id="frascoabierto1" name="frascoabierto1" placeholder="Frascos Abiertos..." required/>
                         </div>
                         <div class="mb-3">
@@ -287,7 +287,9 @@
             <script src="assets/js/bootstrap.bundle.min.js"></script>
             <script src="assets/js/scripts.js"></script>
             <script src="assets/js/jquery.js"></script>
+            <script src="assets/js/funcionDosis.js"></script>
             <script src="assets/js/EditarDetalle.js"></script>
+            
             
 
             </tbody>

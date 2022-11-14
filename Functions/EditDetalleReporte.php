@@ -8,8 +8,6 @@ $productos  = new ListaProductos($conn);
 //Buscar id por nombre
 $productos->SearchIdByName($conn,$_POST['DetalleBiologico1']);
 
-
-
 if($editarDetalle->UpdateDetalleReporte($conn,
 $_POST['ingreso1'],
 $_POST['ingresoextra1'],
