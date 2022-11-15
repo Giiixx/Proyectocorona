@@ -38,6 +38,7 @@
                         <div class="mb-3">
                             <label class="form-label">Descripcion Biologico</label>
                             <select class="comboboxRegistrar"  name="DetalleBiologico" id="DetalleBiologico" >
+                                <option value="">Seleecionar</option>
                             <?php foreach($productos->productos as $valor=>$value){?>
                                 <option  class="opcion">
                                 <?php echo $productos->getNombre($valor) ?></option>

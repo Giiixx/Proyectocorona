@@ -9,6 +9,7 @@ $(document).ready(function(){
                 aux:$("#DetalleBiologico").val(),
             }
         }).done(function(res){
+            console.log(res);
             $("#dosis").val("");
             $("#frascoabierto").val("");
             if(res!=1){
@@ -47,12 +48,6 @@ $(document).ready(function(){
         });
 
     })
-    if("VACUNA ANTINEUMOCOCICA CONJUGADA 13-VALENTE INY 1 DOSIS"==$("#DetalleBiologico").val()){
-        $("#dosis").css("pointer-events","none"); 
-        $("#dosis").css("background","rgb(161, 160, 161)");
-        $('#frascosDosis').focusout('.frascosDosis',function(){
-            $("#dosis").val($("#frascoabierto").val());
-        })
-    }
+   
     
 })
