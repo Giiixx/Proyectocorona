@@ -63,5 +63,36 @@
             $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
     
         }
+
+        public function IngresarProducto($conn,
+                                        $BiologicosCod,
+                                        $BiologicosNom,
+                                        $BiologicosProporcion,
+                                        $BiologicosUnidad,
+                                        $Categoria_idCategoria){
+        $sql = "INSERT INTO biologicos
+                    (BiologicosCod,
+                    BiologicosNom,
+                    BiologicosProporcion,
+                    BiologicosUnidad,
+                    Categoria_idCategoria)
+                    Values
+                    (:BiologicosCod,
+                    :BiologicosNom,
+                    :BiologicosProporcion,
+                    :BiologicosUnidad,
+                    :Categoria_idCategoria
+                    )";
+        $stmt = $conn->prepare($sql);
+        $stmt ->bindParam(':BiologicosCod',$BiologicosCod);
+        $stmt ->bindParam(':BiologicosNom',$BiologicosNom);
+        $stmt ->bindParam(':BiologicosProporcion',$BiologicosProporcion);
+        $stmt ->bindParam(':BiologicosUnidad',$BiologicosUnidad);
+        $stmt ->bindParam(':Categoria_idCategoria',$Categoria_idCategoria);
+
+        return $stmt->execute() ? TRUE : FALSE;
+        }
+
+
     }
 ?>
