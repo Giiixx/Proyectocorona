@@ -58,6 +58,73 @@
         public function getId_cat($position){
             return $this->productos[$position]['Categoria_idCategoria'];
         }   
+        public function SearchIdByName($conn,$BiologicosNom){
+            $productos_select = $conn->prepare("SELECT idBiologicos FROM biologicos WHERE BiologicosNom = :BiologicosNom");
+            $productos_select->bindParam(':BiologicosNom', $BiologicosNom);
+            $productos_select->execute();
+            $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
+    
+        }
+
+        public function IngresarProducto($conn,
+                                        $BiologicosCod,
+                                        $BiologicosNom,
+                                        $BiologicosProporcion,
+                                        $BiologicosUnidad,
+                                        $Categoria_idCategoria){
+        $sql = "INSERT INTO biologicos
+                    (BiologicosCod,
+                    BiologicosNom,
+                    BiologicosProporcion,
+                    BiologicosUnidad,
+                    Categoria_idCategoria)
+                    Values
+                    (:BiologicosCod,
+                    :BiologicosNom,
+                    :BiologicosProporcion,
+                    :BiologicosUnidad,
+                    :Categoria_idCategoria
+                    )";
+        $stmt = $conn->prepare($sql);
+        $stmt ->bindParam(':BiologicosCod',$BiologicosCod);
+        $stmt ->bindParam(':BiologicosNom',$BiologicosNom);
+        $stmt ->bindParam(':BiologicosProporcion',$BiologicosProporcion);
+        $stmt ->bindParam(':BiologicosUnidad',$BiologicosUnidad);
+        $stmt ->bindParam(':Categoria_idCategoria',$Categoria_idCategoria);
+
+        return $stmt->execute() ? TRUE : FALSE;
+        }
+
+        public function UpdateProducto($conn,
+                                    $BiologicosCod,
+                                    $BiologicosNom,
+                                    $BiologicosProporcion,
+                                    $BiologicosUnidad,
+                                    $Categoria_idCategoria,
+                                    $idBiologicos){
+        $sql = "UPDATE biologicos SET 
+                   BiologicosCod=:BiologicosCod,
+                   BiologicosNom=:BiologicosNom,
+                   BiologicosProporcion= :BiologicosProporcion,
+                   BiologicosUnidad=:BiologicosUnidad,
+                   Categoria_idCategoria=:Categoria_idCategoria
+                   where idBiologicos=:idBiologicos";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':BiologicosCod',$BiologicosCod);
+        $stmt->bindParam(':BiologicosNom',$BiologicosNom);
+        $stmt->bindParam(':BiologicosProporcion',$BiologicosProporcion);
+        $stmt->bindParam(':BiologicosUnidad');
+        $stmt->bindParam(':Categoria_idCategoria');
+        $stmt->bindParam(':idBiologicos',$idBiologicos);
+        return $stmt->execute() ? TRUE : FALSE;
+        }
+        public function DeleteProducto($conn,$idBiologicos){
+            $sql="DELETE FROM biologicos WHERE idBiologicos=:idBiologicos";
+            $stmt = $conn-> prepare(sql);
+            $stmt->bindParam(':idBiologicos',$idBiologicos);
+            return $stmt->execute() ? TRUE : FALSE;
+        }
+
 
         public function SearchIdByName($conn,$BiologicosNom){
             $productos_select = $conn->prepare("SELECT idBiologicos FROM biologicos WHERE BiologicosNom = :BiologicosNom");

@@ -39,7 +39,11 @@
         }
 
         public function VistaDetalleReporte($conn){
+<<<<<<< HEAD
             $select = $conn->prepare("SELECT bio.BiologicosCod , bio.BiologicosNom ,bio.BiologicosUnidad  ,det.idReportes,det.ReportesIngresos ,det.ReportesIngresosExtra ,det.ReportesFrascosAbiertos ,det.ReportesDosis,det.ReportesDevolucion ,det.ReportesExpiracionFecha ,det.ReportesLote ,det.ReportesRequerimientoMes ,det.ReporteObservaciones,det.ReportesArchivo  from detallereportes det inner join biologicos bio on det.Biologicos_idBiologicos=bio.idBiologicos inner join categoria cat on bio.Categoria_idCategoria=cat.idCategoria");
+=======
+            $select = $conn->prepare("SELECT bio.BiologicosCod , bio.BiologicosNom ,bio.BiologicosUnidad  ,det.ReportesIngresos ,det.ReportesIngresosExtra ,det.ReportesFrascosAbiertos ,det.ReportesDosis,det.ReportesDevolucion ,det.ReportesExpiracionFecha ,det.ReportesLote ,det.ReportesRequerimientoMes ,det.ReporteObservaciones,det.ReportesArchivo  from detallereportes det inner join biologicos bio on det.Biologicos_idBiologicos=bio.idBiologicos inner join categoria cat on bio.Categoria_idCategoria=cat.idCategoria");
+>>>>>>> gix
             
             $select->execute();
             $this->vistadetallReporte = $select->fetchALL(PDO::FETCH_ASSOC);
@@ -110,6 +114,7 @@
         
         
 
+<<<<<<< HEAD
         public function UpdateDetalleReporte($conn,
                                         $ReportesIngresos, 
                                         $ReportesIngresosExtra, 
@@ -162,13 +167,74 @@
         }
         /*
 
+=======
+        /*public function updateRequerimiento($conn,
+                                        $saldo_anterior, 
+                                        $ingresos,
+                                        $ingresos_extra, 
+                                        $total_1, 
+                                        $fco, 
+                                        $dosis, 
+                                        $devolucion, 
+                                        $total_2, 
+                                        $saldo_final, 
+                                        $fecha_expiracion, 
+                                        $lote, 
+                                        $requerimientos, 
+                                        $observaciones,
+                                        $requerimiento_id){
+            $sql = "UPDATE requerimientos SET 
+                        saldo_anterior = :saldo_anterior, 
+                        ingresos = :ingresos,
+                        ingresos_extra = :ingresos_extra, 
+                        total_1 = :total_1, 
+                        fco = :fco, 
+                        dosis = :dosis, 
+                        devolucion = :devolucion, 
+                        total_2 = :total_2, 
+                        saldo_final = :saldo_final, 
+                        fecha_expiracion = :fecha_expiracion, 
+                        lote = :lote, 
+                        requerimientos = :requerimientos, 
+                        observaciones = :observaciones
+                        WHERE requerimientos.id = :requerimientos_id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':saldo_anterior', $saldo_anterior);
+            $stmt->bindParam(':ingresos', $ingresos);
+            $stmt->bindParam(':ingresos_extra', $ingresos_extra);
+            $stmt->bindParam(':total_1', $total_1);
+            $stmt->bindParam(':fco', $fco);
+            $stmt->bindParam(':dosis', $dosis);
+            $stmt->bindParam(':devolucion', $devolucion);
+            $stmt->bindParam(':total_2', $total_2);
+            $stmt->bindParam(':saldo_final', $saldo_final);
+            $stmt->bindParam(':fecha_expiracion', $fecha_expiracion);
+            $stmt->bindParam(':lote', $lote);
+            $stmt->bindParam(':requerimientos', $requerimientos);
+            $stmt->bindParam(':observaciones', $observaciones);
+            $stmt->bindParam(':requerimientos_id', $requerimiento_id);
+            return $stmt->execute() ? TRUE : FALSE;
+        }
+        
+        public function deleteRequerimiento($conn,$requerimiento_id){
+            $sql="DELETE FROM requerimientos WHERE requerimientos.id=:requerimientos_id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':requerimientos_id', $requerimiento_id);
+            return $stmt->execute() ? TRUE : FALSE;
+        }
+        */
+        /*
+>>>>>>> gix
         public function init_selectById($conexion, $user_id){
             $select = $conexion->prepare("SELECT * FROM requerimientos WHERE establecimiento_id=:establecimiento_id");
             $select->bindParam(':establecimiento_id', $user_id);
             $select->execute();
             $this->requerimientos = $select->fetchALL(PDO::FETCH_ASSOC);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> gix
         public function init_selectByIdAndReg($conexion, $user_id, $registro_id){
             $select = $conexion->prepare(
             "SELECT DISTINCT req.id, req.saldo_anterior, 
@@ -190,7 +256,10 @@
             $select->execute();
             $this->requerimientos = $select->fetchALL(PDO::FETCH_ASSOC);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> gix
         public function init_selectByGlobalId($conexion, $registro_id){
             $select = $conexion->prepare(
             "SELECT DISTINCT req.id, req.saldo_anterior,
@@ -211,7 +280,10 @@
             $select->execute();
             $this->requerimientos = $select->fetchALL(PDO::FETCH_ASSOC);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> gix
         public function findIdByCod($conexion, $codigo){
             $select = $conexion->prepare(
             "SELECT id FROM productos wHERE codigo=:codigo;
