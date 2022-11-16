@@ -93,6 +93,36 @@
         return $stmt->execute() ? TRUE : FALSE;
         }
 
+        public function UpdateProducto($conn,
+                                    $BiologicosCod,
+                                    $BiologicosNom,
+                                    $BiologicosProporcion,
+                                    $BiologicosUnidad,
+                                    $Categoria_idCategoria,
+                                    $idBiologicos){
+        $sql = "UPDATE biologicos SET 
+                   BiologicosCod=:BiologicosCod,
+                   BiologicosNom=:BiologicosNom,
+                   BiologicosProporcion= :BiologicosProporcion,
+                   BiologicosUnidad=:BiologicosUnidad,
+                   Categoria_idCategoria=:Categoria_idCategoria
+                   where idBiologicos=:idBiologicos";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':BiologicosCod',$BiologicosCod);
+        $stmt->bindParam(':BiologicosNom',$BiologicosNom);
+        $stmt->bindParam(':BiologicosProporcion',$BiologicosProporcion);
+        $stmt->bindParam(':BiologicosUnidad');
+        $stmt->bindParam(':Categoria_idCategoria');
+        $stmt->bindParam(':idBiologicos',$idBiologicos);
+        return $stmt->execute() ? TRUE : FALSE;
+        }
+        public function DeleteProducto($conn,$idBiologicos){
+            $sql="DELETE FROM biologicos WHERE idBiologicos=:idBiologicos";
+            $stmt = $conn-> prepare(sql);
+            $stmt->bindParam(':idBiologicos',$idBiologicos);
+            return $stmt->execute() ? TRUE : FALSE;
+        }
+
 
     }
 ?>

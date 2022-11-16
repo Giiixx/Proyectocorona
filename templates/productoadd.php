@@ -69,6 +69,48 @@
     </div>
     <!--End Modal Registrar -->
 
+    <!-- Modal Editar -->
+    <div class="modal fade me_1" id="modalEditForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog m_2">
+            <div class="modal-content m_3">
+                <div class="modal-header m_4">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Biologico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m_4_1">
+                    <form action="../Functions/EditProducto.php" method="post">
+                    <div class="mb-3">
+                            <label class="form-label" >Codigo</label>
+                            <input type="number" class="form-control"  id="codigo1" name="codigo1" placeholder="Codigo..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Nombre</label>
+                            <input type="text" class="form-control"  id="nombre1" name="nombre1" placeholder="Nombre..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Proporcion</label>
+                            <input type="number" class="form-control" id="proporcion1" name="proporcion1" placeholder="Proporcion..." required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" >Unidad</label>
+                            <input type="text" class="form-control"  id="unidad1" name="unidad1" placeholder="Unidad..." required/>
+                        </div>
+                        <div class="mb-3">
+                        <label class="form-label">Categoría</label>
+                            <select class="comboboxRegistrar" name="Categoria1" id="Categoria1">
+                                <?php foreach($categoria->categoria as $valor=>$value){?>
+                                    <option class="opcion">
+                                        <?php echo $categoria->getNombre($valor) ?></option>  
+                                    <?php } ?>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!--End Modal Editar -->
+
 
 
     <!--Listar Datos de Biologicos -->
