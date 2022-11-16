@@ -33,7 +33,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body m_4_1">
-                    <form action="../Functions/AddProducto.php" method="post">
+                    <form action="../../Functions/AddProducto.php" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label" >Codigo</label>
                             <input type="number" class="form-control"  id="codigo" name="codigo" placeholder="Codigo..." required/>
@@ -153,7 +153,44 @@
                         ?>
                     
                     </td>
-                    <td>btn</td>
+                    <td class="fil_18_dat">
+                        <a href="" 
+                        id="<?= $productos->productos[$valor]['idBiologicos']?>"
+                        param1="<?= $productos->productos[$valor]['BiologicosCod']?>"
+                        param2="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom']?>"}
+                        param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra']?>"
+                        param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos']?>"
+                        param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis']?>"
+                        param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']?>"
+                        param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionFecha']?>"
+                        param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote']?>"
+                        param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes']?>"
+                        param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones']?>"
+                        param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo']?>"
+                        class="editarDetalleReporte"
+                        data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+                        <a  class="btneliminar" href="../../Functions/DeleteDetalleReporte.php?id=<?=$detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>"  onclick="return confirm('DESEA ELIMINAR?')"><img src="../assets/bootstrap-icons-1.10.1/trash.svg"></a>
+                    </td>
+                </tr>
+            <?php } ?> 
+            <script src="../assets/js/bootstrap.bundle.min.js"></script>
+            <script src="../assets/js/scripts.js"></script>
+            <script src="../assets/js/jquery.js"></script>
+            <script src="../assets/js/funcionDosis.js"></script>
+            <script src="../assets/js/EditarDetalle.js"></script>
+            
+            
+
+            </tbody>
+        </table>
+    </div>
+</div>
+    
+</body>
+</html>
+
+
+                    </td>
                 </tr>
             <?php } ?> 
             

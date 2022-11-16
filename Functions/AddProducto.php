@@ -6,7 +6,7 @@ $agregarProducto = new ListaProductos($conn);
 $categoria  = new ListaCategoria($conn);
 
 //Buscar id por nombre
-$categoria->BuscarCodigo($conn,$_POST['Categoria1']);
+$categoria->BuscarCodigo($conn,$_POST['Categoria']);
 
 
 if($agregarProducto->IngresarProducto($conn,$_POST['codigo'],
@@ -18,5 +18,5 @@ $categoria->categoria_selection['idCategoria'])
     echo "se logro";
 }
 
-header('Location:/public_html/templates/productoadd.php');
+header('Location:/public_html/templates/datosReporte/productoadd.php');
 ?>      
