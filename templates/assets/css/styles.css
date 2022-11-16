@@ -46,5 +46,10 @@
 body{
     background: rgb(158, 116, 82);
 }
+.validarErrores{
+    background: red;
+    position: absolute;
+    display: none;
+}
 
 

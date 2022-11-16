@@ -43,11 +43,23 @@ $(document).ready(function(){
                 link.setAttribute("max",canDosis);
             }
             else{
+                
                 $("#dosis").val($("#frascoabierto").val());
+                link.setAttribute("max","1000");
             }
         });
 
     })
+<<<<<<< HEAD
    
+=======
+
+    $('body').on('click','.agregaDetalle',function (){
+        if($("#DetalleBiologico").val()=="SELECCIONAR UN BIOLOGICO"){
+            $("#MensajeError").fadeIn();
+            return false;
+        }
+    })
+>>>>>>> d969e531ca3981503e80b21a36942b39b560c60b
     
 })
