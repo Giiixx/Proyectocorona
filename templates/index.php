@@ -6,8 +6,6 @@
     //ini_set('session.gc_probability', 0);
     session_set_cookie_params(60*60*24*14);
     session_start();
-    echo ("ola");
-    echo ($_SESSION['user_id']);
     if(!isset($_SESSION['user_id'])){
         $usuario_page = new Usuario("a","b","c","d");
         try {
@@ -17,7 +15,7 @@
             $pass = confirm_password( $_POST['email'], $_POST['password'], $conn);
             $usuario_page->setById($pass['idUsuarios'], $conn);
             $_SESSION['user_id'] = $pass['idUsuarios'];
-            $_SESSION['myuser_obj'] = $usuario_page;
+            $_SESSION['myuser_obj'] = $usuario_page;    
             //$_SESSION['mymessage_obj'] = $mensaje_page;
         } catch (\Throwable $th) {
             echo "no ingreso";//$_POST['password'] == null ? $mensaje_page->setAll(null, null) : $mensaje_page->setAll("Ha ingresado un dato incorrecto", "warning");
@@ -26,21 +24,15 @@
     
     //$alerta = new Alert($mensaje_page->getMessage(), $mensaje_page->getType());
 ?>
+
+<?php require_once 'partials/headerhtml.php';?>
 <?php if(!empty($_SESSION['user_id'])):?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+    <title>DirisLima</title>
     </head>
     <body>
-        olaolaolaolaolaolaolaolaola
-        <form action="../Functions/sesion/logout.php">
-            <button > cerrar sesion</button>
-        </form>
-        
+        <div><a href="datosReporte/reporteDiario.php">ReporteDiario</a></div>
+        <div><a href="">OTROS</a></div>
+        <div><a href="../Functions/sesion/logout.php">Cerrar sesion</a></div>
         
     </body>
     </html>

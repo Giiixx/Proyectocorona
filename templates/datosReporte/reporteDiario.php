@@ -1,14 +1,20 @@
 <?php 
-    require '../../conections/basededatos.php';
-    require '../../entity/ListaProductos.php';
-    require '../../entity/ListaDetalleReporte.php';
+    require_once '../../conections/basededatos.php';
+    require_once '../../entity/ListaProductos.php';
+    require_once '../../entity/ListaDetalleReporte.php';
+    require_once '../../entity/Usuario.php';
+    require_once '../../Functions/sesion/confirm_existuser.php';
+    require_once '../../Functions/sesion/confirm_password.php';
+
+    session_start();
+	isset($_SESSION['user_id']) ? null : header('Location: ../index.php');
+	confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../index.php') : null;
 
     $productos = new ListaProductos($conn);
     $detalleReporte = new ListaDetalleReporte($conn);
     $detalleReporte->VistaDetalleReporte($conn);
 ?>
-
-
+<?php if(!empty($_SESSION['user_id'])):?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -169,7 +175,7 @@
         <table class="datosreporte" >
             <thead>
                 <tr class="fil_1">
-                    <th scope="rowgroup" rowspan="3" >CODIGO</th>
+                    <th scope="rowgroup" rowspan="3" >CODIGOñÑ</th>
                     <th class ="inmovil" scope="rowgroup" rowspan="3">DESCRIPCION</th>
                     <th scope="rowgroup" rowspan="3" >UNIDAD DE MEDIDA</th>
                     <th scope="colgroup" colspan="4" >INGRESO</th>
@@ -301,3 +307,4 @@
     
 </body>
 </html>
+<?php endif; ?>
