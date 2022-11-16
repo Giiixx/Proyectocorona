@@ -18,5 +18,5 @@ $categoria->categoria_selection['idCategoria'])
     echo "se logro";
 }
 
-header('Location:/public_html/templates/productoadd.php');
+header('Location:/public_html/templates/datosReporte/productoadd.php');
 ?>      
