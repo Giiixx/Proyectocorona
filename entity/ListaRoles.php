@@ -9,15 +9,13 @@
             $this->roles = $roles_select->fetchALL(PDO::FETCH_ASSOC);
         }
 
-      
-        
         public function getId($position){
             return $this->roles[$position]['idRoles'];
         }
         public function getRolesDesc($position){
             return $this->roles[$position]['RolesDesc'];
         }
-       
+
 
         public function SearchIdByName($conn,$RolesDesc){
             $roles_select = $conn->prepare("SELECT idRoles FROM roles WHERE RolesDesc = :RolesDesc");
@@ -37,7 +35,5 @@
             $roles_select->execute();
             $this->roles_selection = $roles_select->fetch(PDO::FETCH_ASSOC);
         }
-
-     
     }
 ?>
