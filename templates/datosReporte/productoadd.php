@@ -1,7 +1,7 @@
 <?php 
-    require '../conections/basededatos.php';
-    require '../entity/ListaProductos.php';
-    require '../entity/ListaCategoria.php';
+    require '../../conections/basededatos.php';
+    require '../../entity/ListaProductos.php';
+    require '../../entity/ListaCategoria.php';
 
     $productos = new ListaProductos($conn);
     $categoria = new ListaCategoria($conn);
@@ -15,16 +15,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <title>Agregar Producto</title>
 </head>
 <body>
 <div>
-     <div class="contenedor_add">
+    <div class="contenedor_add">
         <button  class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
     </div>    
-     <!-- Modal Registrar -->
+    <!-- Modal Registrar -->
     <div class="modal fade m_1" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog m_2">
             <div class="modal-content m_3">
@@ -109,7 +109,7 @@
             </div>
         </div>
     </div>
-     <!--End Modal Editar -->
+    <!--End Modal Editar -->
 
 
 
@@ -162,8 +162,8 @@
         </table>
     </div>
 </div>
-    <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../assets/css/bootstrap.min.css"></script>
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
 
 </body>
 </html>

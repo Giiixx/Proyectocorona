@@ -1,6 +1,6 @@
 <?php
-    require '../conections/basededatos.php';
-    require '../entity/ListaCategoria.php';
+    require '../../conections/basededatos.php';
+    require '../../entity/ListaCategoria.php';
 
     $categoria = new ListaCategoria($conn);
 

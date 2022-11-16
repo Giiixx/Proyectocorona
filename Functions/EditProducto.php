@@ -18,6 +18,6 @@ $_POST['idBiologicos'])
     echo "se logo";
 }
 
-header('Location:/public_html/templates/productoadd.php');
+header('Location:/public_html/templates/datosReporte/productoadd.php');
 
 ?>

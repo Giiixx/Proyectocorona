@@ -1,7 +1,7 @@
 <?php 
-    require '../conections/basededatos.php';
-    require '../entity/ListaUsuarios.php';
-    require '../entity/ListaRoles.php';
+    require '../../conections/basededatos.php';
+    require '../../entity/ListaUsuarios.php';
+    require '../../entity/ListaRoles.php';
 
     $usuario = new ListaUsuarios($conn);
     $roles = new ListaRoles($conn);
@@ -120,12 +120,12 @@
             </div>
         </div>
 
-        <script src="./assets/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/jquery-3.6.0.min.js"></script>
-        <script src="./assets/js/datatables.min.js"></script>
-        <script src="./assets/js/pdfmake.min.js"></script>
-        <script src="./assets/js/vfs_fonts.js"></script>
-        <script src="./assets/js/custom.js"></script>
+        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/js/jquery-3.6.0.min.js"></script>
+        <script src="../assets/js/datatables.min.js"></script>
+        <script src="../assets/js/pdfmake.min.js"></script>
+        <script src="../assets/js/vfs_fonts.js"></script>
+        <script src="../assets/js/custom.js"></script>
     </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php 
-    require '../conections/basededatos.php';
-    require '../entity/ListaProductos.php';
-    require '../entity/ListaDetalleReporte.php';
+    require '../../conections/basededatos.php';
+    require '../../entity/ListaProductos.php';
+    require '../../entity/ListaDetalleReporte.php';
 
     $productos = new ListaProductos($conn);
     $detalleReporte = new ListaDetalleReporte($conn);
@@ -23,11 +23,11 @@
 </head>
 <body>
 <div>
-     <div class="contenedor_add">
+    <div class="contenedor_add">
         <button  class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
     </div>    
-     <!-- Modal Registrar -->
-     <div class="modal fade m_1" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Registrar -->
+    <div class="modal fade m_1" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog m_2">
             <div class="modal-content m_3">
                 <div class="modal-header m_4">
