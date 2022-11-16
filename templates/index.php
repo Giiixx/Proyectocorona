@@ -1,38 +1,53 @@
 <?php
-/*
-	require 'database.php';
-    require 'bio_objects/Usuario.php';
-    require 'bio_objects/Mensaje.php';
-    require 'bio_objects/Alert.php';
-    require 'bio_functions/confirm_password.php';
-    require 'bio_functions/confirm_existuser.php';
-    require 'bio_functions/anuncio.php';
-    require 'bio_functions/lista_anuncios.php';
+    require_once '../conections/basededatos.php';
+    require_once '../Functions/sesion/confirm_existuser.php';
+    require_once '../Functions/sesion/confirm_password.php';
+    require_once '../entity/Usuario.php';
     //ini_set('session.gc_probability', 0);
     session_set_cookie_params(60*60*24*14);
     session_start();
-    $mensaje_page = new Mensaje(null,null); 
+    echo ("ola");
+    echo ($_SESSION['user_id']);
     if(!isset($_SESSION['user_id'])){
         $usuario_page = new Usuario("a","b","c","d");
         try {
-            if($_POST['email'] != null){
+            /*if($_POST['email'] != null){
                 $pass['confirmacion'] ? null : $mensaje_page->setAll("Ha ingresado un dato incorrecto", "warning");
-            }
+            }*/
             $pass = confirm_password( $_POST['email'], $_POST['password'], $conn);
-            $usuario_page->setById($pass['id'], $conn);
-            $_SESSION['user_id'] = $pass['id'];
+            $usuario_page->setById($pass['idUsuarios'], $conn);
+            $_SESSION['user_id'] = $pass['idUsuarios'];
             $_SESSION['myuser_obj'] = $usuario_page;
-            $_SESSION['mymessage_obj'] = $mensaje_page;
-            $alert_page = new Alert(null,null);
-            $_SESSION['myalert_obj'] = $alert_page;
+            //$_SESSION['mymessage_obj'] = $mensaje_page;
         } catch (\Throwable $th) {
-            $_POST['password'] == null ? $mensaje_page->setAll(null, null) : $mensaje_page->setAll("Ha ingresado un dato incorrecto", "warning");
+            echo "no ingreso";//$_POST['password'] == null ? $mensaje_page->setAll(null, null) : $mensaje_page->setAll("Ha ingresado un dato incorrecto", "warning");
         }
     }
     
-    $alerta = new Alert($mensaje_page->getMessage(), $mensaje_page->getType());
-    */
+    //$alerta = new Alert($mensaje_page->getMessage(), $mensaje_page->getType());
 ?>
+<?php if(!empty($_SESSION['user_id'])):?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        olaolaolaolaolaolaolaolaola
+        <form action="../Functions/sesion/logout.php">
+            <button > cerrar sesion</button>
+        </form>
+        
+        
+    </body>
+    </html>
+<?php else: ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +67,7 @@
 				
             </div>
 			
-            <form action="datosReporte/reporteDiario.php" class="miForm needs-validation" method="post">
+            <form action="index.php" class="miForm needs-validation" method="post">
                 
                 <div class="input-group">
                     <label class="label">Usuario </label>
@@ -75,3 +90,4 @@
 
 </body>
 </html>
+<?php endif; ?>
