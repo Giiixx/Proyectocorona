@@ -100,13 +100,13 @@
                                     $BiologicosUnidad,
                                     $Categoria_idCategoria,
                                     $idBiologicos){
-        $sql = "UPDATE biologicos SET 
-                   BiologicosCod=:BiologicosCod,
-                   BiologicosNom=:BiologicosNom,
-                   BiologicosProporcion= :BiologicosProporcion,
-                   BiologicosUnidad=:BiologicosUnidad,
-                   Categoria_idCategoria=:Categoria_idCategoria
-                   where idBiologicos=:idBiologicos";
+        $sql = "UPDATE biologicos SET
+                    Categoria_idCategoria=:Categoria_idCategoria 
+                    BiologicosCod=:BiologicosCod,
+                    BiologicosNom=:BiologicosNom,
+                    BiologicosProporcion= :BiologicosProporcion,
+                    BiologicosUnidad=:BiologicosUnidad,
+                    where idBiologicos=:idBiologicos";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':BiologicosCod',$BiologicosCod);
         $stmt->bindParam(':BiologicosNom',$BiologicosNom);
@@ -118,7 +118,7 @@
         }
         public function DeleteProducto($conn,$idBiologicos){
             $sql="DELETE FROM biologicos WHERE idBiologicos=:idBiologicos";
-            $stmt = $conn-> prepare(sql);
+            $stmt = $conn-> prepare($sql);
             $stmt->bindParam(':idBiologicos',$idBiologicos);
             return $stmt->execute() ? TRUE : FALSE;
         }

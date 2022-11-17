@@ -14,9 +14,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../assets/css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <title>Agregar Producto</title>
 </head>
 <body>
@@ -79,8 +79,9 @@
                 </div>
                 <div class="modal-body m_4_1">
                     <form action="../Functions/EditProducto.php" method="post">
-                    <div class="mb-3">
-                            <label class="form-label" >Codigo</label>
+                        <input type="hidden" id="idEditarProducto" name="idEditarProducto">
+                        <div class="mb-3">
+                            <label class="form-label">Codigo</label>
                             <input type="number" class="form-control"  id="codigo1" name="codigo1" placeholder="Codigo..." required/>
                         </div>
                         <div class="mb-3">
@@ -96,13 +97,16 @@
                             <input type="text" class="form-control"  id="unidad1" name="unidad1" placeholder="Unidad..." required/>
                         </div>
                         <div class="mb-3">
-                        <label class="form-label">Categoría</label>
+                            <label class="form-label">Categoría</label>
                             <select class="comboboxRegistrar" name="Categoria1" id="Categoria1">
                                 <?php foreach($categoria->categoria as $valor=>$value){?>
-                                    <option class="opcion">
-                                        <?php echo $categoria->getNombre($valor) ?></option>  
-                                    <?php } ?>
+                                <option class="opcion">
+                                <?php echo $categoria->getNombre($valor) ?></option>  
+                                <?php } ?>
                             </select>
+                        </div>
+                        <div class="modal-footer d-block btn-block">
+                            <button type="submit" class=""><i class="fas fa-plus"></i>&nbsp&nbspEditar</button>
                         </div>
                     </form>
                 </div>
@@ -146,7 +150,6 @@
                     
                         <?php 
                             $pro=$productos->productos[$valor]['Categoria_idCategoria'];
-                            
                             $categoria->Buscarnombre($conn,$pro);
                             $aux=$categoria->categoria_selection['CategoriaDesc'];
                             echo $aux
@@ -157,27 +160,19 @@
                         <a href="" 
                         id="<?= $productos->productos[$valor]['idBiologicos']?>"
                         param1="<?= $productos->productos[$valor]['BiologicosCod']?>"
-                        param2="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom']?>"}
-                        param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra']?>"
-                        param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos']?>"
-                        param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis']?>"
-                        param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']?>"
-                        param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionFecha']?>"
-                        param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote']?>"
-                        param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes']?>"
-                        param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones']?>"
-                        param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo']?>"
-                        class="editarDetalleReporte"
+                        param2="<?= $productos->productos[$valor]['BiologicosNom']?>"
+                        param3="<?= $productos->productos[$valor]['BiologicosProporcion']?>"
+                        param4="<?= $productos->productos[$valor]['BiologicosUnidad']?>"
+                        class="editarproductoss"
                         data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
-                        <a  class="btneliminar" href="../../Functions/DeleteDetalleReporte.php?id=<?=$detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>"  onclick="return confirm('DESEA ELIMINAR?')"><img src="../assets/bootstrap-icons-1.10.1/trash.svg"></a>
+                        <a class="btneliminar" href="../../Functions/DeleteProducto.php?id=<?=$productos->productos[$valor]['idBiologicos'] ?>"  onclick="return confirm('DESEA ELIMINAR?')"><img src="../assets/bootstrap-icons-1.10.1/trash.svg"></a>
                     </td>
                 </tr>
             <?php } ?> 
             <script src="../assets/js/bootstrap.bundle.min.js"></script>
             <script src="../assets/js/scripts.js"></script>
             <script src="../assets/js/jquery.js"></script>
-            <script src="../assets/js/funcionDosis.js"></script>
-            <script src="../assets/js/EditarDetalle.js"></script>
+            <script src="../assets/js/EditarProductos.js"></script>
             
             
 
@@ -186,21 +181,5 @@
     </div>
 </div>
     
-</body>
-</html>
-
-
-                    </td>
-                </tr>
-            <?php } ?> 
-            
-
-            </tbody>
-        </table>
-    </div>
-</div>
-    <script src="../assets/css/bootstrap.min.css"></script>
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
-
 </body>
 </html>
