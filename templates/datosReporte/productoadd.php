@@ -78,11 +78,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body m_4_1">
-                    <form action="../Functions/EditProducto.php" method="post">
+                    <form action="../../Functions/EditProducto.php" method="post">
                         <input type="hidden" id="idEditarProducto" name="idEditarProducto">
                         <div class="mb-3">
                             <label class="form-label">Codigo</label>
-                            <input type="number" class="form-control"  id="codigo1" name="codigo1" placeholder="Codigo..." required/>
+                            <input type="text" class="form-control"  id="codigo1" name="codigo1" placeholder="Codigo..." required/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Nombre</label>
@@ -169,17 +169,15 @@
                     </td>
                 </tr>
             <?php } ?> 
+           
             <script src="../assets/js/bootstrap.bundle.min.js"></script>
             <script src="../assets/js/scripts.js"></script>
             <script src="../assets/js/jquery.js"></script>
-            <script src="../assets/js/EditarProductos.js"></script>
-            
-            
-
+            <script src="../assets/js/EditarProducto.js"></script>
             </tbody>
         </table>
     </div>
 </div>
-    
+
 </body>
 </html>

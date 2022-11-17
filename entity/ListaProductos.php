@@ -92,7 +92,7 @@
 
         return $stmt->execute() ? TRUE : FALSE;
         }
-
+        
         public function UpdateProducto($conn,
                                     $BiologicosCod,
                                     $BiologicosNom,
@@ -101,18 +101,18 @@
                                     $Categoria_idCategoria,
                                     $idBiologicos){
         $sql = "UPDATE biologicos SET
-                    Categoria_idCategoria=:Categoria_idCategoria 
+                    Categoria_idCategoria=:Categoria_idCategoria, 
                     BiologicosCod=:BiologicosCod,
                     BiologicosNom=:BiologicosNom,
                     BiologicosProporcion= :BiologicosProporcion,
-                    BiologicosUnidad=:BiologicosUnidad,
+                    BiologicosUnidad=:BiologicosUnidad
                     where idBiologicos=:idBiologicos";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':BiologicosCod',$BiologicosCod);
         $stmt->bindParam(':BiologicosNom',$BiologicosNom);
         $stmt->bindParam(':BiologicosProporcion',$BiologicosProporcion);
-        $stmt->bindParam(':BiologicosUnidad');
-        $stmt->bindParam(':Categoria_idCategoria');
+        $stmt->bindParam(':BiologicosUnidad',$BiologicosUnidad);
+        $stmt->bindParam(':Categoria_idCategoria',$Categoria_idCategoria);
         $stmt->bindParam(':idBiologicos',$idBiologicos);
         return $stmt->execute() ? TRUE : FALSE;
         }
