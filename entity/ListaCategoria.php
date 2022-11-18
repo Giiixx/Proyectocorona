@@ -4,7 +4,7 @@
         public $categoria_selection;
 
         public function __construct($conexion){
-            $categoria_select = $conexion->prepare("Select * From Categoria");
+            $categoria_select = $conexion->prepare("Select * From categoria");
             $categoria_select->execute();
             $this->categoria = $categoria_select->fetchALL(PDO::FETCH_ASSOC);
         }

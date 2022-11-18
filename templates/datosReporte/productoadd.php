@@ -6,6 +6,7 @@
     $productos = new ListaProductos($conn);
     $categoria = new ListaCategoria($conn);
     $productos ->init($conn);
+    header('Content-Type: text/html; charset=utf-8');
 ?>
 
 <!DOCTYPE html>
