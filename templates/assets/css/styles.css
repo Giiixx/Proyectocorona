@@ -46,10 +46,22 @@
 body{
     background: rgb(158, 116, 82);
 }
+.stock{
+    pointer-events:none;
+    background: rgb(161, 160, 161);
+}
 .validarErrores{
     background: red;
     position: absolute;
     display: none;
+}
+.ui-autocomplete { 
+    position: absolute; 
+    z-index: 2150000000 !important; 
+    cursor: default; 
+    border: 2px solid #ccc; 
+    padding: 5px 0; 
+    border-radius: 2px; 
 }
 
 

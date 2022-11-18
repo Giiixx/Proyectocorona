@@ -23,24 +23,33 @@
             return $points;
         }*/
 
-        public function getId($position){
-            return $this->detalleReporte[$position]['idReportes'];
-        }
-        public function getIngresos($position){
-            return $this->detalleReporte[$position]['ReportesIngresos'];
-        }
-
-        public function getIngresosExtra($position){
-            return $this->detalleReporte[$position]['ReportesIngresosExtra'];
-        }
-
-        public function getFrascosAbiertos($position){
-            return $this->detalleReporte[$position]['FrascosAbiertos'];
-        }
-
-        public function VistaDetalleReporte($conn){
-            $select = $conn->prepare("SELECT bio.BiologicosCod , bio.BiologicosNom ,bio.BiologicosUnidad  ,det.idReportes,det.ReportesIngresos ,det.ReportesIngresosExtra ,det.ReportesFrascosAbiertos ,det.ReportesDosis,det.ReportesDevolucion ,det.ReportesExpiracionFecha ,det.ReportesLote ,det.ReportesRequerimientoMes ,det.ReporteObservaciones,det.ReportesArchivo  from detallereportes det inner join biologicos bio on det.Biologicos_idBiologicos=bio.idBiologicos inner join categoria cat on bio.Categoria_idCategoria=cat.idCategoria");
-            
+        public function VistaDetalleReporte($conn,$idusuario){
+            $select = $conn->prepare("SELECT 
+            bio.BiologicosCod,
+            bio.BiologicosNom,
+            bio.BiologicosUnidad,
+            det.idReportes,
+            usu.UsuarioBiologicoStock,
+            det.ReportesIngresos,
+            det.ReportesIngresosExtra,
+            det.ReportesFrascosAbiertos,
+            det.ReportesDosis,
+            det.ReportesDevolucion,
+            det.ReportesExpiracionBiologico,
+            lot.LoteBiologicoDescripcion,
+            det.ReportesRequerimientoMes,
+            det.ReporteObservaciones,
+            det.ReportesArchivo
+        FROM
+            detallereportes det
+                INNER JOIN
+            usuariobiologico usu ON det.UsuarioBiologico_idUsuarioBiologico = usu.idUsuarioBiologico
+                INNER JOIN
+            biologicos bio ON usu.Biologicos_idBiologicos = bio.idBiologicos
+                INNER JOIN
+            lotebiologico lot ON usu.LoteBiologico_idLoteBiologico = lot.idLoteBiologico 
+                WHERE usu.Usuarios_idUsuarios=:idusuario ");
+            $select->bindParam(':idusuario',$idusuario);
             $select->execute();
             $this->vistadetallReporte = $select->fetchALL(PDO::FETCH_ASSOC);
         }
@@ -52,56 +61,47 @@
                                         $ReportesDosis,
                                         $ReportesDevolucion, 
                                         $ReportesExpiracionFecha, 
-                                        $ReportesLote, 
                                         $ReportesRequerimientoMes,
                                         $ReporteObservaciones, 
                                         $ReportesArchivo,
                                         $ReportesFechaAdd,
-                                        $Biologicos_idBiologicos, 
-                                        $Usuarios_idUsuarios){
+                                        $idUsuarioBiologico){
             $sql = "INSERT INTO detallereportes 
                         (ReportesIngresos, 
                         ReportesIngresosExtra,
                         ReportesFrascosAbiertos, 
                         ReportesDosis,
                         ReportesDevolucion, 
-                        ReportesExpiracionFecha, 
-                        ReportesLote, 
+                        ReportesExpiracionBiologico , 
                         ReportesRequerimientoMes,
                         ReporteObservaciones, 
                         ReportesArchivo,
                         ReportesFechaAdd, 
-                        Biologicos_idBiologicos, 
-                        Usuarios_idUsuarios) 
+                        UsuarioBiologico_idUsuarioBiologico) 
                     VALUES 
                         (:ReportesIngresos,     
                         :ReportesIngresosExtra,
                         :ReportesFrascosAbiertos,  
                         :ReportesDosis,  
                         :ReportesDevolucion, 
-                        :ReportesExpiracionFecha, 
-                        :ReportesLote, 
+                        :ReportesExpiracionBiologico, 
                         :ReportesRequerimientoMes,
                         :ReporteObservaciones, 
                         :ReportesArchivo,
                         :ReportesFechaAdd,
-                        :Biologicos_idBiologicos, 
-                        :Usuarios_idUsuarios)";
+                        :idUsuarioBiologico)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':ReportesIngresos', $ReportesIngresos);
             $stmt->bindParam(':ReportesIngresosExtra', $ReportesIngresosExtra);
             $stmt->bindParam(':ReportesFrascosAbiertos', $ReportesFrascosAbiertos);
             $stmt->bindParam(':ReportesDosis', $ReportesDosis);
             $stmt->bindParam(':ReportesDevolucion', $ReportesDevolucion);
-            $stmt->bindParam(':ReportesExpiracionFecha', $ReportesExpiracionFecha);
-            $stmt->bindParam(':ReportesLote', $ReportesLote);
+            $stmt->bindParam(':ReportesExpiracionBiologico', $ReportesExpiracionFecha);
             $stmt->bindParam(':ReportesRequerimientoMes', $ReportesRequerimientoMes);
             $stmt->bindParam(':ReportesArchivo', $ReportesArchivo);
             $stmt->bindParam(':ReporteObservaciones', $ReporteObservaciones);
             $stmt->bindParam(':ReportesFechaAdd', $ReportesFechaAdd);
-            $stmt->bindParam(':Biologicos_idBiologicos', $Biologicos_idBiologicos);
-            $stmt->bindParam(':Usuarios_idUsuarios', $Usuarios_idUsuarios); 
-            
+            $stmt->bindParam(':idUsuarioBiologico', $idUsuarioBiologico);
 
             return $stmt->execute() ? TRUE : FALSE;
         }
@@ -117,7 +117,6 @@
                                         $ReportesDosis,
                                         $ReportesDevolucion, 
                                         $ReportesExpiracionFecha, 
-                                        $ReportesLote, 
                                         $ReportesRequerimientoMes,
                                         $ReporteObservaciones, 
                                         $ReportesArchivo,
@@ -131,7 +130,6 @@
                         ReportesDosis=:ReportesDosis,
                         ReportesDevolucion=:ReportesDevolucion,
                         ReportesExpiracionFecha=:ReportesExpiracionFecha,
-                        ReportesLote=:ReportesLote,
                         ReportesRequerimientoMes=:ReportesRequerimientoMes,
                         ReporteObservaciones=:ReporteObservaciones,
                         ReportesArchivo=:ReportesArchivo
@@ -143,7 +141,6 @@
             $stmt->bindParam(':ReportesDosis', $ReportesDosis);
             $stmt->bindParam(':ReportesDevolucion', $ReportesDevolucion);
             $stmt->bindParam(':ReportesExpiracionFecha', $ReportesExpiracionFecha);
-            $stmt->bindParam(':ReportesLote', $ReportesLote);
             $stmt->bindParam(':ReportesRequerimientoMes', $ReportesRequerimientoMes);
             $stmt->bindParam(':ReporteObservaciones', $ReporteObservaciones);
             $stmt->bindParam(':ReportesArchivo', $ReportesArchivo);
