@@ -14,12 +14,12 @@
         }
 
         public function setById($id, $conn) {
-            $consult = $conn->prepare('SELECT * FROM usuarios WHERE idUsuarios=:id');
+            $consult = $conn->prepare('SELECT * FROM usuarios WHERE idEstablecimiento=:id');
             $consult->bindParam(':id', $id);
             $consult->execute();
             $result = $consult->fetch(PDO::FETCH_ASSOC);
 
-            $this->id = $result['idUsuarios'];
+            $this->id = $result['idEstablecimiento'];
             $this->ris = $result['UsuarioRis'];
             $this->establecimiento = $result['UsuariosDescEstablecimiento'];
             $this->nombre = $result['UsuarioNombre'];

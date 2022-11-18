@@ -1,6 +1,6 @@
 <?php
 function confirm_existuser($id, $conn){
-    $consult = $conn->prepare('SELECT idUsuarios FROM usuarios WHERE idUsuarios=:id');
+    $consult = $conn->prepare('SELECT idEstablecimiento FROM usuarios WHERE idEstablecimiento=:id');
     $consult->bindParam(':id', $id);
     $consult->execute();
     $result = $consult->fetch(PDO::FETCH_ASSOC);

@@ -23,9 +23,10 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId());
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/css/modal.css">
         <link rel="stylesheet" href="../assets/css/styles.css">
         <link rel="stylesheet" href="../assets/css/jquery-ui.css">
-        <title>Reporte Diario</title>
+        <title>ola</title>
     </head>
 
     <body>
@@ -33,78 +34,108 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId());
             <div class="contenedor_add">
                 <button class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
             </div>
-            <!-- Modal Registrar -->
-            <div class="modal fade m_1" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog m_2">
-                    <div class="modal-content m_3">
-                        <div class="modal-header m_4">
-                            <h5 class="modal-title" id="exampleModalLabel">Registrar nueva Biologico</h5>
+            <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar Detalle Reporte</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body m_4_1">
-                            <form action="../../Functions/AddDetalleReporte.php" method="post" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label class="form-label">Descripcion Biologico</label>
-                                    <select class="comboboxRegistrar" name="DetalleBiologico" id="DetalleBiologico">
-                                        <option class="opcion">SELECCIONAR UN BIOLOGICO</option>
-                                        <?php foreach ($productos->productos as $valor => $value) { ?>
-                                            <option class="opcion">
-                                                <?php echo $productos->getNombre($valor) ?></option>
-                                        <?php } ?>
-                                    </select>
-                                    <div id="MensajeError" class="validarErrores">Selecciona un biologico ps mongol</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Stock</label>
-                                    <input type="number" class="form-control stock" id="stock" name="stock" placeholder="stock..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Ingresos</label>
-                                    <input type="number" class="form-control" id="ingreso" name="ingreso" min="0" placeholder="Ingresos..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Ingresos Extra</label>
-                                    <input type="number" class="form-control" id="ingresoextra" name="ingresoextra" min="0" placeholder="Ingresos Extra..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Frascos Abiertos</label>
-                                    <input type="number" class="form-control frascoabiertos" id="frascoabierto" min="0" name="frascoabierto" placeholder="Frascos Abiertos..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Dosis</label>
-                                    <input type="number" class="form-control" id="dosis" name="dosis" min="0" max="1000" placeholder="Dosis..." />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Devolución</label>
-                                    <input type="number" class="form-control" id="devolucion" name="devolucion" min="0" placeholder="Devolución...">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Expiracion</label>
-                                    <input type="date" class="form-control" id="expiracion" name="expiracion" placeholder="Expiración..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Lote</label>
-                                    <input type="text" class="form-control lotes" id="lote" name="lote" placeholder="Lote..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Requerimientos</label>
-                                    <input type="number" class="form-control" id="requerimientos" name="requerimientos" min="0" placeholder="Requerimientos..." />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Observaciones</label>
-                                    <input type="text" class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones..." />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Archivo</label>
-                                    <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Archivo..." />
-                                </div>
+                        <form action="../../Functions/AddDetalleReporte.php" method="post" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="outer-wrapper">
+                                    <div class="table-wrapper">
+                                        <div class="container">
 
-                                <div class="modal-footer d-block btn-block">
-                                    <button type="submit" class="agregaDetalle" id="agregaDetalle"><i class="fas fa-plus"></i>&nbsp&nbspAgregar</button>
+                                            <table class="">
+                                                <thead>
+                                                    <tr class="fil_1">
+                                                        <th class="inmovil" scope="rowgroup" style="width:6%;" rowspan="3">Biologico</th>
+
+
+                                                        <th scope="colgroup" colspan="3" style="width:10%;">INGRESO</th>
+                                                        <th scope="colgroup" colspan="3">SALIDAS</th>
+
+                                                        <th scope="colgroup" colspan="2" style="width:10%;">DISPONIBLE</th>
+
+                                                        <th scope="rowgroup" rowspan="3" style="width:2%;">Requerimiento mes</th>
+                                                        <th scope="rowgroup" rowspan="3" style="width:10%;">Observaciones</th>
+                                                    </tr>
+                                                    <tr class="fil_2">
+                                                        <th scope="rowgroup" rowspan="2">Stock</th>
+                                                        <th scope="rowgroup" rowspan="2">Ingresos (frascos)</th>
+                                                        <th scope="rowgroup" rowspan="2">Ingresos adicionales (frascos)</th>
+
+                                                        <th scope="colgroup" colspan="2">INTERVENCION SANITARIA</th>
+
+                                                        <th style="width:8%" class="col_2">OTRAS SALIDAS</th>
+                                                        <th scope="rowgroup" rowspan="2">Fecha de expiracion mas proxima</th>
+                                                        <th scope="rowgroup" rowspan="2">Lote</th>
+                                                    </tr>
+                                                    <tr class="fil_3">
+                                                        <th style="width:5%;">FCO (d)</th>
+                                                        <th style="width:3%;">Dosis</th>
+                                                        <th style="width:5%;">TRANSFE./DEVOLUCION frascos (e)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="modaltabla">
+                                                    <tr>
+                                                        <th>
+                                                            <select class="comboboxRegistrar" name="DetalleBiologico" id="DetalleBiologico">
+                                                                <option class="opcion">SELECCIONAR UN BIOLOGICO</option>
+                                                                <?php foreach ($productos->productos as $valor => $value) { ?>
+                                                                    <option class="opcion">
+                                                                        <?php echo $productos->getNombre($valor) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <div id="MensajeError" class="validarErrores">Selecciona un biologico ps mongol</div>
+                                                        </th>
+                                                        <th>
+                                                            <input type="number" class="form-control stock" id="stock" name="stock" placeholder="stock..." required />
+                                                        </th>
+                                                        <th>
+                                                            <input type="number" class="form-control" id="ingreso" name="ingreso" min="0" placeholder="Ingresos..." required />
+                                                        </th>
+                                                        <th>
+                                                            <input type="number" class="form-control" id="ingresoextra" name="ingresoextra" min="0" placeholder="Ingresos Extra..." required />
+                                                        </th>
+                                                        <th>
+                                                            <input type="number" class="form-control frascoabiertos" id="frascoabierto" min="0" name="frascoabierto" placeholder="Frascos Abiertos..." required />
+                                                        </th>
+                                                        <th>
+                                                            <input type="number" class="form-control" id="dosis" name="dosis" min="0" max="1000" placeholder="Dosis..." />
+                                                        </th>
+                                                        <th>
+                                                            <input type="number" class="form-control" id="devolucion" name="devolucion" min="0" placeholder="Devolución...">
+                                                        </th>
+                                                        <th>
+                                                            <input type="date" class="form-control" id="expiracion" name="expiracion" placeholder="Expiración..." required />
+                                                        </th>
+                                                        <th>
+                                                            <input type="text" class="form-control lotes" id="lote" name="lote" placeholder="Lote..." required />
+                                                        </th>
+                                                        <th>
+                                                            <input type="number" class="form-control" id="requerimientos" name="requerimientos" min="0" placeholder="Requerimientos..." />
+                                                        </th>
+                                                        <th>
+                                                            <input type="text" class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones..." />
+                                                            <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Archivo..." />
+                                                        </th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="agregaDetalle" id="agregaDetalle">wardar</button>
+                            </div>
+                        </form>
                     </div>
+
                 </div>
             </div>
             <!-- Modal Editar -->
@@ -241,9 +272,7 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId());
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
                                 </td>
                                 <td class="fil_7_dat">
-                                    <?php $aux = $detalleReporte->vistadetallReporte[$valor]['UsuarioBiologicoStock'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
-
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['UsuarioBiologicoStock'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
+                                    AWFAQF
                                 </td>
                                 <td class="fil_8_dat">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>
@@ -255,10 +284,10 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId());
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>
                                 </td>
                                 <td class="fil_11_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] +$detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>
+                                    DWAFWAF
                                 </td>
                                 <td class="fil_12_dat">
-                                <?php echo $aux - ($detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] +$detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']) ?>
+                                    DWAD
                                 </td>
                                 <td class="fil_13_dat">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>
