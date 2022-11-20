@@ -55,5 +55,20 @@
             $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
     
         }
+
+        public function UpdateStockProductoByUsuario($conn,
+                                        $idBiologico, 
+                                        $idUsuario, 
+                                        $idLote, 
+                                        $stocknuevo){
+            $sql = "UPDATE usuariobiologico  set UsuarioBiologicoStock=:stocknuevo where Biologicos_idBiologicos=:idBiologico and Usuarios_idUsuarios=:idUsuario and LoteBiologico_idLoteBiologico=:idLote";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':stocknuevo', $stocknuevo);
+            $stmt->bindParam(':idBiologico', $idBiologico);
+            $stmt->bindParam(':idUsuario', $idUsuario);
+            $stmt->bindParam(':idLote', $idLote);
+
+            return $stmt->execute() ? TRUE : FALSE;
+        }
     }
 ?>

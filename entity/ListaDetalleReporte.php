@@ -23,13 +23,13 @@
             return $points;
         }*/
 
-        public function VistaDetalleReporte($conn,$idusuario){
+        public function VistaDetalleReporte($conn,$idusuario,$fecha){
             $select = $conn->prepare("SELECT 
             bio.BiologicosCod,
             bio.BiologicosNom,
             bio.BiologicosUnidad,
             det.idReportes,
-            usu.UsuarioBiologicoStock,
+            det.ReportesStockAnterior,
             det.ReportesIngresos,
             det.ReportesIngresosExtra,
             det.ReportesFrascosAbiertos,
@@ -48,13 +48,15 @@
             biologicos bio ON usu.Biologicos_idBiologicos = bio.idBiologicos
                 INNER JOIN
             lotebiologico lot ON usu.LoteBiologico_idLoteBiologico = lot.idLoteBiologico 
-                WHERE usu.Usuarios_idUsuarios=:idusuario ");
+                WHERE usu.Usuarios_idUsuarios=:idusuario and date(ReportesFechaAdd)=:fecha order by idReportes ");
             $select->bindParam(':idusuario',$idusuario);
+            $select->bindParam(':fecha',$fecha);
             $select->execute();
             $this->vistadetallReporte = $select->fetchALL(PDO::FETCH_ASSOC);
         }
         
         public function IngresarDetalleReporte($conn,
+                                        $ReporteSaldoAnterior,
                                         $ReportesIngresos, 
                                         $ReportesIngresosExtra, 
                                         $ReportesFrascosAbiertos, 
@@ -67,7 +69,8 @@
                                         $ReportesFechaAdd,
                                         $idUsuarioBiologico){
             $sql = "INSERT INTO detallereportes 
-                        (ReportesIngresos, 
+                        (ReportesStockAnterior,
+                        ReportesIngresos, 
                         ReportesIngresosExtra,
                         ReportesFrascosAbiertos, 
                         ReportesDosis,
@@ -79,7 +82,8 @@
                         ReportesFechaAdd, 
                         UsuarioBiologico_idUsuarioBiologico) 
                     VALUES 
-                        (:ReportesIngresos,     
+                        (:ReporteSaldoAnterior,
+                        :ReportesIngresos,     
                         :ReportesIngresosExtra,
                         :ReportesFrascosAbiertos,  
                         :ReportesDosis,  
@@ -91,6 +95,7 @@
                         :ReportesFechaAdd,
                         :idUsuarioBiologico)";
             $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':ReporteSaldoAnterior', $ReporteSaldoAnterior);
             $stmt->bindParam(':ReportesIngresos', $ReportesIngresos);
             $stmt->bindParam(':ReportesIngresosExtra', $ReportesIngresosExtra);
             $stmt->bindParam(':ReportesFrascosAbiertos', $ReportesFrascosAbiertos);
@@ -157,67 +162,19 @@
             $stmt->bindParam(':idReportes', $idReportes);
             return $stmt->execute() ? TRUE : FALSE;
         }
-        /*
 
-        public function init_selectById($conexion, $user_id){
-            $select = $conexion->prepare("SELECT * FROM requerimientos WHERE establecimiento_id=:establecimiento_id");
-            $select->bindParam(':establecimiento_id', $user_id);
+        public function SearchDetalleReporteById($conn,$idReportes){
+            $select=$conn->prepare("SELECT * FROM detallereportes det
+            INNER JOIN
+            usuariobiologico usu ON det.UsuarioBiologico_idUsuarioBiologico = usu.idUsuarioBiologico
+            INNER JOIN
+            biologicos bio ON usu.Biologicos_idBiologicos = bio.idBiologicos
+            INNER JOIN
+            lotebiologico lot ON usu.LoteBiologico_idLoteBiologico = lot.idLoteBiologico WHERE idReportes=:idReportes");
+            $select->bindParam(':idReportes', $idReportes);
             $select->execute();
-            $this->requerimientos = $select->fetchALL(PDO::FETCH_ASSOC);
+            $this->detalleReporte = $select->fetch(PDO::FETCH_ASSOC);
         }
-
-        public function init_selectByIdAndReg($conexion, $user_id, $registro_id){
-            $select = $conexion->prepare(
-            "SELECT DISTINCT req.id, req.saldo_anterior, 
-                    req.ingresos, req.ingresos_extra, req.total_1, req.fco, req.dosis, req.devolucion, req.total_2, req.saldo_final,
-                    req.fecha_expiracion, req.lote, req.requerimientos, req.observaciones,
-                    pro.codigo, pro.nombre, pro.unidad, pro.descripcion, pro.proporcion, car.color, car.others
-            FROM requerimientos req 
-            INNER JOIN productos pro 
-            ON req.producto_id = pro.id
-            INNER JOIN cards car
-            ON req.producto_id = car.producto_id
-            INNER JOIN registros reg
-            ON req.registro_id = reg.id
-            WHERE reg.numeracion = :registro_id
-            AND req.establecimiento_id = :establecimiento_id;   
-            ");
-            $select->bindParam(':establecimiento_id', $user_id);
-            $select->bindParam(':registro_id', $registro_id);
-            $select->execute();
-            $this->requerimientos = $select->fetchALL(PDO::FETCH_ASSOC);
-        }
-
-        public function init_selectByGlobalId($conexion, $registro_id){
-            $select = $conexion->prepare(
-            "SELECT DISTINCT req.id, req.saldo_anterior,
-                    req.ingresos, req.ingresos_extra, req.total_1, req.fco, req.dosis, req.devolucion, req.total_2, req.saldo_final,
-                    req.fecha_expiracion, req.lote, req.requerimientos, req.observaciones,
-                    pro.codigo, pro.nombre, pro.unidad, pro.descripcion, pro.proporcion, car.color, car.others
-            FROM requerimientos req 
-            INNER JOIN productos pro 
-            ON req.producto_id = pro.id
-            INNER JOIN cards car
-            ON req.producto_id = car.producto_id
-            INNER JOIN registros reg
-            ON req.registro_id = reg.id
-            WHERE req.registro_id = :registro_id;
-            ");
-            //$select->bindParam(':establecimiento_id', $user_id);
-            $select->bindParam(':registro_id', $registro_id);
-            $select->execute();
-            $this->requerimientos = $select->fetchALL(PDO::FETCH_ASSOC);
-        }
-
-        public function findIdByCod($conexion, $codigo){
-            $select = $conexion->prepare(
-            "SELECT id FROM productos wHERE codigo=:codigo;
-            ");
-            $select->bindParam(':codigo', $codigo);
-            $select->execute();
-            $this->requerimientos = $select->fetchALL(PDO::FETCH_ASSOC);
-            return $select->execute() ? TRUE : FALSE;
-        }
-        */
+        
     }
 ?>
