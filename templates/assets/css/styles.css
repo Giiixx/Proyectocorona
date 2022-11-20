@@ -46,9 +46,14 @@
 body{
     background: rgb(158, 116, 82);
 }
-.stock{
+.display{
     pointer-events:none;
     background: rgb(161, 160, 161);
+}
+.formularioRegistrar div input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 .validarErrores{
     background: red;

@@ -31,8 +31,9 @@ if(isset($_SESSION['user_id'])){
         $usubio->InsertUsuarioBiologico($conn,$_POST['stock'],$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$usubio->search['idLoteBiologico']);
         $usubio->SearchIdUsuBio($conn,$_SESSION["myuser_obj"]->getId(),$productos->producto_seleccionado['idBiologicos'],$usubio->search['idLoteBiologico']);
         
-        
-        $agregarDetalle->IngresarDetalleReporte($conn,$_POST['ingreso'],
+        echo $_POST['stockNuevo'];
+        if($agregarDetalle->IngresarDetalleReporte($conn, $_POST['stock'],
+        $_POST['ingreso'],
         $_POST['ingresoextra'],
         $_POST['frascoabierto'],
         $_POST['dosis'],
@@ -42,7 +43,12 @@ if(isset($_SESSION['user_id'])){
         $_POST['observaciones'],
         $nombre_img,
         $fecha_actual,
-        $usubio->search['idUsuarioBiologico']);
+        $usubio->search['idUsuarioBiologico'])){
+            $productos->UpdateStockProductoByUsuario($conn,$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$usubio->search['idLoteBiologico'],$_POST['stockNuevo']);
+        }
+        
+
+        
 
 
     }
@@ -53,8 +59,9 @@ if(isset($_SESSION['user_id'])){
         if(!isset($usubio->search['idUsuarioBiologico'])){
             $usubio->InsertUsuarioBiologico($conn,$_POST['stock'],$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$idlot);
             $usubio->SearchIdUsuBio($conn,$_SESSION["myuser_obj"]->getId(),$productos->producto_seleccionado['idBiologicos'],$idlot);
-            
-            $agregarDetalle->IngresarDetalleReporte($conn,$_POST['ingreso'],
+            echo $_POST['stockNuevo'];
+            if($agregarDetalle->IngresarDetalleReporte($conn,$_POST['stock'],
+            $_POST['ingreso'],
             $_POST['ingresoextra'],
             $_POST['frascoabierto'],
             $_POST['dosis'],
@@ -64,10 +71,16 @@ if(isset($_SESSION['user_id'])){
             $_POST['observaciones'],
             $nombre_img,
             $fecha_actual,
-            $usubio->search['idUsuarioBiologico']);
+            $usubio->search['idUsuarioBiologico'])){
+                $productos->UpdateStockProductoByUsuario($conn,$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$idlot,$_POST['stockNuevo']);
+            }
         }else{
             $usubio->SearchIdUsuBio($conn,$_SESSION["myuser_obj"]->getId(),$productos->producto_seleccionado['idBiologicos'],$idlot);
-            $agregarDetalle->IngresarDetalleReporte($conn,$_POST['ingreso'],
+
+            echo $_POST['stockNuevo'];
+
+            if($agregarDetalle->IngresarDetalleReporte($conn,$_POST['stock'],
+            $_POST['ingreso'],
             $_POST['ingresoextra'],
             $_POST['frascoabierto'],
             $_POST['dosis'],
@@ -77,7 +90,9 @@ if(isset($_SESSION['user_id'])){
             $_POST['observaciones'],
             $nombre_img,
             $fecha_actual,
-            $usubio->search['idUsuarioBiologico']);
+            $usubio->search['idUsuarioBiologico'])){
+                $productos->UpdateStockProductoByUsuario($conn,$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$idlot,$_POST['stockNuevo']);
+            }
 
         }
         
@@ -85,18 +100,6 @@ if(isset($_SESSION['user_id'])){
     }
 
     /*
-    $agregarDetalle->IngresarDetalleReporte($conn,$_POST['ingreso'],
-    $_POST['ingresoextra'],
-    $_POST['frascoabierto'],
-    $_POST['dosis'],
-    $_POST['devolucion'],
-    $_POST['expiracion'],
-    $_POST['requerimientos'],
-    $_POST['observaciones'],
-    $nombre_img,
-    $fecha_actual,
-    $productos->producto_seleccionado['idBiologicos'],
-    $_SESSION["myuser_obj"]->getId());
 
     if($tama_img<=1000000){
         if($tipo_img=="image/jpeg" || $tipo_img=="image/jpg" ||$tipo_img=="image/png" ||$tipo_img=="image/gif"){
@@ -105,10 +108,11 @@ if(isset($_SESSION['user_id'])){
         }
     }
     */
+    
+    header('Location:/public_html/templates/datosReporte/reporteDiario.php');
 
 }
 
 
 
-header('Location:/public_html/templates/datosReporte/reporteDiario.php');
 ?>      
