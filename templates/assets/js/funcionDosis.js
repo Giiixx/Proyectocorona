@@ -80,10 +80,8 @@ $(document).ready(function(){
             }).done(function(res){
                 let arraybio=JSON.parse(res);
                 if(arraybio.length>0){
-               
                 }
-                else{
-                   
+                else{ 
                 }
 
             });*/
