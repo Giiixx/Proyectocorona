@@ -83,19 +83,19 @@
                         <input type="hidden" id="idEditarProducto" name="idEditarProducto">
                         <div class="mb-3">
                             <label class="form-label">Codigo</label>
-                            <input type="text" class="form-control"  id="codigo1" name="codigo1" placeholder="Codigo..." required/>
+                            <input type="text" class="form-control"  id="codigo1" name="codigo1" placeholder="Ingrese un Codigo..." required/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Nombre</label>
-                            <input type="text" class="form-control"  id="nombre1" name="nombre1" placeholder="Nombre..." required/>
+                            <input type="text" class="form-control"  id="nombre1" name="nombre1" placeholder="Ingrese un Nombre..." required/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Proporcion</label>
-                            <input type="number" class="form-control" id="proporcion1" name="proporcion1" placeholder="Proporcion..." required/>
+                            <input type="number" class="form-control" id="proporcion1" name="proporcion1" placeholder="Ingrese un Proporcion..." required/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Unidad</label>
-                            <input type="text" class="form-control"  id="unidad1" name="unidad1" placeholder="Unidad..." required/>
+                            <input type="text" class="form-control"  id="unidad1" name="unidad1" placeholder="Ingrese la Unidad..." required/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Categoría</label>
@@ -175,6 +175,7 @@
             <script src="../assets/js/scripts.js"></script>
             <script src="../assets/js/jquery.js"></script>
             <script src="../assets/js/EditarProducto.js"></script>
+            <script src="../assets/js/transformar.js"></script>
             </tbody>
         </table>
     </div>
