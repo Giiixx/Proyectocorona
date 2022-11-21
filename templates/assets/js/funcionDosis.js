@@ -18,11 +18,15 @@ $(document).ready(function () {
                 $("#stock").val("");
                 $("#stockIngreso").val("");
                 $("#devolucion").val("");
+                $("#salidaTotal").val("");
+                $("#stockNuevo").val("");
+                $("#expiracion").val("");
+                $("#requerimientos").val("");
+                $("#observaciones").val("");
                 $("#MensajeError").css("display", "none");
                 $("#lote").autocomplete({
                     source: ""
                 });
-                console.log(res);
                 if (res != 1) {
                     $("#dosis").css("pointer-events", "visiblePainted");
                     $("#dosis").css("background", "white");
@@ -93,13 +97,18 @@ $(document).ready(function () {
                     lote: $("#lote").val(),
                 }
             }).done(function (res) {
-                let lotes = JSON.parse(res);
-                console.log(lotes);
-                if (lotes != null) {
-                    $("#lote").autocomplete({
-                        source: lotes
-                    });
+                try{
+                    let lotes = JSON.parse(res);
+                    if (lotes.length > 0) {
+                        $("#lote").autocomplete({
+                            source: lotes
+                        });
+                    }
+                }catch{
+                    //$("#MensajeError").fadeIn(); 
                 }
+
+                
             });
 
     })
@@ -107,8 +116,7 @@ $(document).ready(function () {
     $('#lote').focusout('.lotes', function () {
         $("#ingreso").val("");
         $("#ingresoextra").val("");
-        $("#Stock").val("");
-        
+        $("#stockIngreso").val("");
         $.ajax(
             {
                 url: '/public_html/Functions/PasarDatosBiologicos.php',
@@ -132,6 +140,7 @@ $(document).ready(function () {
                     $("#stock").css("background", "rgb(161, 160, 161)");
                     $("#stock").val(stock);
                 } else {
+                    $("#stock").val("");
                     $("#stock").css("pointer-events", "visiblePainted");
                     $("#stock").css("background", "white");
                 }
