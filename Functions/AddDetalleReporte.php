@@ -32,7 +32,7 @@ if(isset($_SESSION['user_id'])){
         $usubio->SearchIdUsuBio($conn,$_SESSION["myuser_obj"]->getId(),$productos->producto_seleccionado['idBiologicos'],$usubio->search['idLoteBiologico']);
         
         echo $_POST['stockNuevo'];
-        if($agregarDetalle->IngresarDetalleReporte($conn, $_POST['stock'],
+        $agregarDetalle->IngresarDetalleReporte($conn, $_POST['stock'],
         $_POST['ingreso'],
         $_POST['ingresoextra'],
         $_POST['frascoabierto'],
@@ -43,13 +43,8 @@ if(isset($_SESSION['user_id'])){
         $_POST['observaciones'],
         $nombre_img,
         $fecha_actual,
-        $usubio->search['idUsuarioBiologico'])){
-            $productos->UpdateStockProductoByUsuario($conn,$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$usubio->search['idLoteBiologico'],$_POST['stockNuevo']);
-        }
+        $usubio->search['idUsuarioBiologico']);
         
-
-        
-
 
     }
     else{
@@ -60,7 +55,7 @@ if(isset($_SESSION['user_id'])){
             $usubio->InsertUsuarioBiologico($conn,$_POST['stock'],$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$idlot);
             $usubio->SearchIdUsuBio($conn,$_SESSION["myuser_obj"]->getId(),$productos->producto_seleccionado['idBiologicos'],$idlot);
             echo $_POST['stockNuevo'];
-            if($agregarDetalle->IngresarDetalleReporte($conn,$_POST['stock'],
+            $agregarDetalle->IngresarDetalleReporte($conn,$_POST['stock'],
             $_POST['ingreso'],
             $_POST['ingresoextra'],
             $_POST['frascoabierto'],
@@ -71,9 +66,7 @@ if(isset($_SESSION['user_id'])){
             $_POST['observaciones'],
             $nombre_img,
             $fecha_actual,
-            $usubio->search['idUsuarioBiologico'])){
-                $productos->UpdateStockProductoByUsuario($conn,$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$idlot,$_POST['stockNuevo']);
-            }
+            $usubio->search['idUsuarioBiologico']);
         }else{
             $usubio->SearchIdUsuBio($conn,$_SESSION["myuser_obj"]->getId(),$productos->producto_seleccionado['idBiologicos'],$idlot);
 

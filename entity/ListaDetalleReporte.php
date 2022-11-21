@@ -54,6 +54,23 @@
             $select->execute();
             $this->vistadetallReporte = $select->fetchALL(PDO::FETCH_ASSOC);
         }
+
+        public function VistaDetalleReporteByBiologico($conn,$idusuario,$fecha,$idBiologico,$idLote){
+            $select = $conn->prepare("SELECT * FROM detallereportes det
+                INNER JOIN
+            usuariobiologico usu ON det.UsuarioBiologico_idUsuarioBiologico = usu.idUsuarioBiologico
+                INNER JOIN
+            biologicos bio ON usu.Biologicos_idBiologicos = bio.idBiologicos
+                INNER JOIN
+            lotebiologico lot ON usu.LoteBiologico_idLoteBiologico = lot.idLoteBiologico 
+                WHERE usu.Usuarios_idUsuarios=:idusuario and usu.Biologicos_idBiologicos=:idBiologico and usu.LoteBiologico_idLoteBiologico=:idLote and date(ReportesFechaAdd)=:fecha order by idReportes ");
+            $select->bindParam(':idusuario',$idusuario);
+            $select->bindParam(':idBiologico',$idBiologico);
+            $select->bindParam(':idLote',$idLote);  
+            $select->bindParam(':fecha',$fecha);
+            $select->execute();
+            $this->vistadetallReporte = $select->fetchALL(PDO::FETCH_ASSOC);
+        }
         
         public function IngresarDetalleReporte($conn,
                                         $ReporteSaldoAnterior,
@@ -116,6 +133,7 @@
         
 
         public function UpdateDetalleReporte($conn,
+                                        $ReportesStockAnterior,
                                         $ReportesIngresos, 
                                         $ReportesIngresosExtra, 
                                         $ReportesFrascosAbiertos, 
@@ -129,6 +147,7 @@
                                         $idReportes){
             $sql = "UPDATE detallereportes SET 
                         Biologicos_idBiologicos=:Biologicos_idBiologicos,
+                        ReportesStockAnterior=:ReportesStockAnterior,
                         ReportesIngresos=:ReportesIngresos,
                         ReportesIngresosExtra=:ReportesIngresosExtra,
                         ReportesFrascosAbiertos=:ReportesFrascosAbiertos,
@@ -140,6 +159,7 @@
                         ReportesArchivo=:ReportesArchivo
                         WHERE idReportes=:idReportes";
             $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':ReportesStockAnterior', $ReportesStockAnterior);
             $stmt->bindParam(':ReportesIngresos', $ReportesIngresos);
             $stmt->bindParam(':ReportesIngresosExtra', $ReportesIngresosExtra);
             $stmt->bindParam(':ReportesFrascosAbiertos', $ReportesFrascosAbiertos);
@@ -175,6 +195,13 @@
             $select->execute();
             $this->detalleReporte = $select->fetch(PDO::FETCH_ASSOC);
         }
-        
+
+        public function UpdateStockAnteriorById($conn,$idReportes,$stockAnterior){
+            $select=$conn->prepare("UPDATE detallereportes SET ReportesStockAnterior=:stockAnterior where idReportes=:idReportes");
+            $select->bindParam(':idReportes',$idReportes);
+            $select->bindParam(':stockAnterior',$stockAnterior);
+            $select->execute();
+            $this->detalleReporte = $select->fetch(PDO::FETCH_ASSOC);
+        }
     }
 ?>
