@@ -1,0 +1,10 @@
+$(document).ready(function(){
+    $.ajax({
+        url:'/Functions/PasarUnidadBiologico.php',
+        method:'post',
+        data:{xd:$("#unidad").val(),
+    }
+    }).done(function(res)){
+        $('')
+    }
+})

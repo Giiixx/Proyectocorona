@@ -2,10 +2,14 @@
     require '../../conections/basededatos.php';
     require '../../entity/ListaProductos.php';
     require '../../entity/ListaCategoria.php';
+    date_default_timezone_set("America/Bogota");
+    $fecha_actual = date("Y-m-d");
 
     $productos = new ListaProductos($conn);
     $categoria = new ListaCategoria($conn);
     $productos ->init($conn);
+    $productos -> ListaUnidad($conn);
+   
     header('Content-Type: text/html; charset=utf-8');
 ?>
 
@@ -16,7 +20,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/jquery-ui.css">
     <link rel="stylesheet" href="../assets/css/styles.css">
     <title>Agregar Producto</title>
 </head>
@@ -38,6 +42,7 @@
                         <div class="mb-3">
                             <label class="form-label" >Codigo</label>
                             <input type="number" class="form-control"  id="codigo" name="codigo" placeholder="Codigo..." required/>
+                            <div id="Mensajeerror" class="validaerror"></div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Nombre</label>
@@ -49,8 +54,13 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Unidad</label>
-                            <input type="text" class="form-control"  id="unidad" name="unidad" placeholder="Unidad..." required/>
-                        </div>
+                            <select class="comboregistro" name="unidad" id="unidad">
+                                <?php foreach($productos->unidad as $valor=>$value){?>
+                                    <option class="opcion">
+                                        <?php echo $productos->unidad[$valor]['BiologicosUnidad'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>                        
                         <div class="mb-3">
                         <label class="form-label">Categoría</label>
                             <select class="comboboxRegistrar" name="Categoria" id="Categoria">
@@ -83,7 +93,7 @@
                         <input type="hidden" id="idEditarProducto" name="idEditarProducto">
                         <div class="mb-3">
                             <label class="form-label">Codigo</label>
-                            <input type="text" class="form-control"  id="codigo1" name="codigo1" placeholder="Ingrese un Codigo..." required/>
+                            <input type="number" class="form-control"  id="codigo1" name="codigo1" placeholder="Ingrese un Codigo..." required/>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Nombre</label>
@@ -95,8 +105,13 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" >Unidad</label>
-                            <input type="text" class="form-control"  id="unidad1" name="unidad1" placeholder="Ingrese la Unidad..." required/>
-                        </div>
+                            <select class="comboregistro" name="unidad1" id="unidad1">
+                                <?php foreach($productos->unidad as $valor=>$value){?>
+                                    <option class="opcion">
+                                        <?php echo $productos->unidad[$valor]['BiologicosUnidad'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>     
                         <div class="mb-3">
                             <label class="form-label">Categoría</label>
                             <select class="comboboxRegistrar" name="Categoria1" id="Categoria1">
@@ -146,6 +161,7 @@
                     <td class="fil_4_dat">
                         <?php echo $productos->productos[$valor]['BiologicosUnidad']?>
                     </td>
+                    
 
                     <td class="fil_5_dat">
                     
@@ -155,19 +171,24 @@
                             $aux=$categoria->categoria_selection['CategoriaDesc'];
                             echo $aux
                         ?>
+
+                    </td>
                     
-                    </td>
                     <td class="fil_18_dat">
+                    <?php
+                        if($fecha_actual==$productos->productos[$valor]['BiologicosFecha']) { ?>
                         <a href="" 
-                        id="<?= $productos->productos[$valor]['idBiologicos']?>"
-                        param1="<?= $productos->productos[$valor]['BiologicosCod']?>"
-                        param2="<?= $productos->productos[$valor]['BiologicosNom']?>"
-                        param3="<?= $productos->productos[$valor]['BiologicosProporcion']?>"
-                        param4="<?= $productos->productos[$valor]['BiologicosUnidad']?>"
-                        class="editarproductoss"
-                        data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+                            id="<?= $productos->productos[$valor]['idBiologicos']?>"
+                            param1="<?= $productos->productos[$valor]['BiologicosCod']?>"
+                            param2="<?= $productos->productos[$valor]['BiologicosNom']?>"
+                            param3="<?= $productos->productos[$valor]['BiologicosProporcion']?>"
+                            param4="<?= $productos->productos[$valor]['BiologicosUnidad']?>"
+                            class="editarproductoss"
+                            data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
                         <a class="btneliminar" href="../../Functions/DeleteProducto.php?id=<?=$productos->productos[$valor]['idBiologicos'] ?>"  onclick="return confirm('DESEA ELIMINAR?')"><img src="../assets/bootstrap-icons-1.10.1/trash.svg"></a>
+                        <?php }?>
                     </td>
+                    
                 </tr>
             <?php } ?> 
            
@@ -176,6 +197,7 @@
             <script src="../assets/js/jquery.js"></script>
             <script src="../assets/js/EditarProducto.js"></script>
             <script src="../assets/js/transformar.js"></script>
+            <script src="../assets/js/jquery-ui.js"></script>
             </tbody>
         </table>
     </div>

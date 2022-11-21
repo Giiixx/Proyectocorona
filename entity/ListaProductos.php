@@ -3,6 +3,8 @@
         public $productos;
         public $producto_seleccionado;
         public $producto_selec;
+        public $unidad;
+        public $unidad_selec;
         
         public function __construct($conexion) {
             $productos_select = $conexion->prepare("SELECT * FROM biologicos");
@@ -15,7 +17,11 @@
             $productos_select->execute();
             $this->productos = $productos_select->fetchALL(PDO::FETCH_ASSOC);
         }
-
+        public function ListaUnidad($conexion){
+            $unidad_selec = $conexion->prepare("SELECT distinct(BiologicosUnidad) FROM biologicos");
+            $unidad_selec->execute();
+            $this->unidad = $unidad_selec->fetchALL(PDO::FETCH_ASSOC);
+        }
         /*public function searchByCodigo($conexion, $codigo){
             $productos_select = $conexion->prepare("SELECT id FROM productos WHERE codigo = :codigo");
             $productos_select->bindParam(':codigo', $codigo);
@@ -54,6 +60,9 @@
         public function getUnidad($position){
             return $this->productos[$position]['BiologicosUnidad'];
         }
+        public function getDate($position){
+            return $this->productos[$position]['BiologicosFecha'];
+        }
         public function getId_cat($position){
             return $this->productos[$position]['Categoria_idCategoria'];
         }   
@@ -77,18 +86,21 @@
                                         $BiologicosNom,
                                         $BiologicosProporcion,
                                         $BiologicosUnidad,
+                                        $BiologicosFecha,
                                         $Categoria_idCategoria){
         $sql = "INSERT INTO biologicos
                     (BiologicosCod,
                     BiologicosNom,
                     BiologicosProporcion,
                     BiologicosUnidad,
+                    BiologicosFecha,
                     Categoria_idCategoria)
                     Values
                     (:BiologicosCod,
                     :BiologicosNom,
                     :BiologicosProporcion,
                     :BiologicosUnidad,
+                    :BiologicosFecha,
                     :Categoria_idCategoria
                     )";
         $stmt = $conn->prepare($sql);
@@ -96,6 +108,7 @@
         $stmt ->bindParam(':BiologicosNom',$BiologicosNom);
         $stmt ->bindParam(':BiologicosProporcion',$BiologicosProporcion);
         $stmt ->bindParam(':BiologicosUnidad',$BiologicosUnidad);
+        $stmt ->bindParam(':BiologicosFecha',$BiologicosFecha);
         $stmt ->bindParam(':Categoria_idCategoria',$Categoria_idCategoria);
 
         return $stmt->execute() ? TRUE : FALSE;
@@ -130,7 +143,6 @@
             $stmt->bindParam(':idBiologicos',$idBiologicos);
             return $stmt->execute() ? TRUE : FALSE;
         }
-
-
+        
     }
 ?>
