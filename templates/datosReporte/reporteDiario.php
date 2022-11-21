@@ -29,8 +29,11 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
         <link rel="stylesheet" href="../assets/css/jquery-ui.css">
         <title>Reporte Diario</title>
     </head>
-
+    <script src="../assets/js/table2excel.js"></script>
     <body>
+    <button id="dowloadexcel">
+      Download Table as csv file
+    </button>
         <div>
             <div class="contenedor_add">
                 <button class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
@@ -210,7 +213,7 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
             </div>
 
             <div>
-                <table class="datosreporte">
+                <table id="example-table" class="datosreporte" >
                     <thead>
                         <tr class="fil_1">
                             <th scope="rowgroup" rowspan="3">CODIGO</th>
@@ -324,7 +327,12 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                 </table>
             </div>
         </div>
-
+        <script>
+      document.getElementById('dowloadexcel').addEventListener('click',function(){
+        var table2excel = new Table2Excel();
+        table2excel.export(document.querySelectorAll("#example-table"));
+      });
+    </script>
     </body>
 
     </html>
