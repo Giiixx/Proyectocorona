@@ -3,7 +3,7 @@ $(document).ready(function () {
         //$('body').off();
         $.ajax(
             {
-                url: '/public_html/Functions/ObtenerProporcion.php',
+                url: '../../Functions/ObtenerProporcion.php',
                 method: "POST",
                 data: {
                     proporcion: $("#DetalleBiologico").val(),
@@ -38,7 +38,7 @@ $(document).ready(function () {
                 }
                 $.ajax(
                     {
-                        url: '/public_html/Functions/PasarDatosBiologicos.php',
+                        url: '../../Functions/PasarDatosBiologicos.php',
                         method: "POST",
                         data: {
                             aux: $("#DetalleBiologico").val(),
@@ -63,7 +63,7 @@ $(document).ready(function () {
     $('#frascoabierto').focusout('.frascoabiertos', function () {
         $.ajax(
             {
-                url: '/public_html/Functions/ObtenerProporcion.php',
+                url: '../../Functions/ObtenerProporcion.php',
                 method: "POST",
                 data: {
                     proporcion: $("#DetalleBiologico").val(),
@@ -90,7 +90,7 @@ $(document).ready(function () {
         $("#MensajeErrorLote").css("display", "none")
         $.ajax(
             {
-                url: '/public_html/Functions/PasarDatosBiologicos.php',
+                url: '../../Functions/PasarDatosBiologicos.php',
                 method: "POST",
                 data: {
                     aux: $("#DetalleBiologico").val(),
@@ -119,7 +119,7 @@ $(document).ready(function () {
         $("#stockIngreso").val("");
         $.ajax(
             {
-                url: '/public_html/Functions/PasarDatosBiologicos.php',
+                url: '../../Functions/PasarDatosBiologicos.php',
                 method: "POST",
                 data: {
                     aux: $("#DetalleBiologico").val(),

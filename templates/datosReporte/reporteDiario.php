@@ -7,8 +7,8 @@ require_once '../../Functions/sesion/confirm_existuser.php';
 require_once '../../Functions/sesion/confirm_password.php';
 
 session_start();
-isset($_SESSION['user_id']) ? null : header('Location: ../index.php');
-confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../index.php') : null;
+isset($_SESSION['user_id']) ? null : header('Location:../../index.php');
+confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../../index.php') : null;
 
 $productos = new ListaProductos($conn);
 $detalleReporte = new ListaDetalleReporte($conn);
@@ -63,7 +63,7 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Stock</label>
-                                    <input type="number" class="form-control  display  sumIngreso sumTotal verificarLote MensajeError" id="stock" name="stock" placeholder="stock..." required />
+                                    <input type="number"  class="form-control  display  sumIngreso sumTotal verificarLote MensajeError" id="stock" name="stock" placeholder="stock..." required />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Ingresos</label>
@@ -95,7 +95,7 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                     <input type="number" class=" form-control display MensajeError" id="salidaTotal" name="salidaTotal" placeholder="Total Salida..."/>
                                     <div id="MensajeErrorSalida" class="validarErrores">El total de salida excede el saldo de biologicos</div>
                                 </div>
-                                <input type="hidden" class="form-control display MensajeError" id="stockNuevo" name="stockNuevo" placeholder="Total"/>
+                                <input type="hidden" class="form-control  MensajeError"  value="2" id="stockNuevo" name="stockNuevo" placeholder="Total"/>
                                 <div class="mb-3">
                                     <label class="form-label">Expiracion</label>
                                     <input type="date" class="form-control verificarLote " id="expiracion" name="expiracion" placeholder="Expiración..." required />
@@ -150,7 +150,7 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Stock</label>
-                                    <input type="number" class="form-control  display  sumIngreso sumTotal1 verificarLote1 MensajeError1" id="stock1" name="stock1" placeholder="stock..." required />
+                                    <input type="number"  class="form-control  display  sumIngreso sumTotal1 verificarLote1 MensajeError1" id="stock1" name="stock1" placeholder="stock..." required />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Ingresos</label>
@@ -313,18 +313,18 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                 </td>
                             </tr>
                         <?php } ?>
-                        <script src="../assets/js/bootstrap.bundle.min.js"></script>
-                        <script src="../assets/js/scripts.js"></script>
-                        <script src="../assets/js/jquery.js"></script>
-                        <script src="../assets/js/jquery-ui.js"></script>
-                        <script src="../assets/js/funcionDosis.js"></script>
-                        <script src="../assets/js/RestriccionesRegistrarReporte.js"></script>
-                        <script src="../assets/js/EditarDetalle.js"></script>
+                        
                     </tbody>
                 </table>
             </div>
         </div>
-
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/jquery-ui.js"></script>
+    <script src="../assets/js/funcionDosis.js"></script>
+    <script src="../assets/js/RestriccionesRegistrarReporte.js"></script>
+    <script src="../assets/js/EditarDetalle.js"></script>
     </body>
 
     </html>

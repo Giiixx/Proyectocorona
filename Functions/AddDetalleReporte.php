@@ -31,7 +31,6 @@ if(isset($_SESSION['user_id'])){
         $usubio->InsertUsuarioBiologico($conn,$_POST['stock'],$productos->producto_seleccionado['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$usubio->search['idLoteBiologico']);
         $usubio->SearchIdUsuBio($conn,$_SESSION["myuser_obj"]->getId(),$productos->producto_seleccionado['idBiologicos'],$usubio->search['idLoteBiologico']);
         
-        echo $_POST['stockNuevo'];
         $agregarDetalle->IngresarDetalleReporte($conn, $_POST['stock'],
         $_POST['ingreso'],
         $_POST['ingresoextra'],

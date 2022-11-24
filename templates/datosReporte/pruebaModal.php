@@ -7,8 +7,8 @@ require_once '../../Functions/sesion/confirm_existuser.php';
 require_once '../../Functions/sesion/confirm_password.php';
 
 session_start();
-isset($_SESSION['user_id']) ? null : header('Location: ../index.php');
-confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../index.php') : null;
+isset($_SESSION['user_id']) ? null : header('Location:../../index.php');
+confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../../index.php') : null;
 
 $productos = new ListaProductos($conn);
 $detalleReporte = new ListaDetalleReporte($conn);

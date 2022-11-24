@@ -16,7 +16,7 @@ if(isset($_SESSION['user_id'])){
     $borrarDetalle->SearchDetalleReporteById($conn, $elim_id);
     $ingresoSuma=$borrarDetalle->detalleReporte['ReportesIngresos']+$borrarDetalle->detalleReporte['ReportesIngresosExtra'];
     $salidasSuma=$borrarDetalle->detalleReporte['ReportesFrascosAbiertos']+$borrarDetalle->detalleReporte['ReportesDevolucion'];
-    $update=$borrarDetalle->detalleReporte['UsuarioBiologicoStock']+$salidasSuma-$ingresoSuma;
+    $update=(int) ($borrarDetalle->detalleReporte['UsuarioBiologicoStock'])+$salidasSuma-$ingresoSuma;
     
     
     

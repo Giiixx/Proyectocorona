@@ -5,5 +5,5 @@
 	
 	session_destroy();
 	
-	header('Location:/public_html/templates/index.php');
+	header('Location:../../index.php');
 ?>
