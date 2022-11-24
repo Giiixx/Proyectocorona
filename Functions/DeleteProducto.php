@@ -11,6 +11,6 @@ if($borrarProducto->DeleteProducto($conn,$elim_id)
 }
 
 
-header('Location:/public_html/templates/datosReporte/productoadd.php');
+header('Location:/public_html/templates/datosBiologico/registrarBiologico.php');
 
 ?>      

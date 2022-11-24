@@ -14,18 +14,15 @@ $categoria->BuscarCodigo($conn,$_POST['Categoria']);
 $con = strlen($_POST['codigo']);
 
 if($con==1){
-    $codigo = "00000".$_POST['codigo'];
-}
-else if($con==2){
     $codigo = "0000".$_POST['codigo'];
 }
-else if($con==3){
+if($con==2){
     $codigo = "000".$_POST['codigo'];
 }
-else if($con==4){
+else if($con==3){
     $codigo = "00".$_POST['codigo'];
 }
-else if($con==5){
+else if($con==4){
     $codigo = "0".$_POST['codigo'];
 }
 else $codigo = $_POST['codigo'];
@@ -41,5 +38,5 @@ $categoria->categoria_selection['idCategoria'])
     echo "se logro";
 }
 
-header('Location:/public_html/templates/datosReporte/productoadd.php');
+header('Location:/public_html/templates/datosBiologico/registrarBiologico.php');
 ?>      

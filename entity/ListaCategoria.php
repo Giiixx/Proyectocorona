@@ -16,7 +16,7 @@
         public function getNombre($position){
             return $this->categoria[$position]['CategoriaDesc'];
         }
-
+/* De el Gix ps*/
         public function SearchByCod($conn,$idBiologicos,$idCategoria){
             $categoria_select = $conn->prepare( "SELECT cat.CategoriaDesc FROM biologicos bio inner join categoria cat on cat.idCategoria=bio.Categoria_idCategoria where bio.idBiologicos=:idBiologicos and cat.idCategoria=:idCategoria");
            $categoria_select->bindParam(':idBiologicos',$idBiologicos);
@@ -36,6 +36,6 @@
             $categoria_select -> execute();
             $this->categoria_selection=$categoria_select->fetch(PDO::FETCH_ASSOC);
         }
-     
+     /*ata aca*/
     }
 ?>
