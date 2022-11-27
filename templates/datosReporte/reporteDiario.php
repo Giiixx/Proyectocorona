@@ -14,7 +14,9 @@ $productos = new ListaProductos($conn);
 $detalleReporte = new ListaDetalleReporte($conn);
 date_default_timezone_set("America/Bogota");
 $fecha_actual = date("Y-m-d");
-$idReporte = $detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
+
+    $detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
+    $idReporte = $detalleReporte->reporte['idReporte'];
 $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fecha_actual,$idReporte);
 ?>
 <?php if (!empty($_SESSION['user_id'])) : ?>

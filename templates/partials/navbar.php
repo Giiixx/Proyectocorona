@@ -1,24 +1,4 @@
-<?php
-require_once '../../conections/basededatos.php';
-require_once '../../entity/ListaProductos.php';
-require_once '../../entity/ListaDetalleReporte.php';
-require_once '../../entity/Usuario.php';
-require_once '../../Functions/sesion/confirm_existuser.php';
-require_once '../../Functions/sesion/confirm_password.php';
 
-session_start();
-isset($_SESSION['user_id']) ? null : header('Location:../../index.php');
-confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../../index.php') : null;
-
-$productos = new ListaProductos($conn);
-$detalleReporte = new ListaDetalleReporte($conn);
-date_default_timezone_set("America/Bogota");
-$fecha_actual = date("Y-m-d");
-$idReporte = $detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
-$detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fecha_actual,$idReporte);
-?>
-
-<!-- Left Panel -->
 
 
 <aside id="left-panel" class="left-panel">
