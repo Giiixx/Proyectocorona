@@ -51,12 +51,13 @@ if (!isset($_SESSION['user_id'])) {
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Gestion General</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa-solid fa-syringe"></i><a href="templates/datosReporte/reporteDiario.php">Nuevo Reporte</a></li>
-                                <li><i class="fa-solid fa-pen-to-square"></i><a href="templates/datosBiologico/registrarBiologicos.php">Registrar Biologico</a></li>
-                                <li><i class="fa-solid fa-globe"></i><a href="templates/datosReporte/editarReporteDiario.php">Editar envio</a></li>
-                                <li><i class="fa-solid fa-magnifying-glass"></i><a class="vistadefecto" href="templates/vistas/vistaReporteDiario.php">Vista Reportes</a></li>
-                                <li><i class="fa-solid fa-magnifying-glass"></i><a class="vistadefecto" href="templates/vistas/vistaReporteMes.php">Vista Reportes</a></li>
-
+                            <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="templates/vistas/vistaReporteMes.php">Reportes Mensual</a></li>
+                            <li><i class="fa-solid fa-syringe"></i><a href="templates/datosReporte/reporteDiario.php">Reporte Diario</a></li>
+                            <li><i class="fa-solid fa-magnifying-glass"></i><a href="templates/datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
+                            <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="templates/vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
+                            <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="templates/vistas/vistaReporteDiario.php">Vista Reportes Mensuales</a></li>
+                            <li><i class="fa-solid fa-pen-to-square"></i><a href="templates/datosBiologico/registrarBiologicos.php">Registrar Biologico</a></li>
+                            
                             </ul>
                         </li>
                     </ul>

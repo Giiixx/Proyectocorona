@@ -68,18 +68,25 @@
     
         }
 
+        public function SearchStockName($conn,$BiologicosNom,$idUsuario){
+            $productos_select = $conn->prepare("SELECT *FROM biologicos bio 
+            INNER JOIN usuariobiologico usu ON bio.idBiologicos=usu.Biologicos_idBiologicos WHERE bio.BiologicosNom = :BiologicosNom AND usu.Usuarios_idUsuarios=:idUsuario");
+            $productos_select->bindParam(':BiologicosNom', $BiologicosNom);
+            $productos_select->bindParam(':idUsuario', $idUsuario);
+            $productos_select->execute();
+            $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
+        }
+
 
         public function UpdateStockProductoByUsuario($conn,
                                         $idBiologico, 
                                         $idUsuario, 
-                                        $idLote, 
                                         $stocknuevo){
-            $sql = "UPDATE usuariobiologico  set UsuarioBiologicoStock=:stocknuevo where Biologicos_idBiologicos=:idBiologico and Usuarios_idUsuarios=:idUsuario and LoteBiologico_idLoteBiologico=:idLote";
+            $sql = "UPDATE usuariobiologico  set UsuarioBiologicoStock=:stocknuevo where Biologicos_idBiologicos=:idBiologico and Usuarios_idUsuarios=:idUsuario ";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':stocknuevo', $stocknuevo);
             $stmt->bindParam(':idBiologico', $idBiologico);
             $stmt->bindParam(':idUsuario', $idUsuario);
-            $stmt->bindParam(':idLote', $idLote);
 
             return $stmt->execute() ? TRUE : FALSE;
         }

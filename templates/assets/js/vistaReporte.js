@@ -30,7 +30,7 @@ $(document).ready(function () {
                                 <td >${salidatotal}</td>
                                 <td >${stock}</td>
                                 <td >${arraybio[i]['ReportesExpiracionBiologico']}</td>
-                                <td >${arraybio[i]['LoteBiologicoDescripcion']}</td>
+                                <td >LOTE</td>
                                 <td >${arraybio[i]['ReportesRequerimientoMes']}</td>
                                 <td >${arraybio[i]['ReporteObservaciones']}</td>
                                 <td >${arraybio[i]['ReportesArchivo']}</td>
@@ -76,7 +76,7 @@ $(document).ready(function () {
                                     <td >${salidatotal}</td>
                                     <td >${stock}</td>
                                     <td >${arraybio[i]['ReportesExpiracionBiologico']}</td>
-                                    <td >${arraybio[i]['LoteBiologicoDescripcion']}</td>
+                                    <td ></td>
                                     <td >${arraybio[i]['ReportesRequerimientoMes']}</td>
                                     <td >${arraybio[i]['ReporteObservaciones']}</td>
                                     <td >${arraybio[i]['ReportesArchivo']}</td>

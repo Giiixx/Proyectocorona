@@ -36,6 +36,7 @@ $(document).ready(function () {
                     $("#dosis").css("background", "rgb(161, 160, 161)");
 
                 }
+                
                 $.ajax(
                     {
                         url: '../../Functions/PasarDatosBiologicos.php',
@@ -45,9 +46,11 @@ $(document).ready(function () {
                         }
                     }).done(function (res) {
                         let arraybio = JSON.parse(res);
-                        if (arraybio.length > 0) {
+                        if (arraybio) {
                             $("#stock").css("pointer-events", "none");
                             $("#stock").css("background", "rgb(161, 160, 161)");
+                            $("#stock").val(arraybio['UsuarioBiologicoStock']);
+                            
                         }
                         else {
                             $("#stock").css("pointer-events", "visiblePainted");
@@ -84,7 +87,7 @@ $(document).ready(function () {
 
     })
 
-
+    /*
 
     $('#lote').focus('.lotes', function () {
         $("#MensajeErrorLote").css("display", "none")
@@ -149,5 +152,6 @@ $(document).ready(function () {
             });
 
     })
+    */
 
 })

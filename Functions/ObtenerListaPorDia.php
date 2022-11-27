@@ -5,8 +5,8 @@ require_once '../Functions/sesion/confirm_existuser.php';
 require_once '../entity/Usuario.php';
 
 session_start();
-isset($_SESSION['user_id']) ? null : header('Location: /public_html/templates/index.php');
-confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location: /public_html/templates/index.php') : null;
+isset($_SESSION['user_id']) ? null : header('Location: ../templates/index.php');
+confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location: ../templates/index.php') : null;
 
 
 if(isset($_SESSION['user_id'])){

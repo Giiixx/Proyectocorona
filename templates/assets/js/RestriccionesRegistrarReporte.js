@@ -7,11 +7,6 @@ $(document).ready(function(){
         let devolucion=parseInt($("#devolucion").val(),10);
         let sumIngreso=stock+ingreso+ingresoextra;
         let sumSalida=frascoabierto+devolucion;
-        console.log("ingreso");
-        console.log(sumIngreso);
-        console.log("salida");
-        console.log(sumSalida);
-
         if($("#DetalleBiologico").val()=="SELECCIONAR UN BIOLOGICO"){
             $("#MensajeError").fadeIn();    
             return false;
@@ -19,8 +14,7 @@ $(document).ready(function(){
             $("#MensajeErrorStock").fadeIn();
             $("#MensajeErrorSalida").fadeIn();
             return false;
-        } else {
-        }
+        } 
         
 
     })
@@ -48,18 +42,12 @@ $(document).ready(function(){
     $('.sumTotal').focusout(function () {
         let salidaTotal= Number.isNaN(parseInt($("#salidaTotal").val(),10)) ? 0 : parseInt($("#salidaTotal").val(),10);
         let stockIngreso= Number.isNaN(parseInt($("#stockIngreso").val(),10)) ? 0 : parseInt($("#stockIngreso").val(),10);
-        console.log(stockIngreso-salidaTotal);
         $('#stockNuevo').val(stockIngreso-salidaTotal);
         
     })
 
-    $('.verificarLote').focus(function () {
-        $("#lote").val()!="" ? $("#MensajeErrorLote").css("display", "none") :$("#MensajeErrorLote").fadeIn();    
-
-    })
-
-    $('.verificarLote').focusout(function () { 
-        if($("#lote").val()==""||$("#stock").val()==""){
+    $('.verificarStock').focusout(function () { 
+        if($("#stock").val()==""){
             $("#ingreso").val("");
             $("#ingresoextra").val("");
             $("#dosis").val("");

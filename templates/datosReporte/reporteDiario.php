@@ -14,7 +14,8 @@ $productos = new ListaProductos($conn);
 $detalleReporte = new ListaDetalleReporte($conn);
 date_default_timezone_set("America/Bogota");
 $fecha_actual = date("Y-m-d");
-$detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fecha_actual);
+$idReporte = $detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
+$detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fecha_actual,$idReporte);
 ?>
 <?php if (!empty($_SESSION['user_id'])) : ?>
     <!DOCTYPE html>
@@ -44,7 +45,7 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body m_4_1">
-                            <form class="formularioRegistrar" action="../../Functions/AddDetalleReporte.php" method="post" enctype="multipart/form-data">
+                            <form class="formularioRegistrar" action="../../Functions/AddDetallesReporte.php" method="post" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label class="form-label">Descripcion Biologico</label>
                                     <select class="comboboxRegistrar" name="DetalleBiologico" id="DetalleBiologico">
@@ -56,22 +57,18 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                     </select>
                                     <div class="validarErrores" id="MensajeError" >Selecciona un biologico ps mongol</div>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Lote</label>
-                                    <input type="text" class="form-control  lotes" id="lote" name="lote" placeholder="Lote..." required />
-                                    <div id="MensajeErrorLote" class="validarErrores">No se a especificado un lote</div>
-                                </div>
+                                
                                 <div class="mb-3">
                                     <label class="form-label">Stock</label>
-                                    <input type="number"  class="form-control  display  sumIngreso sumTotal verificarLote MensajeError" id="stock" name="stock" placeholder="stock..." required />
+                                    <input type="number"  class="form-control  display  sumIngreso sumTotal verificarStock MensajeError" id="stock" name="stock" placeholder="stock..." required />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Ingresos</label>
-                                    <input type="number" class="form-control  sumIngreso  sumTotal verificarLote MensajeError" id="ingreso" name="ingreso" min="0" placeholder="Ingresos..." required />
+                                    <input type="number" class="form-control  sumIngreso  sumTotal verificarStock MensajeError" id="ingreso" name="ingreso" min="0" placeholder="Ingresos..." required />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Ingresos Extra</label>
-                                    <input type="number" class="form-control  sumIngreso sumTotal verificarLote MensajeError" id="ingresoextra" name="ingresoextra" min="0" placeholder="Ingresos Extra..." required />
+                                    <input type="number" class="form-control  sumIngreso sumTotal verificarStock MensajeError" id="ingresoextra" name="ingresoextra" min="0" placeholder="Ingresos Extra..." required />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Ingresos total + Stock</label>
@@ -80,15 +77,15 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Frascos Abiertos</label>
-                                    <input type="number" class="form-control verificarLote frascoabiertos sumSalida sumTotal MensajeError" id="frascoabierto" min="0" name="frascoabierto" placeholder="Frascos Abiertos..." required />
+                                    <input type="number" class="form-control verificarStock frascoabiertos sumSalida sumTotal MensajeError" id="frascoabierto" min="0" name="frascoabierto" placeholder="Frascos Abiertos..." required />
                                 </div>
                                 <div class="mb-3">          
                                     <label class="form-label">Dosis</label>
-                                    <input type="number" class="form-control verificarLote " id="dosis" name="dosis" min="0" max="1000" placeholder="Dosis..." />
+                                    <input type="number" class="form-control verificarStock " id="dosis" name="dosis" min="0" max="1000" placeholder="Dosis..." />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Devolución</label>
-                                    <input type="number" class="form-control verificarLote  sumSalida sumTotal MensajeError" id="devolucion" name="devolucion" min="0" placeholder="Devolución...">
+                                    <input type="number" class="form-control verificarStock  sumSalida sumTotal MensajeError" id="devolucion" name="devolucion" min="0" placeholder="Devolución...">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Total Salida</label>
@@ -98,19 +95,24 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                 <input type="hidden" class="form-control  MensajeError"  value="2" id="stockNuevo" name="stockNuevo" placeholder="Total"/>
                                 <div class="mb-3">
                                     <label class="form-label">Expiracion</label>
-                                    <input type="date" class="form-control verificarLote " id="expiracion" name="expiracion" placeholder="Expiración..." required />
+                                    <input type="date" class="form-control verificarStock " id="expiracion" name="expiracion" placeholder="Expiración..." required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Lote</label>
+                                    <input type="text" class="form-control  lotes" id="lote" name="lote" placeholder="Lote..." required />
+                                    <div id="MensajeErrorLote" class="validarErrores">No se a especificado un lote</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Requerimientos</label>
-                                    <input type="number" class="form-control verificarLote" id="requerimientos" name="requerimientos" min="0" placeholder="Requerimientos..." />
+                                    <input type="number" class="form-control verificarStock" id="requerimientos" name="requerimientos" min="0" placeholder="Requerimientos..." />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Observaciones</label>
-                                    <input type="text" class="form-control verificarLote" id="observaciones" name="observaciones" placeholder="Observaciones..." />
+                                    <input type="text" class="form-control verificarStock" id="observaciones" name="observaciones" placeholder="Observaciones..." />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Archivo</label>
-                                    <input type="file" class="form-control verificarLote    " id="archivo" name="archivo" placeholder="Archivo..." />
+                                    <input type="file" class="form-control verificarStock   " id="archivo" name="archivo" placeholder="Archivo..." />
                                 </div>
 
                                 <div class="modal-footer d-block btn-block">
@@ -142,11 +144,6 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                         <?php } ?>
                                     </select>
                                     <div class="validarErrores" id="MensajeError1" >Selecciona un biologico</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Lote</label>
-                                    <input type="text" class="form-control  lotes" id="lote1" name="lote1" placeholder="Lote..." required />
-                                    <div id="MensajeErrorLote1" class="validarErrores">No se a especificado un lote</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Stock</label>
@@ -186,6 +183,11 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                 <div class="mb-3">
                                     <label class="form-label">Expiracion</label>
                                     <input type="date" class="form-control verificarLote1 " id="expiracion1" name="expiracion1" placeholder="Expiración..." required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Lote</label>
+                                    <input type="text" class="form-control  lotes" id="lote1" name="lote1" placeholder="Lote..."  />
+                                    <div id="MensajeErrorLote1" class="validarErrores">No se a especificado un lote</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Requerimientos</label>
@@ -296,7 +298,7 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>
                                 </td>
                                 <td class="fil_14_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['LoteBiologicoDescripcion'] ?>
+                                    
                                 </td>
                                 <td class="fil_15_dat">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>
@@ -308,7 +310,20 @@ $detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fe
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>
                                 </td>
                                 <td class="fil_18_dat">
-                                    <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>"  param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" } param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" param8="<?= $detalleReporte->vistadetallReporte[$valor]['LoteBiologicoDescripcion'] ?>" param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+                                    <a href="" 
+                                    id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" 
+                                    param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>"  
+                                    param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" 
+                                    param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" 
+                                    param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" 
+                                    param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" 
+                                    param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" 
+                                    param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" 
+                                    param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" 
+                                    param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" 
+                                    param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" 
+                                    param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" 
+                                    class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
                                     <a class="btneliminar" href="../../Functions/DeleteDetalleReporte.php?id=<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" onclick="return confirm('DESEA ELIMINAR?')"><img src="../assets/bootstrap-icons-1.10.1/trash.svg"></a>
                                 </td>
                             </tr>

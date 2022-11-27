@@ -20,16 +20,16 @@ if(isset($_SESSION['user_id'])){
     
     
     
-    if($productos->UpdateStockProductoByUsuario($conn,$borrarDetalle->detalleReporte['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$borrarDetalle->detalleReporte['idLoteBiologico'],$update)){
+    if($productos->UpdateStockProductoByUsuario($conn,$borrarDetalle->detalleReporte['idBiologicos'],$_SESSION["myuser_obj"]->getId(),$update)){
         $borrarDetalle->DeleteDetallleReporte($conn,$elim_id);
-        $EditarStockAnteriorDetalle->VistaDetalleReporteByBiologico($conn, $_SESSION["myuser_obj"]->getId(),$fecha_actual,$borrarDetalle->detalleReporte['Biologicos_idBiologicos'],$borrarDetalle->detalleReporte['LoteBiologico_idLoteBiologico']);
+        $EditarStockAnteriorDetalle->VistaDetalleReporteByBiologico($conn, $_SESSION["myuser_obj"]->getId(),$fecha_actual,$borrarDetalle->detalleReporte['Biologicos_idBiologicos']);
         foreach ($EditarStockAnteriorDetalle->vistadetallReporte as $valor => $value){
                 if($elim_id<$EditarStockAnteriorDetalle->vistadetallReporte[$valor]['idReportes']){
                     $EditarStockAnteriorDetalle->UpdateStockAnteriorById($conn,$EditarStockAnteriorDetalle->vistadetallReporte[$valor]['idReportes'],$EditarStockAnteriorDetalle->vistadetallReporte[$valor]['ReportesStockAnterior']+($salidasSuma-$ingresoSuma));
                 }
         }               
     }
-
+        
     header('Location:/public_html/templates/datosReporte/reporteDiario.php');
 
 }

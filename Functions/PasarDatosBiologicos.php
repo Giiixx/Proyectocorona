@@ -14,17 +14,8 @@ if(isset($_SESSION['user_id'])){
     $productos  = new ListaProductos($conn);
     $UsuarioBiologico = new ListaUsuariosBiologico($conn);
 
-    $UsuarioBiologico->SearchLotesandStockByNameBiologico($conn,$_POST['aux'], $_SESSION["myuser_obj"]->getId());
+    $UsuarioBiologico->SearchStockByNameBiologico($conn,$_POST['aux'], $_SESSION["myuser_obj"]->getId());
 
-    if(isset ($_POST['lote'])){
-    
-        foreach($UsuarioBiologico->lotesBiologico as $valor=>$valor){
-            $arrayLotes[$valor]=$UsuarioBiologico->lotesBiologico[$valor]['LoteBiologicoDescripcion'];
-        }
-        echo json_encode($arrayLotes);
-    }
-    else{
-        echo json_encode($UsuarioBiologico->lotesBiologico);
-    }
+    echo json_encode($UsuarioBiologico->lotesBiologico);
 }
 ?>

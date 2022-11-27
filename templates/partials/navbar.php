@@ -1,4 +1,26 @@
+<?php
+require_once '../../conections/basededatos.php';
+require_once '../../entity/ListaProductos.php';
+require_once '../../entity/ListaDetalleReporte.php';
+require_once '../../entity/Usuario.php';
+require_once '../../Functions/sesion/confirm_existuser.php';
+require_once '../../Functions/sesion/confirm_password.php';
+
+session_start();
+isset($_SESSION['user_id']) ? null : header('Location:../../index.php');
+confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../../index.php') : null;
+
+$productos = new ListaProductos($conn);
+$detalleReporte = new ListaDetalleReporte($conn);
+date_default_timezone_set("America/Bogota");
+$fecha_actual = date("Y-m-d");
+$idReporte = $detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
+$detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(),$fecha_actual,$idReporte);
+?>
+
 <!-- Left Panel -->
+
+
 <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
         <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -8,11 +30,14 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Gestion General</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa-solid fa-syringe"></i><a href="../datosReporte/reporteDiario.php">Nuevo Reporte</a></li>
+                        <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="../vistas/vistaReporteMes.php">Reportes Mensual</a></li>
+                        <li><i class="fa-solid fa-syringe"></i><a href="../datosReporte/reporteDiario.php">Reporte Diario</a></li>
+                        <li><i class="fa-solid fa-magnifying-glass"></i><a href="../datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
+                        <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="../vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
+                        <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="../vistas/vistaReporteDiario.php">Vista Reportes Mensuales</a></li>
                         <li><i class="fa-solid fa-pen-to-square"></i><a href="../datosBiologico/registrarBiologicos.php">Registrar Biologico</a></li>
-                        <li><i class="fa-solid fa-magnifying-glass"></i><a href="../datosReporte/editarReporteDiario.php">Editar envio</a></li>
-                        <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="../vistas/vistaReporteDiario.php">Vista Reportes</a></li>
-                        <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="../vistas/vistaReporteMes.php">Vista Reportes MES</a></li>
+                        
+                        
                     </ul>
                 </li>
             </ul>

@@ -14,7 +14,8 @@ $productos = new ListaProductos($conn);
 $detalleReporte = new ListaDetalleReporte($conn);
 date_default_timezone_set("America/Bogota");
 $fecha_actual = date("Y-m-d");
-$detalleReporte->SearchReporteMes($conn, $_SESSION["myuser_obj"]->getId());
+$detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
+$detalleReporte->SearchReporteMes($conn, $_SESSION["myuser_obj"]->getId(), $detalleReporte->reporte['idReporte']);
 
 
 ?>
@@ -133,7 +134,6 @@ $detalleReporte->SearchReporteMes($conn, $_SESSION["myuser_obj"]->getId());
                             <th scope="rowgroup" rowspan="3">Requerimiento mes</th>
                             <th scope="rowgroup" rowspan="3">Observaciones</th>
                             <th scope="rowgroup" rowspan="3">Archivos</th>
-                            <th scope="rowgroup" rowspan="3">FECHA DE ENVIO</th>
                         </tr>
                         <tr class="fil_2">
                             <th scope="rowgroup" rowspan="2">Saldo anterior (frascos)</th>
@@ -171,62 +171,64 @@ $detalleReporte->SearchReporteMes($conn, $_SESSION["myuser_obj"]->getId());
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosUnidad'] ?>
                                 </td>
                                 <td class="fil_4_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['StockAnterior'] ?>
                                 </td>
                                 <td class="fil_5_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['Ingreso'] ?>
                                 </td>
                                 <td class="fil_6_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['IngresoExtra'] ?>
                                 </td>
                                 <td class="fil_7_dat">
-                                    <?php $aux = $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
-
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
-
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['sumatotalingreso'] ?>
                                 </td>
                                 <td class="fil_8_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['Fco'] ?>
                                 </td>
                                 <td class="fil_9_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['Dosis'] ?>
                                 </td>
                                 <td class="fil_10_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['Devolucion'] ?>
                                 </td>
                                 <td class="fil_11_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['sumatotalsalida'] ?>
                                 </td>
                                 <td class="fil_12_dat">
-                                    <?php echo $aux - ($detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']) ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['StockDisponible'] ?>
                                 </td>
                                 <td class="fil_13_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>
+
                                 </td>
                                 <td class="fil_14_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['LoteBiologicoDescripcion'] ?>
+
                                 </td>
                                 <td class="fil_15_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['Requerimientos'] ?>
                                 </td>
                                 <td class="fil_16_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>
+
                                 </td>
                                 <td class="fil_17_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>
+
                                 </td>
-                                <td class="fil_18_dat">
-                                <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFechaAdd'] ?>
+
                             </tr>
                         <?php } ?>
 
                     </tbody>
                 </table>
             </div>
+            <!--habilitar para enviar reporte de 1 a 5 del mes <?php //if (date("d")< 5 and date("d")>0) { ?>-->
+                
+            <div>
+                <a class="" href="../../Functions/AddReporte.php">Cierre Mensual</a>
+            </div>
+            <!--<?php // } ?>-->
 
         </div>
         </div>
-        
+
         <script src="../assets/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/js/scripts.js"></script>
         <script src="../assets/js/jquery.js"></script>
