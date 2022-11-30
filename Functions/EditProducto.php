@@ -37,6 +37,6 @@ $_POST['idEditarProducto'])
     echo "se logro";
 }
 
-header('Location:/public_html/templates/datosBiologico/registrarBiologico.php');
+header('Location:../templates/datosBiologico/registrarBiologicos.php');
 
 ?>

@@ -38,5 +38,5 @@ $categoria->categoria_selection['idCategoria'])
     echo "se logro";
 }
 
-header('Location:/public_html/templates/datosBiologico/registrarBiologico.php');
+header('Location:../templates/datosBiologico/registrarBiologicos.php');
 ?>      

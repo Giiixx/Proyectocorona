@@ -7,15 +7,19 @@ require_once '../../Functions/sesion/confirm_existuser.php';
 require_once '../../Functions/sesion/confirm_password.php';
 
 session_start();
-isset($_SESSION['user_id']) ? null : header('Location:../../index.php');
+isset($_SESSION['user_id']) ? null : header('Location: ../../index.php');
 confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../../index.php') : null;
 
 $productos = new ListaProductos($conn);
 $detalleReporte = new ListaDetalleReporte($conn);
 date_default_timezone_set("America/Bogota");
 $fecha_actual = date("Y-m-d");
-$detalleReporte->SearchReporteById($conn,$_SESSION["myuser_obj"]->getId());
-$detalleReporte->SearchReporteDiaAnterior($conn, $_SESSION["myuser_obj"]->getId(),$detalleReporte->reporte['idReporte'], $fecha_actual);
+$idUsuario = $_SESSION["myuser_obj"]->getId();
+$detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
+$detalleReporte->SearchReporteDiaAnterior($conn, $_SESSION["myuser_obj"]->getId(), $detalleReporte->reporte['idReporte'], $fecha_actual);
+
+$habilitar = $detalleReporte->SearchReporteByIdBool($conn, $idUsuario) ? ($detalleReporte->reporte['ReporteApertura'] > $fecha_actual ? FALSE : TRUE) : TRUE;
+$habilitar ?  header('Location:') : header('Location:../../index.php');
 ?>
 
 
@@ -28,7 +32,7 @@ $detalleReporte->SearchReporteDiaAnterior($conn, $_SESSION["myuser_obj"]->getId(
     <body>
 
         <?php require '../partials/navbar.php' ?>
-        <div class="clearfix">
+        <div class="main-panel">
             <!-- Modal Editar -->
             <div class="modal fade me_1" id="modalEditForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog m_2">
@@ -204,7 +208,7 @@ $detalleReporte->SearchReporteDiaAnterior($conn, $_SESSION["myuser_obj"]->getId(
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>
                                 </td>
                                 <td class="fil_14_dat">
-                                    
+
                                 </td>
                                 <td class="fil_15_dat">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>
@@ -216,19 +220,7 @@ $detalleReporte->SearchReporteDiaAnterior($conn, $_SESSION["myuser_obj"]->getId(
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>
                                 </td>
                                 <td class="fil_18_dat">
-                                    <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" 
-                                    param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>" 
-                                    param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" 
-                                    param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" 
-                                    param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" 
-                                    param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" 
-                                    param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" 
-                                    param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" 
-                                    param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" 
-                                    param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" 
-                                    param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" 
-                                    param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" 
-                                    class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+                                    <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>" param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -239,18 +231,15 @@ $detalleReporte->SearchReporteDiaAnterior($conn, $_SESSION["myuser_obj"]->getId(
 
         </div>
         </div>
+
         
-        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/js/vendor.bundle.base.js"></script>
+        <script src="../assets/js/off-canvas.js"></script>
+        <script src="../assets/js/hoverable-collapse.js"></script>
+        <script src="../assets/js/misc.js"></script>
         <script src="../assets/js/scripts.js"></script>
         <script src="../assets/js/jquery.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
-        <script src="../assets/js/EditarDetalle.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-        <script src="../assets/js/dash.js"></script>
-
 
     <?php endif; ?>
     </body>

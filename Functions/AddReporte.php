@@ -19,7 +19,7 @@ if(isset($_SESSION['user_id'])){
     /*********************CREARNEWREPORTE************************ */
     $MES=date("m");
     $ANO=date("Y");
-    $fechaApertura=$ANO.'-'.$MES.'-5';
+    $fechaApertura=$ANO.'-'.$MES.'-6';
     $agregarReporte->IngresarReportesUsuario($conn,"Reporte ".$_SESSION['myuser_obj']->getEstablecimiento(),$_SESSION["myuser_obj"]->getId(),$fechaApertura);  
     
     /******************************************************************** */

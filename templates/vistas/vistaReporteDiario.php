@@ -7,18 +7,19 @@ require_once '../../Functions/sesion/confirm_existuser.php';
 require_once '../../Functions/sesion/confirm_password.php';
 
 session_start();
-isset($_SESSION['user_id']) ? null : header('Location: ../index.php');
-confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../index.php') : null;
+isset($_SESSION['user_id']) ? null : header('Location: ../../index.php');
+confirm_existuser($_SESSION['user_id'], $conn) == FALSE ? header('Location:../../index.php') : null;
 $productos = new ListaProductos($conn);
 $listaFechas = new ListaDetalleReporte($conn);
 $detalleReporte = new ListaDetalleReporte($conn);
 date_default_timezone_set("America/Bogota");
+$fecha_actual = date("Y-m-d");  
+$idUsuario = $_SESSION["myuser_obj"]->getId();
 
-$fecha_actual = date("Y-m-d");
-echo  $fecha_actual ;
-
-$listaFechas->ListaFechasUsuario($conn, $_SESSION["myuser_obj"]->getId());
-$detalleReporte->SearchReporteFechaByUsuario($conn,$_SESSION["myuser_obj"]->getId(),$fecha_actual);
+$listaFechas->ListaFechasUsuario($conn, $idUsuario);
+$detalleReporte->SearchReporteFechaByUsuario($conn,$idUsuario,$fecha_actual);
+$detalleReporte->SearchReporteById($conn, $idUsuario);
+$habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detalleReporte->reporte['ReporteApertura']>$fecha_actual ? FALSE :TRUE ) : TRUE;
 ?>
 
 
@@ -31,7 +32,7 @@ $detalleReporte->SearchReporteFechaByUsuario($conn,$_SESSION["myuser_obj"]->getI
     <body>
 
         <?php require '../partials/navbar.php' ?>
-        <div class="clearfix">
+        <div class="main-panel">
 
             <!-- 
             <div class="contenedor_add">
@@ -128,22 +129,14 @@ $detalleReporte->SearchReporteFechaByUsuario($conn,$_SESSION["myuser_obj"]->getI
 
         </div>
         </div>
-        <script >
-
-        </script>
-
-
-        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/js/vendor.bundle.base.js"></script>
+        <script src="../assets/js/off-canvas.js"></script>
+        <script src="../assets/js/hoverable-collapse.js"></script>
+        <script src="../assets/js/misc.js"></script>
         <script src="../assets/js/scripts.js"></script>
         <script src="../assets/js/jquery.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
-        <script src="../assets/js/vistaReporte.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-        <script src="../assets/js/dash.js"></script>
-
+        <script src="../assets/js/vistaReporteDiario.js"></script>
 
     <?php endif; ?>
     </body>

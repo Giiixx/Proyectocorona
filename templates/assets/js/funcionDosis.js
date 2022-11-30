@@ -87,34 +87,33 @@ $(document).ready(function () {
 
     })
 
-    /*
+    
 
-    $('#lote').focus('.lotes', function () {
-        $("#MensajeErrorLote").css("display", "none")
+    $('#lote').focus(function () {
         $.ajax(
             {
-                url: '../../Functions/PasarDatosBiologicos.php',
-                method: "POST",
-                data: {
-                    aux: $("#DetalleBiologico").val(),
-                    lote: $("#lote").val(),
-                }
+                url: '../../Functions/ObtnerDatosLote.php',
             }).done(function (res) {
+				
                 try{
                     let lotes = JSON.parse(res);
-                    if (lotes.length > 0) {
-                        $("#lote").autocomplete({
-                            source: lotes
-                        });
-                    }
-                }catch{
-                    //$("#MensajeError").fadeIn(); 
-                }
+					for(let i=0;i<lotes.length;i++){
+						lotes[i]=lotes[i].toUpperCase();
+					}				
+                    $("#lote").autocomplete({
+                        source: lotes
+                    });
 
+                }catch{
+
+                }
+                
                 
             });
 
     })
+
+    /*
 
     $('#lote').focusout('.lotes', function () {
         $("#ingreso").val("");

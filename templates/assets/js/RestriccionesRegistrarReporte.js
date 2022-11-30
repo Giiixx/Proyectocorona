@@ -7,6 +7,7 @@ $(document).ready(function(){
         let devolucion=parseInt($("#devolucion").val(),10);
         let sumIngreso=stock+ingreso+ingresoextra;
         let sumSalida=frascoabierto+devolucion;
+
         if($("#DetalleBiologico").val()=="SELECCIONAR UN BIOLOGICO"){
             $("#MensajeError").fadeIn();    
             return false;
@@ -16,6 +17,13 @@ $(document).ready(function(){
             return false;
         } 
         
+        if($("#ingreso").val()==""){$("#ingreso").val(0);}
+        if($("#ingresoextra").val()==""){$("#ingresoextra").val(0);}
+        if($("#frascoabierto").val()==""){$("#frascoabierto").val(0);}
+        if($("#dosis").val()==""){$("#dosis").val(0);}
+        if($("#devolucion").val()==""){$("#devolucion").val(0);}
+        if($("#requerimientos").val()==""){$("#requerimientos").val(0);}
+        if($("#observaciones").val()==""){$("#observaciones").val("Sin Observaciones");}
 
     })
 
@@ -54,7 +62,9 @@ $(document).ready(function(){
             $("#frascoabierto").val("");
             $("#stock").val("");
             $("#stockIngreso").val("");
+            $("#requerimientos").val("");
             $("#devolucion").val("");
+            $("#observaciones").val("");
         }
     })
     

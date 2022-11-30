@@ -16,7 +16,7 @@ $(document).ready(function () {
 		$('#dosis1').val($(this).attr('param5'));
 		$('#devolucion1').val($(this).attr('param6'));
 		$('#expiracion1').val($(this).attr('param7'));
-		//$('#lote1').val($(this).attr('param8'));
+		$('#lote1').val($(this).attr('param8'));
 		$('#requerimientos1').val($(this).attr('param9'));
 		$('#observaciones1').val($(this).attr('param10'));
 		$("#stock1").val(stockAnterior);
@@ -53,7 +53,7 @@ $(document).ready(function () {
 	/**
 	 * 
 	 * 
-	 *  */
+	 *  
 	$('body').on('change', '.comboboxRegistrar1', function () {
 		//$('body').off();
 		$.ajax(
@@ -113,6 +113,7 @@ $(document).ready(function () {
 			});
 
 	})
+	*/
 
 	$('#frascoabierto1').focusout( function () {
 		$.ajax(
@@ -136,6 +137,31 @@ $(document).ready(function () {
 			});
 
 	})
+
+
+	$('#lote1').focus(function () {
+        $.ajax(
+            {
+                url: '../../Functions/ObtnerDatosLote.php',
+            }).done(function (res) {
+				
+                try{
+                    let lotes = JSON.parse(res);
+					for(let i=0;i<lotes.length;i++){
+						lotes[i]=lotes[i].toUpperCase();
+					}				
+                    $("#lote1").autocomplete({
+                        source: lotes
+                    });
+
+                }catch{
+
+                }
+                
+                
+            });
+
+    })
 
 
 
@@ -169,6 +195,14 @@ $(document).ready(function () {
 			$("#MensajeErrorSalida1").fadeIn();
 			return false;
 		}
+
+		if($("#ingreso1").val()==""){$("#ingreso1").val(0);}
+        if($("#ingresoextra1").val()==""){$("#ingresoextra1").val(0);}
+        if($("#frascoabierto1").val()==""){$("#frascoabierto1").val(0);}
+        if($("#dosis1").val()==""){$("#dosis1").val(0);}
+        if($("#devolucion1").val()==""){$("#devolucion1").val(0);}
+        if($("#requerimientos1").val()==""){$("#requerimientos1").val(0);}
+        if($("#observaciones1").val()==""){$("#observaciones").val("Sin Observaciones1");}
 
 
 	})

@@ -16,9 +16,14 @@ $categoria = new ListaCategoria($conn);
 $detalleReporte = new ListaDetalleReporte($conn);
 date_default_timezone_set("America/Bogota");
 $fecha_actual = date("Y-m-d");
-$detalleReporte->VistaDetalleReporte($conn, $_SESSION["myuser_obj"]->getId(), $fecha_actual);
+$idUsuario = $_SESSION["myuser_obj"]->getId();
 $productos->init($conn);
 $productos->ListaUnidad($conn);
+
+$detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
+
+$habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detalleReporte->reporte['ReporteApertura']>$fecha_actual ? FALSE :TRUE ) : TRUE;
+
 ?>
 
 
@@ -31,7 +36,7 @@ $productos->ListaUnidad($conn);
     <body>
 
         <?php require '../partials/navbar.php' ?>
-        <div class="clearfix">
+        <div class="main-panel">
             <div class="contenedor_add">
                 <button class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
             </div>
@@ -199,17 +204,15 @@ $productos->ListaUnidad($conn);
         </div>
         </div>
 
-        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+        
+        <script src="../assets/js/vendor.bundle.base.js"></script>
+        <script src="../assets/js/off-canvas.js"></script>
+        <script src="../assets/js/hoverable-collapse.js"></script>
+        <script src="../assets/js/misc.js"></script>
         <script src="../assets/js/scripts.js"></script>
         <script src="../assets/js/jquery.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
         <script src="../assets/js/EditarProducto.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-        <script src="../assets/js/dash.js"></script>
-
 
 
 

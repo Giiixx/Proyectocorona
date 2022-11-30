@@ -12,6 +12,7 @@ $fecha_actual = date("Y-m-d");
 if(isset($_SESSION['user_id'])){
 $editarDetalle = new ListaDetalleReporte($conn);
 $editarstockVista = new ListaDetalleReporte($conn);
+$lote = new ListaDetalleReporte($conn);
 $productos  = new ListaProductos($conn);
 $usubio = new ListaUsuariosBiologico($conn);
 $productos->SearchIdByName($conn,$_POST['DetalleBiologico1']);
@@ -28,6 +29,9 @@ $idUsuarioBiologico=$usubio->search['idUsuarioBiologico'];
 //Id DetalleReporte
 $editarDetalle->SearchDetalleReporteById($conn,$_POST['idEditarDetalles']);
 $Idreporte=$_POST['idEditarDetalles'];
+
+//ID LOTE
+$lote->SearhLoteByName($conn,$_POST['lote1']);
 
 
 //Resultado de aumento o disminucion de stock
@@ -71,10 +75,13 @@ if($editarDetalle->detalleReporte['BiologicosNom']!=$_POST['DetalleBiologico1'])
             }
 
     }
-    echo "aqui";
 
 
 }         
+
+if(!isset($lote->lote['LotesDescripcion'])){
+    $lote->IngresarLotes($conn,$_POST['lote1']);
+}
 
 $editarDetalle->UpdateDetalleReporte($conn,
 $_POST['stock1'],
@@ -84,6 +91,7 @@ $_POST['frascoabierto1'],
 $_POST['dosis1'],
 $_POST['devolucion1'],
 $_POST['expiracion1'],
+strtoupper($_POST['lote1']),
 $_POST['requerimientos1'],
 $_POST['observaciones1'],
 $_POST['archivo1'],

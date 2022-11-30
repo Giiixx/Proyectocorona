@@ -26,6 +26,23 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 <?php if (!empty($_SESSION['user_id'])) : ?>
+    <?php
+    require_once 'conections/basededatos.php';
+    require_once 'entity/ListaDetalleReporte.php';
+    require_once 'entity/Usuario.php';
+
+    $detalleReporte = new ListaDetalleReporte($conn);
+    date_default_timezone_set("America/Bogota");
+    $fecha_actual = date("Y-m-d");
+    $idUsuario = $_SESSION["myuser_obj"]->getId();
+
+    $detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
+
+    $habilitar = $detalleReporte->SearchReporteByIdBool($conn, $idUsuario) ? ($detalleReporte->reporte['ReporteApertura'] > $fecha_actual ? FALSE : TRUE) : TRUE;
+
+
+
+    ?>
 
 
     <!DOCTYPE html>
@@ -35,77 +52,112 @@ if (!isset($_SESSION['user_id'])) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <link rel="stylesheet" href="templates/assets/vendors/mdi/css/materialdesignicons.min.css">
         <link rel="stylesheet" href="templates/assets/css/dash.css">
+        <link rel="shortcut icon" href="templates/assets/images/favicon.ico" />
         <title>DirisLima</title>
     </head>
 
     <body>
-        <aside id="left-panel" class="left-panel">
-            <nav class="navbar navbar-expand-sm navbar-default">
-                <div id="main-menu" class="main-menu collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"></li>
-                        <li class="menu-title"></li>
-                        <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Gestion General</a>
-                            <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="templates/vistas/vistaReporteMes.php">Reportes Mensual</a></li>
-                            <li><i class="fa-solid fa-syringe"></i><a href="templates/datosReporte/reporteDiario.php">Reporte Diario</a></li>
-                            <li><i class="fa-solid fa-magnifying-glass"></i><a href="templates/datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
-                            <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="templates/vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
-                            <li><i class="fa-solid fa-globe "></i><a class="vistadefecto" href="templates/vistas/vistaReporteDiario.php">Vista Reportes Mensuales</a></li>
-                            <li><i class="fa-solid fa-pen-to-square"></i><a href="templates/datosBiologico/registrarBiologicos.php">Registrar Biologico</a></li>
-                            
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </aside>
-        <div id="right-panel" class="right-panel">
-            <!-- Header-->
-            <header id="header" class="header">
-                <div class="top-left">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="./"><img src="templates/assets/images/ministeriodesalud.png" alt="Logo"></a>
-                        <a class="navbar-brand hidden" href="./"><img src="" alt="Logo"></a>
-                        <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <div class="top-right">
-                    <div class="header-menu">
 
 
-                        <div class="user-area dropdown float-right">
-                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?= $_SESSION['myuser_obj']->getNombre() ?>
-                                <img class="user-avatar rounded-circle" src="templates/assets/images/usuario.png" alt="User Avatar">
-                            </a>
-
-                            <div class="user-menu dropdown-menu">
-                                <a class="nav-link" href="#"><i class="fa-solid fa-user-gear"></i>Configuración</a>
-
-                                <a class="nav-link" href="Functions/sesion/logout.php"><i class="fa-solid fa-right-from-bracket"></i>Cerrar Sesion </a>
-
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href=""><img src="templates/assets/images/logo.jpg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href=""><img src="templates/assets/images/logo-mini.jpg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="nav-profile-img">
+                                <img src="templates/assets/images/enfermera.png" alt="image">
+                                <span class="availability-status online"></span>
                             </div>
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black"><?= $_SESSION['myuser_obj']->getNombre() ?></p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="Functions/sesion/logout.php">
+                                <i class="mdi mdi-logout me-2 text-primary"></i> Cerrar Sesion </a>
                         </div>
+                    </li>
 
-                    </div>
-                </div>
-            </header>
-            <div class="clearfix">
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item nav-profile">
+                        <a href="#" class="nav-link">
+                            <div class="nav-profile-image">
+                                <img src="templates/assets/images/enfermera.png" alt="profile">
+                                <span class="login-status online"></span>
+                                <!--change to offline or busy as needed-->
+                            </div>
+                            <div class="nav-profile-text d-flex flex-column">
+                                <span class="font-weight-bold mb-2"><?= $_SESSION['myuser_obj']->getNombre() ?></span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                            <span class="menu-title">Reporte</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <?php if ($habilitar) { ?>
+                                    <li><i> <a class="nav-link" href="templates/datosReporte/reporteMes.php">Reportes Mensual</a></li>
+                                    <li><i></i><a class="nav-link" href="templates/datosReporte/reporteDiario.php">Reporte Diario</a></li>
+                                    <li><i></i><a class="nav-link" href="templates/datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+                            <span class="menu-title">Ver Reportes</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                        <div class="collapse" id="general-pages">
+                            <ul class="nav flex-column sub-menu">
+                                <li><i class="nav-item"> <a class="nav-link" href="templates/vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
+                                <li><i class="nav-item"> <a class="nav-link" href="templates/vistas/vistaReporteMes.php">Vista Reportes Mensuales</a></li>
+                                <li><i class="nav-item"> <a class="nav-link" href="templates/datosBiologico/registrarBiologicos.php">Registrar Biologico</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                </ul>
+            </nav>
+            <div class="main-panel">
 
             </div>
-
         </div>
-        <script src="templates/assets/js/jquery.js"></script>
-        <script src="templates/assets/js/vistaReporte.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-        <script src="templates/assets/js/dash.js"></script>
+
+        <script src="templates/assets/js/vendor.bundle.base.js"></script>
+        <script src="templates/assets/js/off-canvas.js"></script>
+        <script src="templates/assets/js/hoverable-collapse.js"></script>
+        <script src="templates/assets/js/misc.js"></script>
 
     </body>
 
