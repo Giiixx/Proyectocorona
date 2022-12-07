@@ -39,7 +39,7 @@ $(document).ready(function () {
                                             <button id="botonMostrarArchivo${i}" type="button"  aux=""   observacion="" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
                                             Ver Imagen
                                             </button>         
-                                            <a id="linkArchivo${i}" href="" download="">descargar archivo</a>
+                                            <a id="linkArchivo${i}" href="" download=""> <i class="mdi mdi-arrow-down-bold-circle-outline"></i>ARCHIVO</a>
                                         </div>  
                                     </div>
                                 </td>
@@ -124,7 +124,7 @@ $(document).ready(function () {
                                                 <button id="botonMostrarArchivo${i}" type="button"  aux=""   observacion="" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
                                                 Ver Imagen
                                                 </button>         
-                                                <a id="linkArchivo${i}" href="" download="">descargar archivo</a>
+                                                <a id="linkArchivo${i}" href="" download=""> <i class="mdi mdi-arrow-down-bold-circle-outline"></i>ARCHIVO</a>
                                             </div>  
                                         </div>
                                     </td>

@@ -233,24 +233,22 @@ $habilitar2 ?  header('Location:') : header('Location:../../index.php');
                                     <?php echo $detalleReporte->lista[$valor]['ReportesRequerimientoMes'] ?>
                                 </td>
                                 <td>
-                                <div class="contenedorObservaciones">
-                                        <div>
+                                        <p>
                                             <?php echo $detalleReporte->lista[$valor]['ReporteObservaciones'] ?>
-                                        </div>
+                                        </p>
 
                                         <?php if ($detalleReporte->lista[$valor]['ReportesArchivo'] != '') { ?>
                                             
 
                                             <?php if (substr($detalleReporte->lista[$valor]['ReportesArchivo'], -3) == 'jpg' or substr($detalleReporte->lista[$valor]['ReportesArchivo'], -3) == 'png'  or substr($detalleReporte->lista[$valor]['ReportesArchivo'], -4) == 'jpeg') { ?>
                                                 <button type="button"  aux="<?= '../../archives/'.$idUsuario.'/'.$detalleReporte->lista[$valor]['fecha'].'/'.$detalleReporte->lista[$valor]['BiologicosCod'].'/'.$detalleReporte->lista[$valor]['ReportesArchivo'] ?>"   observacion="<?= $detalleReporte->lista[$valor]['ReporteObservaciones'] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
-                                                    Ver Imagen
+                                                    VER IMAGEN
                                                 </button>
                                             <?php }else { ?>
-                                                <a href="<?= '../../archives/'.$idUsuario.'/'.$detalleReporte->lista[$valor]['fecha'].'/'.$detalleReporte->lista[$valor]['BiologicosCod'].'/'.$detalleReporte->lista[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->lista[$valor]['ReportesArchivo']?>">descargar archivo</a>
+                                                <a href="<?= '../../archives/'.$idUsuario.'/'.$detalleReporte->lista[$valor]['fecha'].'/'.$detalleReporte->lista[$valor]['BiologicosCod'].'/'.$detalleReporte->lista[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->lista[$valor]['ReportesArchivo']?>"><i class="mdi mdi-arrow-down-bold-circle-outline"></i>ARCHIVO</a>
                                             <?php } ?>
                                         <?php } ?>
 
-                                    </div>
                                 </td>
                                 <td >
                                     <a href="" id="<?= $detalleReporte->lista[$valor]['idReportes'] ?>" 
@@ -266,7 +264,8 @@ $habilitar2 ?  header('Location:') : header('Location:../../index.php');
                                     param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote'] ?>" 
                                     param9="<?= $detalleReporte->lista[$valor]['ReportesRequerimientoMes'] ?>" 
                                     param10="<?= $detalleReporte->lista[$valor]['ReporteObservaciones'] ?>" 
-                                    param11="<?= $detalleReporte->lista[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+                                    param11="<?= $detalleReporte->lista[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><i class="mdi mdi-grease-pencil"></i>
+                                    </a>
                                 
                                 </td>
                             </tr>

@@ -1,11 +1,13 @@
-$(document).ready(function(){
-    $('body').on('click','.contraseña',function () {
-
-        if( $("#pass").val()==''){
+$(document).ready(function () {
+    $('body').on('click', '.contraseña', function () {
+        if ($("#combousuarios").val() == 'Seleccionar Establecimiento') {
+            $("#MensajeError1").fadeIn();
+            return false;
+        }
+        if ($("#pass").val() == '') {
             $("#MensajeError").fadeIn();
             return false;
         }
-
         $.ajax(
             {
                 url: '../../Functions/ChangePassUsuario.php',
@@ -14,16 +16,16 @@ $(document).ready(function(){
                     establecimiento: $("#combousuarios").val(),
                     contra: $("#pass").val(),
                 }
-            }).done(function (res) {
-                console.log(res )
+            })
+    })
 
-                if(res){
-                    $("#MensajeError").css("display",'none');
-                    
-                }else{
-                    $("#MensajeError").fadeIn();
-                }
+    $('body').on('change', '.combousuarios', function () {
+        $("#MensajeError1").css("display", 'none');
+    })
 
-            }); 
-        })
+
+    $('#pass').focus(function(){
+        $("#MensajeError").css("display", 'none');
+
+    })
 })

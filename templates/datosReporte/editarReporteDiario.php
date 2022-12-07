@@ -51,7 +51,7 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                                 <input type="hidden" id="idEditarDetalles" name="idEditarDetalles" />
                                 <div class="mb-3">
                                     <label name="DetalleBiologico1" id="DetalleBiologico1">Descripcion Biologico</label>
-                                    <input type="text" id="idBiologicos" name="idBiologicos" />
+                                    <input type="hidden" id="idBiologicos" name="idBiologicos" />
                                     <div class="validarErrores" id="MensajeError1">Selecciona un biologico</div>
                                 </div>
                                 <div class="mb-3">
@@ -230,24 +230,21 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>
                                 </td>
                                 <td>
-                                    <div class="contenedorObservaciones">
-                                        <div>
-                                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>
-                                        </div>
+                                    <p>
+                                        <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>
+                                    </p>
 
-                                        <?php if ($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] != '') { ?>
+                                    <?php if ($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] != '') { ?>
 
 
-                                            <?php if (substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'jpg' or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'png'  or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -4) == 'jpeg') { ?>
-                                                <button type="button" aux="<?= '../../archives/' . $idUsuario . '/' . $detalleReporte->vistadetallReporte[$valor]['fecha'] . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" observacion="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
-                                                    Ver Imagen
-                                                </button>
-                                            <?php } else { ?>
-                                                <a href="<?= '../../archives/' . $idUsuario . '/' . $detalleReporte->vistadetallReporte[$valor]['fecha'] . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>">descargar archivo</a>
-                                            <?php } ?>
+                                        <?php if (substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'jpg' or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'png'  or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -4) == 'jpeg') { ?>
+                                            <button type="button" aux="<?= '../../archives/' . $idUsuario . '/' . $detalleReporte->vistadetallReporte[$valor]['fecha'] . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" observacion="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
+                                                VER IMAGEN
+                                            </button>
+                                        <?php } else { ?>
+                                            <a href="<?= '../../archives/' . $idUsuario . '/' . $detalleReporte->vistadetallReporte[$valor]['fecha'] . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>"> <i class="mdi mdi-arrow-down-bold-circle-outline"></i>ARCHIVO</a>
                                         <?php } ?>
-
-                                    </div>
+                                    <?php } ?>
                                 </td>
                                 <td>
                                     <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" 
@@ -263,7 +260,8 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                                     param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote'] ?>" 
                                     param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" 
                                     param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" 
-                                    param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+                                    param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><i class="mdi mdi-grease-pencil"></i>
+                                    </a>
 
                                 </td>
                             </tr>

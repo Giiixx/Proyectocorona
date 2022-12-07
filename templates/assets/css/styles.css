@@ -15,6 +15,7 @@ table tbody tr:nth-child(even) {
 table tbody tr:hover {
     background-color: rgb(208, 243, 248);
 }
+
 /****************************BIOLOGICOS CATEGORIA COLOR*************************************************/
 
 .fil1 {
@@ -47,7 +48,7 @@ table tbody tr:hover {
 }
 
 .datosreporte {
-    margin: 1% 5% 1% 5%;
+    margin: 1% 2% 1% 2%;
 }
 
 .contenedor_add {
@@ -56,7 +57,7 @@ table tbody tr:hover {
 
 }
 
-.comboboxRegistrar{
+.comboboxRegistrar {
     width: 100%;
 }
 
@@ -148,6 +149,63 @@ input::-webkit-inner-spin-button {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3499b3', endColorstr='#3499b3', GradientType=0);
     /* IE6-9 */
 
+}
+
+table tbody td:nth-child(2) {
+    min-width: 300px;
+}
+
+table tbody td:nth-child(13) {
+    min-width: 90px;
+}
+
+table tbody td:nth-child(16) {
+    min-width: 200px;
+}
+
+table tbody td:nth-child(16) button {
+    margin-bottom: 5px;
+    background: linear-gradient(to right, #3499b3, #4f4f9d);
+    background-color: #3499b3;
+    color: #fff;
+    border-radius: 6px;
+    display: inline-flex;
+    text-decoration: none;
+}
+
+table tbody td:nth-child(16) button:active {
+    transform: scale(0.95);
+}
+
+table tbody td:nth-child(16) a {
+    text-decoration: none;
+    padding: 2px 2px 2px 2px;
+    border: 0px solid #000;
+    border-radius: 6PX;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #3499b3, #4f4f9d);
+    background-color: #3499b3;
+    color: #fff;
+}
+
+table tbody td:nth-child(16) A:active {
+    transform: scale(0.95);
+}
+
+table tbody td:nth-child(17) .editarDetalleReporte,
+.btneliminar {
+    text-decoration: none;
+    font-size: 25px;
+}
+
+table tbody td:nth-child(17) .editarDetalleReporte {
+    color: rgba(50, 113, 75, 0.666);
+}
+
+table tbody td:nth-child(17) .btneliminar {
+    color: red;
 }
 
 
@@ -312,3 +370,43 @@ button.descargar:active {
 
 
 /**********************************************************************************************************************/
+
+
+.conteiner-cambiarcontra {
+    height: 100vh;
+
+    display: grid;
+}
+
+.cambiarcontra {
+    background-color: #3499b3;
+    padding: 10%;
+    align-self: center;
+    justify-self: center;
+    border-radius: 4%;
+    font-weight: bold;
+}
+
+.form-label {
+    font-size: 20px;
+    color: #000;
+}
+
+.conteiner-selects {
+    display: flex;
+    align-items: center;
+}
+
+.conteiner-selects:nth-child(3) {
+    background-color: red;
+}
+
+.conteiner-cajas {
+    margin-left: 4%;
+}
+.conteiner-cajas2 {
+    margin-left: 3%;
+}
+.conteiner-cajas3 {
+    margin-left: 23%;
+}

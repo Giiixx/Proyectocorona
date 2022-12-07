@@ -1,0 +1,252 @@
+.anuncio {
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../images/tablonedit.png);
+    background-size: cover;
+    background-position: center;
+
+}
+
+.titulo {
+    padding-top: 40px;
+}
+
+.contenido {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.imagenmostrar img {
+    width: 90%;
+    padding-bottom: 20px;
+    border-radius: 10px;
+}
+
+.cajatitulo h1 {
+    color: #fff;
+}
+
+.cabesera-reportemes {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+
+.cabesera-reportemes .img1 {
+    padding-right: 80px;
+}
+
+.cabesera-reportemes .img1 img {
+    width: 150px;
+}
+
+.cabesera-reportemes .img2 {
+    padding-left: 20px;
+    padding-top: 18px;
+}
+
+.cabesera-reportemes .img2 img {
+    width: 300px;
+
+}
+
+.firma-final {
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.final1 {
+    padding-right: 130px;
+}
+
+.final2 {
+    padding-right: 130px;
+}
+
+.final3 {
+    padding-right: 130px;
+}
+
+.final4 {
+    padding-right: 130px;
+}
+
+.linea1 {
+    display: inline-block;
+    position: relative;
+
+}
+
+.linea1::after,
+.linea1::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 3px;
+    background-color: #000;
+    top: 0.1em;
+}
+
+.linea2 {
+    display: inline-block;
+    position: relative;
+}
+
+.linea2::after,
+.linea2::before {
+    content: '';
+    position: absolute;
+    width: 290px;
+    height: 3px;
+    background-color: #000;
+    top: 0.1em;
+}
+
+.linea3 {
+    display: inline-block;
+    position: relative;
+}
+
+.linea3::after,
+.linea3::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 3px;
+    background-color: #000;
+    top: 0.1em;
+}
+
+.linea4 {
+    display: inline-block;
+    position: relative;
+}
+
+.linea4::after,
+.linea4::before {
+    content: '';
+    position: absolute;
+    width: 303px;
+    height: 3px;
+    background-color: #000;
+    top: 0.1em;
+}
+
+.outer-wrapper {
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+    box-shadow: 0px 0px 3px rgb(0 0 0 / 90%);
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
+.table-wrapper {
+    overflow-y: scroll;
+    overflow-x: scroll;
+    height: fit-content;
+    max-height: 66.4vh;
+    margin-top: 22px;
+    margin: 15px;
+    padding-bottom: 20px;
+}
+
+.container {
+    min-width: max-content;
+    border-collapse: separate;
+    border-spacing: 0px;
+}
+
+.modal-dialog {
+    max-width: 1600px;
+}
+
+.mensaje {
+    text-decoration: none;
+    color: #000;
+    background: #cfc;
+    display: block;
+    padding: 1em;
+    -moz-box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
+    -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+    -moz-transition: -moz-transform .15s linear;
+    -o-transition: -o-transform .15s linear;
+    -webkit-transition: -webkit-transform .15s linear;
+}
+
+.mensaje:hover,
+.mensaje:focus {
+    box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+    -moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+    -webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    position: relative;
+    z-index: 5;
+}
+
+.anuncioedit {
+    padding-top: 20px;
+}
+
+.tituloeditar {
+    width: 80%;
+
+}
+
+.cajatitulo h1 {
+    color: #000;
+    text-align: center;
+
+}
+
+.cajatitulo textarea {
+    text-align: center;
+}
+
+.contenido {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+}
+
+.cajaDescripcion h1 {
+    color: #000;
+    text-align: center;
+}
+
+.boton-editanuncio {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+button.modificar {
+    background: linear-gradient(to right, #196BCA, #6433E0);
+    background-color: #196BCA;
+    color: #fff;
+    font-family: Trebuchet MS;
+    font-size: 17px;
+    font-weight: 800;
+    font-style: normal;
+    text-decoration: none;
+    padding: 14px 15px;
+    border: 0px solid #000;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+button.modificar:hover {
+    background: linear-gradient(to right, #5482d0, #7d5ee3);
+    background-color: #5482d0;
+}
+
+button.modificar:active {
+    transform: scale(0.95);
+}

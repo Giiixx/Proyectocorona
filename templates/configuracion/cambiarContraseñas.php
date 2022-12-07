@@ -32,24 +32,30 @@ $_SESSION['myuser_obj']->getRol() == 3 ? null : header('Location: ../../index.ph
 
         <?php require '../partials/navbarConfiguracion.php' ?>
         <div class="main-panel navbar-nav-scroll">
-            
-            <form class="translate-">
-                
-                <label class="form-label">Seleccionar Establecimiento </label>
-                <select class="combousuarios" name="combousuarios" id="combousuarios">
-                    <?php foreach ($detalleReporte->lista as $valor => $value) { ?>
-                        <option class="opcion">
-                            <?php echo $detalleReporte->lista[$valor]['UsuariosDescEstablecimiento'] ?></option>
-                    <?php } ?>
-                </select>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="text" class="form-control" id="pass">
-                    <div class="validarErrores" id="MensajeError">Ingresar un Contraseña</div>
-                </div>
-                
-                <button  class="btn btn-primary contraseña">Cambiar Contraseña</button>
-            </form>
+
+            <div class="conteiner-cambiarcontra">
+                <form class="cambiarcontra">
+                    <div class="mb-3">
+                        <label class="form-label">Establecimiento </label>
+                        <select class="combousuarios form-control" name="combousuarios" id="combousuarios">
+                            <option class="opcion">Seleccionar Establecimiento</option>
+                            <?php foreach ($detalleReporte->lista as $valor => $value) { ?>
+                                <option class="opcion">
+                                    <?php echo $detalleReporte->lista[$valor]['UsuariosDescEstablecimiento'] ?></option>
+                            <?php } ?>
+                        </select>
+                        <div class="validarErrores" id="MensajeError1">Seleccionar un Establecimiento</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="text" class="form-control"  id="pass">
+                        <div class="validarErrores" id="MensajeError">Ingresar una Contraseña</div>
+                    </div>
+                    <div class="mb-3">
+                        <button class="contraseña">Cambiar Contraseña</button>
+                    </div>
+                </form>
+            </div>
 
 
         </div>

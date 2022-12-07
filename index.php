@@ -30,8 +30,10 @@ $_SESSION['myuser_obj']->getRol() == 3 ? header('Location: templates/configuraci
     require_once 'conections/basededatos.php';
     require_once 'entity/ListaDetalleReporte.php';
     require_once 'entity/Usuario.php';
+    require_once 'entity/ListaAnuncio.php';
 
     $detalleReporte = new ListaDetalleReporte($conn);
+    $anuncio = new ListaAnuncio($conn);
     date_default_timezone_set("America/Bogota");
     $fecha_actual = date("Y-m-d");
     $idUsuario = $_SESSION["myuser_obj"]->getId();
@@ -55,6 +57,7 @@ $_SESSION['myuser_obj']->getRol() == 3 ? header('Location: templates/configuraci
         <link rel="stylesheet" href="templates/assets/vendors/mdi/css/materialdesignicons.min.css">
         <link rel="stylesheet" href="templates/assets/css/dash.css">
         <link rel="shortcut icon" href="templates/assets/images/favicon.ico" />
+        <link rel="stylesheet" href="templates/assets/css/anuncio.css">
         <title>DirisLima</title>
     </head>
 
@@ -112,7 +115,7 @@ $_SESSION['myuser_obj']->getRol() == 3 ? header('Location: templates/configuraci
                             </div>
                             <div class="nav-profile-text d-flex flex-column">
                                 <span class="font-weight-bold mb-2"><?= $_SESSION['myuser_obj']->getNombre() ?></span>
-                            </div>
+                            </div>  
                         </a>
                     </li>
 
@@ -154,8 +157,22 @@ $_SESSION['myuser_obj']->getRol() == 3 ? header('Location: templates/configuraci
                 </ul>
             </nav>
             <div class="main-panel">
-                <embed src="archives/e-commerce.pdf" type="application/pdf" width="320px" height="630px">
+            <div class="anuncio">
+                    <div class="titulo">
+                        <?php echo $anuncio->anuncio[0]['AnuncioTitulo']?>
+                    </div>
+                    <div class="contenido">    
+                        <div class="imagenmostrar">
+                            
+                            <img src="templates/assets/images/PARAPREGUNTASS 2.png" alt="">
+                        <?php echo $anuncio->anuncio[0]['Anuncioimg']?>
+                        </div>
 
+                        <div class="mensaje">
+                        <?php echo $anuncio->anuncio[0]['AnuncioMensaje']?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

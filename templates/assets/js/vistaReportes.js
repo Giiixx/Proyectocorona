@@ -7,10 +7,10 @@ $(document).ready(function () {
             method: "POST",
             data: {
                 nombre: $("#nombreEstablecimiento").val(),
-            }       
-        }).done(function (res) {    
+            }
+        }).done(function (res) {
             let arraybio = JSON.parse(res);
-            
+
             $.each(arraybio['lista'], function (i, j,) {
 
                 let tr = `<tr>
@@ -32,13 +32,15 @@ $(document).ready(function () {
                                 <td >
                                     <div class="contenedorObservaciones" >
                                         <div>
-                                        ${arraybio['ultimaobservacion'][i]}
-                                        </div>
+                                            <p>
+                                            ${arraybio['ultimaobservacion'][i]}
+                                            </p>
+                                        </div> 
                                         <div id="mostrarArchivos${i}">
                                             <button id="botonMostrarArchivo${i}" type="button"  aux=""   observacion="" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
-                                            Ver Imagen
+                                            VER IMAGEN
                                             </button>         
-                                            <a id="linkArchivo${i}" href="" download="">descargar archivo</a>
+                                            <a id="linkArchivo${i}" href="" download=""> <i class="mdi mdi-arrow-down-bold-circle-outline"></i>ARCHIVO</a>
                                         </div>  
                                     </div>
                                 </td>
@@ -49,31 +51,31 @@ $(document).ready(function () {
             tbody.append(data);
 
             $.each(arraybio['lista'], function (i, k) {
-                let caja='#mostrarArchivos'+i;
-                let boton='#botonMostrarArchivo'+i;
-                let a='#linkArchivo'+i;
+                let caja = '#mostrarArchivos' + i;
+                let boton = '#botonMostrarArchivo' + i;
+                let a = '#linkArchivo' + i;
 
-                if(arraybio['ultimaarchivo'][i]!=''){
+                if (arraybio['ultimaarchivo'][i] != '') {
                     $(caja).fadeIn();
-                    if(arraybio['ultimaarchivo'][i].substr(-3) == 'jpg' || arraybio['ultimaarchivo'][i].substr(-3) == 'png' || arraybio['ultimaarchivo'][i].substr(-4) == 'jpeg'){
-                        let aux= document.getElementById('botonMostrarArchivo'+i);
+                    if (arraybio['ultimaarchivo'][i].substr(-3) == 'jpg' || arraybio['ultimaarchivo'][i].substr(-3) == 'png' || arraybio['ultimaarchivo'][i].substr(-4) == 'jpeg') {
+                        let aux = document.getElementById('botonMostrarArchivo' + i);
 
-                        aux.setAttribute('aux','../../archives/'+arraybio['idUsuario'][i]+'/'+arraybio['ultimafechaAdd'][i]+'/'+arraybio['lista'][i]['BiologicosCod']+'/'+arraybio['ultimaarchivo'][i]);
-                        aux.setAttribute('observacion',arraybio['ultimaobservacion'][i]);
-                        
+                        aux.setAttribute('aux', '../../archives/' + arraybio['idUsuario'][i] + '/' + arraybio['ultimafechaAdd'][i] + '/' + arraybio['lista'][i]['BiologicosCod'] + '/' + arraybio['ultimaarchivo'][i]);
+                        aux.setAttribute('observacion', arraybio['ultimaobservacion'][i]);
+
                         $(boton).fadeIn();
                         $(a).css("display", "none");
                     }
-                    else{
-                        let aux= document.getElementById('linkArchivo'+i);
-                        aux.setAttribute('aux','../../archives/'+arraybio['idUsuario'][i]+'/'+arraybio['ultimafechaAdd'][i]+'/'+arraybio['lista'][i]['BiologicosCod']+'/'+arraybio['ultimaarchivo'][i]);
-                        aux.setAttribute('download',arraybio['ultimaarchivo'][i]);
+                    else {
+                        let aux = document.getElementById('linkArchivo' + i);
+                        aux.setAttribute('aux', '../../archives/' + arraybio['idUsuario'][i] + '/' + arraybio['ultimafechaAdd'][i] + '/' + arraybio['lista'][i]['BiologicosCod'] + '/' + arraybio['ultimaarchivo'][i]);
+                        aux.setAttribute('download', arraybio['ultimaarchivo'][i]);
 
                         $(a).fadeIn();
                         $(boton).css("display", "none");
 
                     }
-                }else{
+                } else {
                     $(caja).css("display", "none");
                 }
 
@@ -116,51 +118,53 @@ $(document).ready(function () {
                                     <td >
                                         <div class="contenedorObservaciones" >
                                             <div>
-                                            ${arraybio['ultimaobservacion'][i]}
-                                            </div>
+                                                <p>
+                                                ${arraybio['ultimaobservacion'][i]}
+                                                </p>
+                                            </div> 
                                             <div id="mostrarArchivos${i}">
                                                 <button id="botonMostrarArchivo${i}" type="button"  aux=""   observacion="" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
-                                                Ver Imagen
+                                                VER IMAGEN
                                                 </button>         
-                                                <a id="linkArchivo${i}" href="" download="">descargar archivo</a>
+                                                <a id="linkArchivo${i}" href="" download=""> <i class="mdi mdi-arrow-down-bold-circle-outline"></i>ARCHIVO</a>
                                             </div>  
                                         </div>
                                     </td>
                                 </tr>`;
-    
+
                     data += tr;
                 });
                 tbody.append(data);
-    
+
                 $.each(arraybio['lista'], function (i, k) {
-                    let caja='#mostrarArchivos'+i;
-                    let boton='#botonMostrarArchivo'+i;
-                    let a='#linkArchivo'+i;
-    
-                    if(arraybio['ultimaarchivo'][i]!=''){
+                    let caja = '#mostrarArchivos' + i;
+                    let boton = '#botonMostrarArchivo' + i;
+                    let a = '#linkArchivo' + i;
+
+                    if (arraybio['ultimaarchivo'][i] != '') {
                         $(caja).fadeIn();
-                        if(arraybio['ultimaarchivo'][i].substr(-3) == 'jpg' || arraybio['ultimaarchivo'][i].substr(-3) == 'png' || arraybio['ultimaarchivo'][i].substr(-4) == 'jpeg'){
-                            let aux= document.getElementById('botonMostrarArchivo'+i);
-    
-                            aux.setAttribute('aux','../../archives/'+arraybio['idUsuario'][i]+'/'+arraybio['ultimafechaAdd'][i]+'/'+arraybio['lista'][i]['BiologicosCod']+'/'+arraybio['ultimaarchivo'][i]);
-                            aux.setAttribute('observacion',arraybio['ultimaobservacion'][i]);
-                            
+                        if (arraybio['ultimaarchivo'][i].substr(-3) == 'jpg' || arraybio['ultimaarchivo'][i].substr(-3) == 'png' || arraybio['ultimaarchivo'][i].substr(-4) == 'jpeg') {
+                            let aux = document.getElementById('botonMostrarArchivo' + i);
+
+                            aux.setAttribute('aux', '../../archives/' + arraybio['idUsuario'][i] + '/' + arraybio['ultimafechaAdd'][i] + '/' + arraybio['lista'][i]['BiologicosCod'] + '/' + arraybio['ultimaarchivo'][i]);
+                            aux.setAttribute('observacion', arraybio['ultimaobservacion'][i]);
+
                             $(boton).fadeIn();
                             $(a).css("display", "none");
                         }
-                        else{
-                            let aux= document.getElementById('linkArchivo'+i);
-                            aux.setAttribute('aux','../../archives/'+arraybio['idUsuario'][i]+'/'+arraybio['ultimafechaAdd'][i]+'/'+arraybio['lista'][i]['BiologicosCod']+'/'+arraybio['ultimaarchivo'][i]);
-                            aux.setAttribute('download',arraybio['ultimaarchivo'][i]);
-    
+                        else {
+                            let aux = document.getElementById('linkArchivo' + i);
+                            aux.setAttribute('aux', '../../archives/' + arraybio['idUsuario'][i] + '/' + arraybio['ultimafechaAdd'][i] + '/' + arraybio['lista'][i]['BiologicosCod'] + '/' + arraybio['ultimaarchivo'][i]);
+                            aux.setAttribute('download', arraybio['ultimaarchivo'][i]);
+
                             $(a).fadeIn();
                             $(boton).css("display", "none");
-    
+
                         }
-                    }else{
+                    } else {
                         $(caja).css("display", "none");
                     }
-    
+
                 });
             });
 
@@ -168,7 +172,7 @@ $(document).ready(function () {
     })
 
 
-    
+
     $('#fechas').focus(function () {
         $.ajax(
             {
@@ -177,10 +181,10 @@ $(document).ready(function () {
                 data: {
                     nombre: $("#nombreEstablecimiento").val(),
                 }
-            }).done(function (res) {  
-				let fechas = JSON.parse(res);
-                fechas=fechas['fechas'];
-                
+            }).done(function (res) {
+                let fechas = JSON.parse(res);
+                fechas = fechas['fechas'];
+
                 $("#fechas").autocomplete({
                     source: fechas
                 });
@@ -191,7 +195,7 @@ $(document).ready(function () {
 
     $('body').on('click', '.ui-menu-item-wrapper', function () {
         tbody.empty();
-        data="";
+        data = "";
         $.ajax(
             {
                 url: '../../Functions/ObtenerListaReportes.php',
@@ -223,51 +227,53 @@ $(document).ready(function () {
                                     <td >
                                         <div class="contenedorObservaciones" >
                                             <div>
-                                            ${arraybio['ultimaobservacion'][i]}
-                                            </div>
+                                                <p>
+                                                ${arraybio['ultimaobservacion'][i]}
+                                                </p>
+                                            </div> 
                                             <div id="mostrarArchivos${i}">
                                                 <button id="botonMostrarArchivo${i}" type="button"  aux=""   observacion="" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
-                                                Ver Imagen
+                                                VER IMAGEN
                                                 </button>         
-                                                <a id="linkArchivo${i}" href="" download="">descargar archivo</a>
+                                                <a id="linkArchivo${i}" href="" download=""> <i class="mdi mdi-arrow-down-bold-circle-outline"></i>ARCHIVO</a>
                                             </div>  
                                         </div>
                                     </td>
                                 </tr>`;
-    
+
                     data += tr;
                 });
                 tbody.append(data);
-    
+
                 $.each(arraybio['lista'], function (i, k) {
-                    let caja='#mostrarArchivos'+i;
-                    let boton='#botonMostrarArchivo'+i;
-                    let a='#linkArchivo'+i;
-    
-                    if(arraybio['ultimaarchivo'][i]!=''){
+                    let caja = '#mostrarArchivos' + i;
+                    let boton = '#botonMostrarArchivo' + i;
+                    let a = '#linkArchivo' + i;
+
+                    if (arraybio['ultimaarchivo'][i] != '') {
                         $(caja).fadeIn();
-                        if(arraybio['ultimaarchivo'][i].substr(-3) == 'jpg' || arraybio['ultimaarchivo'][i].substr(-3) == 'png' || arraybio['ultimaarchivo'][i].substr(-4) == 'jpeg'){
-                            let aux= document.getElementById('botonMostrarArchivo'+i);
-    
-                            aux.setAttribute('aux','../../archives/'+arraybio['idUsuario'][i]+'/'+arraybio['ultimafechaAdd'][i]+'/'+arraybio['lista'][i]['BiologicosCod']+'/'+arraybio['ultimaarchivo'][i]);
-                            aux.setAttribute('observacion',arraybio['ultimaobservacion'][i]);
-                            
+                        if (arraybio['ultimaarchivo'][i].substr(-3) == 'jpg' || arraybio['ultimaarchivo'][i].substr(-3) == 'png' || arraybio['ultimaarchivo'][i].substr(-4) == 'jpeg') {
+                            let aux = document.getElementById('botonMostrarArchivo' + i);
+
+                            aux.setAttribute('aux', '../../archives/' + arraybio['idUsuario'][i] + '/' + arraybio['ultimafechaAdd'][i] + '/' + arraybio['lista'][i]['BiologicosCod'] + '/' + arraybio['ultimaarchivo'][i]);
+                            aux.setAttribute('observacion', arraybio['ultimaobservacion'][i]);
+
                             $(boton).fadeIn();
                             $(a).css("display", "none");
                         }
-                        else{
-                            let aux= document.getElementById('linkArchivo'+i);
-                            aux.setAttribute('aux','../../archives/'+arraybio['idUsuario'][i]+'/'+arraybio['ultimafechaAdd'][i]+'/'+arraybio['lista'][i]['BiologicosCod']+'/'+arraybio['ultimaarchivo'][i]);
-                            aux.setAttribute('download',arraybio['ultimaarchivo'][i]);
-    
+                        else {
+                            let aux = document.getElementById('linkArchivo' + i);
+                            aux.setAttribute('aux', '../../archives/' + arraybio['idUsuario'][i] + '/' + arraybio['ultimafechaAdd'][i] + '/' + arraybio['lista'][i]['BiologicosCod'] + '/' + arraybio['ultimaarchivo'][i]);
+                            aux.setAttribute('download', arraybio['ultimaarchivo'][i]);
+
                             $(a).fadeIn();
                             $(boton).css("display", "none");
-    
+
                         }
-                    }else{
+                    } else {
                         $(caja).css("display", "none");
                     }
-    
+
                 });
             });
     })

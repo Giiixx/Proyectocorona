@@ -52,21 +52,23 @@ $_SESSION['myuser_obj']->getRol() == 3 ? null : header('Location: ../../index.ph
                 </div>
             </div>
 
+            <div class="conteiner-selects">
+                <div class="conteiner-cajas1">
+                    <label class="form-label">Buscar Reporte De Establecimiento : </label>
+                    <select class="comboboxReportes" name="nombreEstablecimiento" id="nombreEstablecimiento">
+                        <?php foreach ($detalleReporte->lista as $valor => $value) { ?>
+                            <option class="opcion">
+                                <?php echo $detalleReporte->lista[$valor]['UsuariosDescEstablecimiento'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="conteiner-cajas2"> 
+                    <label class="form-label">Fecha :</label>
+                    <input type="text" id='fechas' placeholder="Ejemplo: 2022-10-12">
+                    <div class="validarErrores" id="MensajeError1">Selecciona un Fecha Mostrada</div>
+                </div>
+            </div>
 
-            <div>
-                <label class="form-label">Buscar Reporte De Establecimiento : </label>
-                <select class="comboboxReportes" name="nombreEstablecimiento" id="nombreEstablecimiento">
-                    <?php foreach ($detalleReporte->lista as $valor => $value) { ?>
-                        <option class="opcion">
-                            <?php echo $detalleReporte->lista[$valor]['UsuariosDescEstablecimiento'] ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div>
-                <label class="form-label">Fecha :</label>
-                <input type="text" id='fechas' placeholder="Ejemplo: 2022-10-12">
-                <div class="validarErrores" id="MensajeError1">Selecciona un Fecha Mostrada</div>
-            </div>
             <div class="tablefix">
                 <table class="datosreporte">
                     <thead class="table-fixed">
@@ -81,7 +83,8 @@ $_SESSION['myuser_obj']->getRol() == 3 ? null : header('Location: ../../index.ph
                             <th class="morado" scope="colgroup" colspan="3">DISPONIBLE</th>
 
                             <th class="celeste" scope="rowgroup" rowspan="3">Requerimiento mes</th>
-                            <th class="celeste" scope="rowgroup" rowspan="3">Observaciones</th> 
+                            <th class="celeste" scope="rowgroup" rowspan="3">Observaciones</th>
+                            <th class="celeste" scope="rowgroup" rowspan="3">Estado</th>
                         </tr>
                         <tr class="fil_2">
                             <th class="rosa" scope="rowgroup" rowspan="2">Saldo anterior (frascos)</th>
@@ -91,7 +94,7 @@ $_SESSION['myuser_obj']->getRol() == 3 ? null : header('Location: ../../index.ph
 
                             <th class="verde" scope="colgroup" colspan="2">INTERVENCION SANITARIA</th>
 
-                            <th class="verde"  class="col_2">OTRAS SALIDAS</th>
+                            <th class="verde" class="col_2">OTRAS SALIDAS</th>
 
                             <th class="verde" scope="rowgroup" rowspan="2">Total salidas (frascos)</th>
 

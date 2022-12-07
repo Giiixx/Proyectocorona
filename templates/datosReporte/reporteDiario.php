@@ -140,7 +140,7 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                                 <input type="hidden" id="idEditarDetalles" name="idEditarDetalles" />
                                 <div class="mb-3">
                                     <label class="form-label" name="DetalleBiologico1" id="DetalleBiologico1">Descripcion Biologico</label>
-                                    <input type="text" id="idBiologicos" name="idBiologicos" />
+                                    <input type="hidden" id="idBiologicos" name="idBiologicos" />
                                     <div class="validarErrores" id="MensajeError1">Selecciona un biologico</div>
                                 </div>
                                 <div class="mb-3">
@@ -233,7 +233,7 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                     <thead class="table-fixed">
                         <tr class="fil_1">
                             <th class="celeste" scope="rowgroup" rowspan="3">CODIGO</th>
-                            <th class="inmovil celeste" scope="rowgroup" rowspan="3">DESCRIPCION</th>
+                            <th class="celeste" scope="rowgroup" rowspan="3">DESCRIPCION</th>
                             <th class="celeste" scope="rowgroup" rowspan="3">UNIDAD DE MEDIDA</th>
                             <th class="rosa" scope="colgroup" colspan="4">INGRESO</th>
 
@@ -241,7 +241,7 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
 
                             <th class="morado" scope="colgroup" colspan="3">DISPONIBLE</th>
 
-                            <th class="celeste" scope="rowgroup" rowspan="3">Requerimiento mes</th>
+                            <th class="celeste" scope="rowgroup" rowspan="3">Requerimiento</th>
                             <th class="celeste" scope="rowgroup" rowspan="3">Observaciones</th>
                             <th class="celeste" scope="rowgroup" rowspan="3">Acciones</th>
                         </tr>
@@ -314,48 +314,35 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesLote']?>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesLote'] ?>
                                 </td>
                                 <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>
                                 </td>
                                 <td>
-                                    <div class="contenedorObservaciones">
-                                        <div>
-                                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>
-                                        </div>
+                                    <p>
+                                        <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>
+                                    </p>
 
-                                        <?php if ($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] != '') { ?>
+                                    <?php if ($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] != '') { ?>
 
 
-                                            <?php if (substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'jpg' or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'png'  or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -4) == 'jpeg') { ?>
-                                                <button type="button" aux="<?= '../../archives/' . $idUsuario . '/' . $fecha_actual . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" observacion="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
-                                                    Ver Imagen
-                                                </button>
-                                            <?php } else { ?>
-                                                <a href="<?= '../../archives/' . $idUsuario . '/' . $fecha_actual . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>">descargar archivo</a>
-                                            <?php } ?>
+                                        <?php if (substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'jpg' or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'png'  or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -4) == 'jpeg') { ?>
+                                            <button type="button" aux="<?= '../../archives/' . $idUsuario . '/' . $fecha_actual . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" observacion="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
+                                                VER IMAGEN
+                                            </button>
+                                        <?php } else { ?>
+                                            <a href="<?= '../../archives/' . $idUsuario . '/' . $fecha_actual . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>"> <i class="mdi mdi-arrow-down-bold-circle-outline"></i>ARCHIVO</a>
                                         <?php } ?>
-
-                                    </div>
-
+                                    <?php } ?>
                                 </td>
                                 <td>
-                                    <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" 
-                                    param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>" 
-                                    param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" 
-                                    param1id="<?= $detalleReporte->vistadetallReporte[$valor]['idBiologicos'] ?>" 
-                                    param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" 
-                                    param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" 
-                                    param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" 
-                                    param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" 
-                                    param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" 
-                                    param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" 
-                                    param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote'] ?>" 
-                                    param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" 
-                                    param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" 
-                                    param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
-                                    <a class="btneliminar" href="../../Functions/DeleteDetalleReporte.php?id=<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" onclick="return confirm('DESEA ELIMINAR?')"><img src="../assets/bootstrap-icons-1.10.1/trash.svg"></a>
+                                    <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>" param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" param1id="<?= $detalleReporte->vistadetallReporte[$valor]['idBiologicos'] ?>" param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote'] ?>" param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm">
+                                        <i class="mdi mdi-grease-pencil"></i>
+                                    </a>
+
+                                    <a class="btneliminar" href="../../Functions/DeleteDetalleReporte.php?id=<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" onclick="return confirm('DESEA ELIMINAR?')">
+                                        <i class="mdi mdi-delete-forever"></i></a>
                                 </td>
                             </tr>
                         <?php } ?>

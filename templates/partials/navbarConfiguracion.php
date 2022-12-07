@@ -62,7 +62,7 @@
                     <ul class="nav flex-column sub-menu">
                             
                             <li class="nav-item"> <a class="nav-link" href="../configuracion/vistasAllReportes.php">Reportes De Establecimientos</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="">Modificar Anuncio</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="../configuracion/editaranuncio.php">Modificar Anuncio</a></li>
                             <?php if ($_SESSION['myuser_obj']->getRol() == 3 ) { ?>
                             <li class="nav-item"> <a class="nav-link" href="../configuracion/registrarBiologicos.php">Registrar Biologico</a></li>
                             <li class="nav-item"> <a class="nav-link" href="../configuracion/cambiarContraseñas.php">Cambiar Contraseña</a></li>

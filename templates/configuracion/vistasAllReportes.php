@@ -53,25 +53,33 @@ $_SESSION['myuser_obj']->getRol() == 3 or $_SESSION['myuser_obj']->getRol() == 1
             </div>
 
 
-            <div>
-                <label class="form-label">Buscar Reporte De Establecimiento : </label>
-                <select class="comboboxReportes" name="nombreEstablecimiento" id="nombreEstablecimiento">
-                    <?php foreach ($detalleReporte->lista as $valor => $value) { ?>
-                        <option class="opcion">
-                            <?= $detalleReporte->lista[$valor]['UsuariosDescEstablecimiento'] ?></option>
-                    <?php } ?>
-                </select>
+            <div class="conteiner-selects">
+                <div class="conteiner-cajas">
+                    <label class="form-label">Buscar Reporte De Establecimiento : </label>
+                    <select class="comboboxReportes" name="nombreEstablecimiento" id="nombreEstablecimiento">
+                        <?php foreach ($detalleReporte->lista as $valor => $value) { ?>
+                            <option class="opcion">
+                                <?= $detalleReporte->lista[$valor]['UsuariosDescEstablecimiento'] ?></option>
+                        <?php } ?>
+                    </select>
+
+                </div>
+                <div class="conteiner-cajas2">
+                    <label class="form-label">Fecha Cierre :</label>
+                    <input type="text" id='fechas' placeholder="Ejemplo: 2022-10-12">
+                    <div class="validarErrores" id="MensajeError1">Selecciona un Fecha Mostrada</div>
+
+                </div>
+                <div class="conteiner-cajas3">
+                    <button class="descargar" id="dowloadexcel">
+                        Descargar Vista en Excel
+                    </button>
+                </div>
+
             </div>
-            <div>
-                <label class="form-label">Fecha Cierre :</label>
-                <input type="text" id='fechas' placeholder="Ejemplo: 2022-10-12">
-                <div class="validarErrores" id="MensajeError1">Selecciona un Fecha Mostrada</div>
-                <button class="descargar" id="dowloadexcel">
-                    Descargar Vista en Excel
-                </button>
-            </div>
+
             <div class="tablefix">
-                <table class="datosreporte">
+                <table class="datosreporte" id="example-table">
                     <thead class="table-fixed">
                         <tr class="fil_1">
                             <th class="celeste" scope="rowgroup" rowspan="3">CODIGO</th>
@@ -94,7 +102,7 @@ $_SESSION['myuser_obj']->getRol() == 3 or $_SESSION['myuser_obj']->getRol() == 1
 
                             <th class="verde" scope="colgroup" colspan="2">INTERVENCION SANITARIA</th>
 
-                            <th class="verde"  class="col_2">OTRAS SALIDAS</th>
+                            <th class="verde" class="col_2">OTRAS SALIDAS</th>
 
                             <th class="verde" scope="rowgroup" rowspan="2">Total salidas (frascos)</th>
 

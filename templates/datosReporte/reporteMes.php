@@ -27,6 +27,7 @@ foreach($detalleReporte->lista as $valor=>$value){
     $arrayUltimaFilaExpiracion[$valor]=$detalleReporte->ultimo['ReportesExpiracionBiologico'];
     $arrayUltimaFilaObservacion[$valor]=$detalleReporte->ultimo['ReporteObservaciones'];
     $arrayUltimaFilaArchivo[$valor]=$detalleReporte->ultimo['ReportesArchivo'];
+    $arrayUltimaFecha[$valor]=$detalleReporte->ultimo['fecha'];
 }
 
 $habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detalleReporte->reporte['ReporteApertura']>$fecha_actual ? FALSE :TRUE ) : TRUE;
@@ -162,11 +163,11 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                                             
 
                                             <?php if (substr($arrayUltimaFilaArchivo[$valor], -3) == 'jpg' or substr($arrayUltimaFilaArchivo[$valor], -3) == 'png'  or substr($arrayUltimaFilaArchivo[$valor], -4) == 'jpeg') { ?>
-                                                <button type="button"  aux="<?= '../../archives/'.$idUsuario.'/'.$fecha_actual.'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$arrayUltimaFilaArchivo[$valor] ?>"   observacion="<?= $arrayUltimaFilaObservacion[$valor] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
+                                                <button type="button"  aux="<?= '../../archives/'.$idUsuario.'/'.$arrayUltimaFecha[$valor].'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$arrayUltimaFilaArchivo[$valor] ?>"   observacion="<?= $arrayUltimaFilaObservacion[$valor] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
                                                     Ver Imagen
                                                 </button>
                                             <?php }else { ?>
-                                                <a href="<?= '../../archives/'.$idUsuario.'/'.$fecha_actual.'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$arrayUltimaFilaArchivo[$valor] ?>" download="<?= $arrayUltimaFilaArchivo[$valor]?>">descargar archivo</a>
+                                                <a href="<?= '../../archives/'.$idUsuario.'/'.$arrayUltimaFecha[$valor].'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$arrayUltimaFilaArchivo[$valor] ?>" download="<?= $arrayUltimaFilaArchivo[$valor]?>">descargar archivo</a>
                                             <?php } ?>
                                         <?php } ?>
 
