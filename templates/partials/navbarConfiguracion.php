@@ -61,12 +61,12 @@
                 <div class="collapse" id="ui-basic">
                     <ul class="nav flex-column sub-menu">
                             
-                            <li><i class="nav-item"> <a class="nav-link" href="../configuracion/vistasAllReportes.php">Reportes De Establecimientos</a></li>
-                            <li><i  class="nav-item"></i><a class="nav-link" href="">Modificar Anuncio</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="../configuracion/vistasAllReportes.php">Reportes De Establecimientos</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="">Modificar Anuncio</a></li>
                             <?php if ($_SESSION['myuser_obj']->getRol() == 3 ) { ?>
-                            <li><i class="nav-item"> <a class="nav-link" href="../configuracion/registrarBiologicos.php">Registrar Biologico</a></li>
-                            <li><i  class="nav-item"></i><a class="nav-link" href="../configuracion/cambiarContraseñas.php">Cambiar Contraseña</a></li>
-                            <li><i  class="nav-item"></i><a class="nav-link" href="../configuracion/HabilitarEditarReporte.php">Habilitar Editar a Reporte</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="../configuracion/registrarBiologicos.php">Registrar Biologico</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="../configuracion/cambiarContraseñas.php">Cambiar Contraseña</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="../configuracion/HabilitarEditarReporte.php">Habilitar Editar a Reporte</a></li>
                             <?php } ?>
                             
                     </ul>

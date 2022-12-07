@@ -3121,8 +3121,7 @@ textarea.form-control-lg {
 
 .navbar-nav-scroll {
   max-height: var(--bs-scroll-height, 75vh);
-  overflow-y: auto; 
-  overflow-x: auto;}
+  overflow-y: auto; }
 
 @media (min-width: 576px) {
   .navbar-expand-sm {
@@ -4395,7 +4394,7 @@ textarea.form-control-lg {
 .toast-body {
   padding: 0.75rem;
   word-wrap: break-word; }
-
+  /*
 .modal {
   position: fixed;
   top: 0;
@@ -4650,7 +4649,7 @@ textarea.form-control-lg {
       overflow-y: auto; }
     .modal-fullscreen-xxl-down .modal-footer {
       border-radius: 0; } }
-
+*/
 .tooltip {
   position: absolute;
   z-index: 1080;

@@ -31,7 +31,7 @@ $_SESSION['myuser_obj']->getRol() == 3 ? null : header('Location: ../../index.ph
     <body>
 
         <?php require '../partials/navbarConfiguracion.php' ?>
-        <div class="main-panel position-relative">
+        <div class="main-panel navbar-nav-scroll">
             
             <form class="translate-">
                 

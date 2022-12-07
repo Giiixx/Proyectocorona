@@ -1,77 +1,314 @@
-
-.conteiner-tabla{
-    width: 95%;
-}
-table{
-    background-color: white;
-    text-align: left;
-    border-collapse: collapse   ;
-}
-th,td{
-    border: solid 1px black;
+th,
+td {
+    border: solid 2px black;
     padding: 0px 5px 0px 5px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
 }
-thead{
-    border-bottom: solid 5px white;
-}
-table tbody tr:nth-child(even){
+
+
+table tbody tr:nth-child(even) {
     background-color: rgb(243, 239, 239);
 }
 
-table tbody tr:hover{
+table tbody tr:hover {
     background-color: rgb(208, 243, 248);
 }
-.fil1{
+/****************************BIOLOGICOS CATEGORIA COLOR*************************************************/
+
+.fil1 {
     background-color: #FFE699;
-}   
-.fil2{
+}
+
+.fil2 {
     background-color: #DDEBF7;
-}   
-.fil3{
+}
+
+.fil3 {
     background-color: #E2EFDA;
 }
-.fil4{
+
+.fil4 {
     background-color: #D9D9D9;
 }
 
+/*****************************************************************************/
 
-.datosreporte{
+.tablefix {
+    width: 100%;
+    height: 10vh;
+
+}
+
+.table-fixed {
+    position: sticky;
+    top: 0px;
+}
+
+.datosreporte {
     margin: 1% 5% 1% 5%;
-}   
+}
 
-.contenedor_add{
+.contenedor_add {
     padding-left: 8%;
     padding-top: 1%;
 
 }
-.comboboxRegistrar,.comboboxRegistrar1{
+
+.comboboxRegistrar{
     width: 100%;
 }
 
-.display{
-    pointer-events:none;
+.display {
+    pointer-events: none;
     background: rgb(161, 160, 161);
 }
+
 .formularioRegistrar div input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-.validarErrores{
+
+.validarErrores {
     background: red;
     position: absolute;
     display: none;
 }
-.ui-autocomplete { 
-    position: absolute; 
-    z-index: 2150000000 !important; 
-    cursor: default; 
-    border: 2px solid #ccc; 
-    padding: 5px 0; 
-    border-radius: 2px; 
+
+.ui-autocomplete {
+    position: absolute;
+    z-index: 2150000000 !important;
+    cursor: default;
+    border: 2px solid #ccc;
+    padding: 5px 0;
+    border-radius: 2px;
 }
-#lote,#lote1{
+
+#lote,
+#lote1 {
     text-transform: uppercase;
 }
 
+.rosa {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffdeea+0,ffffff+46,ffffff+46,ffdeea+100 */
+    background: #ffdeea;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #ffdeea 0%, #ffffff 46%, #ffffff 46%, #ffdeea 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #ffdeea 0%, #ffffff 46%, #ffffff 46%, #ffdeea 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #ffdeea 0%, #ffffff 46%, #ffffff 46%, #ffdeea 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdeea', endColorstr='#ffdeea', GradientType=0);
+    /* IE6-9 */
 
+}
+
+.verde {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#b1caca+0,d6d6d6+50,b1caca+100,b1caca+100 */
+    background: #b1caca;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #b1caca 0%, #d6d6d6 50%, #b1caca 100%, #b1caca 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #b1caca 0%, #d6d6d6 50%, #b1caca 100%, #b1caca 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #b1caca 0%, #d6d6d6 50%, #b1caca 100%, #b1caca 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b1caca', endColorstr='#b1caca', GradientType=0);
+    /* IE6-9 */
+
+}
+
+.morado {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#4f4f9d+0,f7f7f7+51,ffffff+51,4f4f9d+100,b1caca+100 */
+    background: #4f4f9d;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #4f4f9d 0%, #f7f7f7 51%, #ffffff 51%, #4f4f9d 100%, #b1caca 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #4f4f9d 0%, #f7f7f7 51%, #ffffff 51%, #4f4f9d 100%, #b1caca 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #4f4f9d 0%, #f7f7f7 51%, #ffffff 51%, #4f4f9d 100%, #b1caca 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4f4f9d', endColorstr='#b1caca', GradientType=0);
+    /* IE6-9 */
+}
+
+.celeste {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#3499b3+0,ffffff+46,ffffff+46,3499b3+100 */
+    background: #3499b3;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #3499b3 0%, #ffffff 46%, #ffffff 46%, #3499b3 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #3499b3 0%, #ffffff 46%, #ffffff 46%, #3499b3 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #3499b3 0%, #ffffff 46%, #ffffff 46%, #3499b3 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3499b3', endColorstr='#3499b3', GradientType=0);
+    /* IE6-9 */
+
+}
+
+
+/*******************************************botones*******************************************************************/
+a.ref {
+    background: linear-gradient(to right, #3499b3, #4f4f9d);
+    background-color: #3499b3;
+    color: #fff;
+    font-family: Tahoma;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    text-decoration: none;
+    padding: 15px 15px;
+    border: 0px solid #000;
+    border-radius: 11px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a.ref span {
+    margin-right: 15px;
+    display: block;
+    width: 28px;
+    height: 28px;
+    background-image: url(../images/medicina.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(0deg);
+}
+
+a.ref:hover {
+    background: linear-gradient(to right, #5fa6bc, #6e6ea9);
+    background-color: #5fa6bc;
+}
+
+a.ref:active {
+    transform: scale(0.95);
+}
+
+a.cierre {
+    background: linear-gradient(to right, #3499b3, #4f4f9d);
+    background-color: #3499b3;
+    color: #fff;
+    font-family: Tahoma;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    padding: 15px 15px;
+    border: 0px solid #000;
+    border-radius: 11px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-cierre {
+    padding-left: 70px;
+}
+
+a.cierre span {
+    margin-right: 15px;
+    display: block;
+    width: 28px;
+    height: 28px;
+    background-image: url(../images/cierre-mensual.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(0deg);
+}
+
+a.cierre:hover {
+    background: linear-gradient(to right, #5fa6bc, #6e6ea9);
+    background-color: #5fa6bc;
+}
+
+a.cierre:active {
+    transform: scale(0.95);
+}
+
+
+button.agregar {
+    background: linear-gradient(to right, #3499b3, #4f4f9d);
+    background-color: #3499b3;
+    color: #fff;
+    font-family: Tahoma;
+    font-size: 17px;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    padding: 9px 13px;
+    border: 0px solid #000;
+    border-radius: 11px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.agregar span {
+    margin-right: 2px;
+    display: block;
+    width: 25px;
+    height: 25px;
+    background-image: url(../images/marca-de-verificacion.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(0deg);
+}
+
+button.agregar:hover {
+    background: linear-gradient(to right, #5fa6bc, #6e6ea9);
+    background-color: #5fa6bc;
+}
+
+button.agregar:active {
+    transform: scale(0.95);
+}
+
+
+button.descargar {
+    background: linear-gradient(to right, #3499b3, #4f4f9d);
+    background-color: #3499b3;
+    color: #fff;
+    font-family: Tahoma;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    padding: 11px 12px;
+    border: 0px solid #000;
+    border-radius: 11px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.descargar span {
+    margin-right: 12px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-image: url(../images/dowload.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(0deg);
+}
+
+button.descargar:hover {
+    background: linear-gradient(to right, #5fa6bc, #6e6ea9);
+    background-color: #5fa6bc;
+}
+
+button.descargar:active {
+    transform: scale(0.95);
+}
+
+.buscar-descargar {
+    padding-bottom: 5px;
+}
+
+
+/**********************************************************************************************************************/

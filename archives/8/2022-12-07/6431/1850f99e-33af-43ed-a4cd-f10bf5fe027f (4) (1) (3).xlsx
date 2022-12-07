@@ -1,0 +1,198 @@
+<br />
+<b>Warning</b>:  Trying to access array offset on value of type bool in <b>C:\xampp\htdocs\public_html\templates\vistas\vistaReporteMes.php</b> on line <b>22</b><br />
+<br />
+<b>Warning</b>:  Trying to access array offset on value of type bool in <b>C:\xampp\htdocs\public_html\templates\vistas\vistaReporteMes.php</b> on line <b>24</b><br />
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/css/dash.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/jquery-ui.css">
+    
+    
+    <title>Reporte Diario</title>
+    </head>
+
+    <body>
+
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../assets/images/logo.jpg" alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../assets/images/logo-mini.jpg" alt="logo" /></a>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+        </button>
+        <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="nav-profile-img">
+                        <img src="../assets/images/enfermera.png" alt="image">
+                        <span class="availability-status online"></span>
+                    </div>
+                    <div class="nav-profile-text">
+                        <p class="mb-1 text-black">SANTA ROSA</p>
+                    </div>
+                </a>
+                <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                                        <a class="dropdown-item" href="../../Functions/sesion/logout.php">
+                        <i class="mdi mdi-logout me-2 "></i> Cerrar Sesion </a>
+                </div>
+            </li>
+
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                <span class="mdi mdi-menu"></span>
+            </button>
+    </div>
+</nav>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_sidebar.html -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item nav-profile">
+                <a href="#" class="nav-link">
+                    <div class="nav-profile-image">
+                        <img src="../assets/images/enfermera.png" alt="profile">
+                        <span class="login-status online"></span>
+                        <!--change to offline or busy as needed-->
+                    </div>
+                    <div class="nav-profile-text d-flex flex-column">
+                        <span class="font-weight-bold mb-2">SANTA ROSA</span>
+                    </div>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Reporte</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                                                    <li class="nav-item"><a class="nav-link" href="../datosReporte/reporteMes.php">Reportes Mensual</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../datosReporte/reporteDiario.php">Reporte Diario</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
+                                                                        </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+                    <span class="menu-title">Ver Reportes</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="general-pages">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="../vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../vistas/vistaReporteMes.php">Vista Reportes Mensuales</a></li>
+                    </ul>
+                </div>
+            </li>
+
+
+        </ul>
+    </nav>        <div class="main-panel">
+            <!-- Modal Archivo -->
+            <div class="modal fade" id="modalArchivo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Observaciones</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img id ="imagenmodal" src="" alt="">
+                            <p id="parrafo" ></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <label class="form-label">Buscar Reporte por Fecha</label>
+                <select class="comboboxReportesMes" name="reporteMes" id="reporteMes">
+                                            <option class="opcion">
+
+                            Reporte P.S. SANTA ROSA-Cierre 2022-12-06                        
+                        </option>
+                                    </select>
+            </div>
+            <div>
+                <table >
+                    <thead>
+                        <tr class="fil_1">
+                            <th scope="rowgroup" rowspan="3">CODIGO</th>
+                            <th class="inmovil" scope="rowgroup" rowspan="3">DESCRIPCION</th>
+                            <th scope="rowgroup" rowspan="3">UNIDAD DE MEDIDA</th>
+                            <th scope="colgroup" colspan="4">INGRESO</th>
+
+                            <th scope="colgroup" colspan="4">SALIDAS</th>
+
+                            <th scope="colgroup" colspan="3">DISPONIBLE</th>
+
+                            <th scope="rowgroup" rowspan="3">Requerimiento mes</th>
+                            <th scope="rowgroup" rowspan="3">Observaciones</th>
+                        </tr>
+                        <tr class="fil_2">
+                            <th scope="rowgroup" rowspan="2">Saldo anterior (frascos)</th>
+                            <th scope="rowgroup" rowspan="2">Ingresos (frascos)</th>
+                            <th scope="rowgroup" rowspan="2">Ingresos adicionales (frascos)</th>
+                            <th scope="rowgroup" rowspan="2">Total (Saldo + Ingreso) (frascos)</th>
+
+                            <th scope="colgroup" colspan="2">INTERVENCION SANITARIA</th>
+
+                            <th style="width:8%" class="col_2">OTRAS SALIDAS</th>
+
+                            <th scope="rowgroup" rowspan="2">Total salidas (frascos)</th>
+
+                            <th scope="rowgroup" rowspan="2">Saldo disponible (frascos) </th>
+                            <th scope="rowgroup" rowspan="2">Fecha de expiracion mas proxima</th>
+                            <th scope="rowgroup" rowspan="2">Lote</th>
+                        </tr>
+                        <tr class="fil_3">
+                            <th>FCO (d)</th>
+                            <th>Dosis</th>
+                            <th>TRANSFE./DEVOLUCION frascos (e)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="datosreportmes" id="datosreportmes" name="datosreportmes">
+                        
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        </div>
+        
+        <script src="../assets/js/vendor.bundle.base.js"></script>
+        <script src="../assets/js/off-canvas.js"></script>
+        <script src="../assets/js/hoverable-collapse.js"></script>
+        <script src="../assets/js/misc.js"></script>    
+        <script src="../assets/js/scripts.js"></script>
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/jquery-ui.js"></script>
+        <script src="../assets/js/vistaReporteMes.js"></script>
+        <script src="../assets/js/archivos.js"></script>
+
+
+        </body>
+
+    </html>

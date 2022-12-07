@@ -103,7 +103,7 @@ foreach ($editarstockVista->vistadetallReporte as $valor => $value){
 }
 
 if(!isset($lote->lote['LotesDescripcion'])){
-    $lote->IngresarLotes($conn,$_POST['lote1']);
+    $lote->IngresarLotes($conn,strtoupper($_POST['lote1']));
 }
 $_POST['expiracion1'] = $_POST['expiracion1']=="" ? "0000-00-00" : $_POST['expiracion1'];
 /***********************************************************************************************************************************************/
@@ -118,7 +118,7 @@ $_POST['frascoabierto1'],
 $_POST['dosis1'],
 $_POST['devolucion1'],
 $_POST['expiracion1'],
-$_POST['lote'] !="" ? strtoupper($_POST['lote1']):null,
+$_POST['lote1'] !="" ? strtoupper($_POST['lote1']):null,
 $_POST['requerimientos1'],
 $_POST['observaciones1'],
 $nombre_img,

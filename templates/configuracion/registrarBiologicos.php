@@ -33,7 +33,7 @@ $_SESSION['myuser_obj']->getRol() == 3 ? null : header('Location: ../../index.ph
     <body>
 
         <?php require '../partials/navbarConfiguracion.php' ?>
-        <div class="main-panel">
+        <div class="main-panel navbar-nav-scroll">
             <div class="contenedor_add">
                 <button class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
             </div>

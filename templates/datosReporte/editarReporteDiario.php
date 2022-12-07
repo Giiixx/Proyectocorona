@@ -21,7 +21,7 @@ $detalleReporte->SearchReporteDiaAnterior($conn, $_SESSION["myuser_obj"]->getId(
 $habilitar = $detalleReporte->SearchReporteByIdBool($conn, $idUsuario) ? ($detalleReporte->reporte['ReporteApertura'] > $fecha_actual ? FALSE : TRUE) : TRUE;
 $habilitar ?  header('Location:') : header('Location:../../index.php');
 
-$detalleReporte->SearchDetallesReporteHabilitados($conn,$_SESSION["myuser_obj"]->getId(),$detalleReporte->reporte['idReporte']);
+$detalleReporte->SearchDetallesReporteHabilitados($conn, $_SESSION["myuser_obj"]->getId(), $detalleReporte->reporte['idReporte']);
 $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
 
 ?>
@@ -36,7 +36,7 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
     <body>
 
         <?php require '../partials/navbar.php' ?>
-        <div class="main-panel">
+        <div class="main-panel  navbar-nav-scroll">
             <!-- Modal Editar -->
             <div class="modal fade me_1" id="modalEditForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog m_2">
@@ -47,7 +47,7 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                         </div>
                         <div class="modal-body m_4_1">
                             <form action="../../Functions/EditDetalleReporte.php" method="post" enctype="multipart/form-data">
-                                <input type="hidden" value="2" id="pagina" name="pagina" >
+                                <input type="hidden" value="2" id="pagina" name="pagina">
                                 <input type="hidden" id="idEditarDetalles" name="idEditarDetalles" />
                                 <div class="mb-3">
                                     <label name="DetalleBiologico1" id="DetalleBiologico1">Descripcion Biologico</label>
@@ -129,129 +129,142 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img id ="imagenmodal" src="" alt="">
-                            <p id="parrafo" ></p>
+                            <img id="imagenmodal" src="" alt="">
+                            <p id="parrafo"></p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            </div>      
-            <div>
+            </div>
+            <div class="tablefix">
                 <table class="datosreporte">
-                    <thead>
+                    <thead class="table-fixed">
                         <tr class="fil_1">
-                            <th scope="rowgroup" rowspan="3">CODIGO</th>
-                            <th class="inmovil" scope="rowgroup" rowspan="3">DESCRIPCION</th>
-                            <th scope="rowgroup" rowspan="3">UNIDAD DE MEDIDA</th>
-                            <th scope="colgroup" colspan="4">INGRESO</th>
+                            <th class="celeste" scope="rowgroup" rowspan="3">CODIGO</th>
+                            <th class="inmovil celeste" scope="rowgroup" rowspan="3">DESCRIPCION</th>
+                            <th class="celeste" scope="rowgroup" rowspan="3">UNIDAD DE MEDIDA</th>
+                            <th class="rosa" scope="colgroup" colspan="4">INGRESO</th>
 
-                            <th scope="colgroup" colspan="4">SALIDAS</th>
+                            <th class="verde" scope="colgroup" colspan="4">SALIDAS</th>
 
-                            <th scope="colgroup" colspan="3">DISPONIBLE</th>
+                            <th class="morado" scope="colgroup" colspan="3">DISPONIBLE</th>
 
-                            <th scope="rowgroup" rowspan="3">Requerimiento mes</th>
-                            <th scope="rowgroup" rowspan="3">Observaciones</th>
-                            <th scope="rowgroup" rowspan="3">Acciones</th>
+                            <th class="celeste" scope="rowgroup" rowspan="3">Requerimiento mes</th>
+                            <th class="celeste" scope="rowgroup" rowspan="3">Observaciones</th>
+                            <th class="celeste" scope="rowgroup" rowspan="3">Acciones</th>
                         </tr>
                         <tr class="fil_2">
-                            <th scope="rowgroup" rowspan="2">Saldo anterior (frascos)</th>
-                            <th scope="rowgroup" rowspan="2">Ingresos (frascos)</th>
-                            <th scope="rowgroup" rowspan="2">Ingresos adicionales (frascos)</th>
-                            <th scope="rowgroup" rowspan="2">Total (Saldo + Ingreso) (frascos)</th>
+                            <th class="rosa" scope="rowgroup" rowspan="2">Saldo anterior (frascos)</th>
+                            <th class="rosa" scope="rowgroup" rowspan="2">Ingresos (frascos)</th>
+                            <th class="rosa" scope="rowgroup" rowspan="2">Ingresos adicionales (frascos)</th>
+                            <th class="rosa" scope="rowgroup" rowspan="2">Total (Saldo + Ingreso) (frascos)</th>
 
-                            <th scope="colgroup" colspan="2">INTERVENCION SANITARIA</th>
+                            <th class="verde" scope="colgroup" colspan="2">INTERVENCION SANITARIA</th>
 
-                            <th style="width:8%" class="col_2">OTRAS SALIDAS</th>
+                            <th class="verde"  class="col_2">OTRAS SALIDAS</th>
 
-                            <th scope="rowgroup" rowspan="2">Total salidas (frascos)</th>
+                            <th class="verde" scope="rowgroup" rowspan="2">Total salidas (frascos)</th>
 
-                            <th scope="rowgroup" rowspan="2">Saldo disponible (frascos) </th>
-                            <th scope="rowgroup" rowspan="2">Fecha de expiracion mas proxima</th>
-                            <th scope="rowgroup" rowspan="2">Lote</th>
+                            <th class="morado" scope="rowgroup" rowspan="2">Saldo disponible (frascos) </th>
+                            <th class="morado" scope="rowgroup" rowspan="2">Fecha de expiracion mas proxima</th>
+                            <th class="morado" scope="rowgroup" rowspan="2">Lote</th>
                         </tr>
                         <tr class="fil_3">
-                            <th>FCO (d)</th>
-                            <th>Dosis</th>
-                            <th>TRANSFE./DEVOLUCION frascos (e)</th>
+                            <th class="verde">FCO (d)</th>
+                            <th class="verde">Dosis</th>
+                            <th class="verde">TRANSFE./DEVOLUCION frascos (e)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($detalleReporte->vistadetallReporte as $valor => $value) { ?>
                             <tr>
-                                <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>" >
+                                <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'];
                                     ?>
                                 </td>
                                 <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>
-                                </td  >
+                                </td>
                                 <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosUnidad'] ?>
-                                </td >
-                                <td >
+                                </td>
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>
                                 </td>
-                                <td >
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>
                                 </td>
-                                <td >
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
                                 </td>
-                                <td >
+                                <td>
                                     <?php $aux = $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
 
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
 
                                 </td>
-                                <td >
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>
                                 </td>
-                                <td >
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>
                                 </td>
-                                <td >
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>
                                 </td>
-                                <td >
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>
                                 </td>
                                 <td>
                                     <?php echo $aux - ($detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']) ?>
                                 </td>
-                                <td >
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>
                                 </td>
-                                <td >
-
+                                <td>
+                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesLote']?>
                                 </td>
-                                <td >
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>
                                 </td>
-                                <td >
-                                <div class="contenedorObservaciones">
+                                <td>
+                                    <div class="contenedorObservaciones">
                                         <div>
                                             <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>
                                         </div>
 
                                         <?php if ($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] != '') { ?>
-                                            
+
 
                                             <?php if (substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'jpg' or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'png'  or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -4) == 'jpeg') { ?>
-                                                <button type="button"  aux="<?= '../../archives/'.$idUsuario.'/'.$detalleReporte->vistadetallReporte[$valor]['fecha'].'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>"   observacion="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
+                                                <button type="button" aux="<?= '../../archives/' . $idUsuario . '/' . $detalleReporte->vistadetallReporte[$valor]['fecha'] . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" observacion="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
                                                     Ver Imagen
                                                 </button>
-                                            <?php }else { ?>
-                                                <a href="<?= '../../archives/'.$idUsuario.'/'.$detalleReporte->vistadetallReporte[$valor]['fecha'].'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo']?>">descargar archivo</a>
+                                            <?php } else { ?>
+                                                <a href="<?= '../../archives/' . $idUsuario . '/' . $detalleReporte->vistadetallReporte[$valor]['fecha'] . '/' . $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'] . '/' . $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>">descargar archivo</a>
                                             <?php } ?>
                                         <?php } ?>
 
                                     </div>
                                 </td>
-                                <td >
-                                    <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>" param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" param1id="<?= $detalleReporte->vistadetallReporte[$valor]['idBiologicos'] ?>"  param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
-                                
+                                <td>
+                                    <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" 
+                                    param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>" 
+                                    param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" 
+                                    param1id="<?= $detalleReporte->vistadetallReporte[$valor]['idBiologicos'] ?>" 
+                                    param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" 
+                                    param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" 
+                                    param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" 
+                                    param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" 
+                                    param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" 
+                                    param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" 
+                                    param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote'] ?>" 
+                                    param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" 
+                                    param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" 
+                                    param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+
                                 </td>
                             </tr>
                         <?php } ?>
@@ -263,7 +276,7 @@ $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
         </div>
         </div>
 
-        
+
         <script src="../assets/js/vendor.bundle.base.js"></script>
         <script src="../assets/js/off-canvas.js"></script>
         <script src="../assets/js/hoverable-collapse.js"></script>
