@@ -5,7 +5,7 @@ function confirm_password($username, $password, $conn){
     $consult->execute();
     $result = $consult->fetch(PDO::FETCH_ASSOC);
     //syprimir
-
+/*
     if(($password == $result['UsuariosPassword'])){
         $resultado['idUsuarios'] = $result['idEstablecimiento'];
         $resultado['confirmacion'] = TRUE;
@@ -15,11 +15,10 @@ function confirm_password($username, $password, $conn){
         $resultado['confirmacion'] = FALSE;
         return $resultado;
     }
-    /*
-    echo $result['UsuariosContraseña'];
+    */
 
-    if(password_verify($password, $result['UsuariosContraseña'])){
-        $resultado['idUsuarios'] = $result['idUsuarios'];
+    if(password_verify($password, $result['UsuariosPassword'])){
+        $resultado['idUsuarios'] = $result['idEstablecimiento'];
         $resultado['confirmacion'] = TRUE;
         return $resultado;
     } else {
@@ -27,6 +26,6 @@ function confirm_password($username, $password, $conn){
         $resultado['confirmacion'] = FALSE;
         return $resultado;
     }
-    */
+    
 }
 ?>

@@ -1,7 +1,7 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href=""><img src="../assets/images/logo.jpg" alt="logo" /></a>
-        <a class="navbar-brand brand-logo-mini" href=""><img src="../assets/images/logo-mini.jpg" alt="logo" /></a>
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../assets/images/logo.jpg" alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../assets/images/logo-mini.jpg" alt="logo" /></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -19,11 +19,13 @@
                     </div>
                 </a>
                 <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="#">
-                        <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
+                    <?php if ($_SESSION['myuser_obj']->getRol() == 1) { ?>
+                        <a class="dropdown-item" href="../configuracion/vistasAllReportes.php">
+                        <i class="mdi mdi-cached me-2 "></i> Configuracion </a>
                     <div class="dropdown-divider"></div>
+                    <?php } ?>
                     <a class="dropdown-item" href="../../Functions/sesion/logout.php">
-                        <i class="mdi mdi-logout me-2 text-primary"></i> Cerrar Sesion </a>
+                        <i class="mdi mdi-logout me-2 "></i> Cerrar Sesion </a>
                 </div>
             </li>
 
@@ -59,9 +61,12 @@
                 <div class="collapse" id="ui-basic">
                     <ul class="nav flex-column sub-menu">
                         <?php if ($habilitar) { ?>
-                            <li><i class="nav-item"> <a class="nav-link" href="../datosReporte/reporteMes.php">Reportes Mensual</a></li>
-                            <li><i class="nav-item"></i><a class="nav-link" href="../datosReporte/reporteDiario.php">Reporte Diario</a></li>
-                            <li><i class="nav-item"></i><a class="nav-link" href="../datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../datosReporte/reporteMes.php">Reportes Mensual</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../datosReporte/reporteDiario.php">Reporte Diario</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
+                            <?php if ($habilitar2) { ?>
+                                <li class="nav-item"><a class="nav-link" href="../datosReporte/editarReporteHabilitado.php">Editar Reportes Habilitado</a></li>
+                            <?php } ?>
                         <?php } ?>
                     </ul>
                 </div>
@@ -75,8 +80,8 @@
                 </a>
                 <div class="collapse" id="general-pages">
                     <ul class="nav flex-column sub-menu">
-                        <li><i class="nav-item"> <a class="nav-link" href="../vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
-                        <li><i class="nav-item"> <a class="nav-link" href="../vistas/vistaReporteMes.php">Vista Reportes Mensuales</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../vistas/vistaReporteMes.php">Vista Reportes Mensuales</a></li>
                     </ul>
                 </div>
             </li>

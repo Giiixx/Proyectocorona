@@ -20,6 +20,10 @@ $listaFechas->ListaFechasUsuario($conn, $idUsuario);
 $detalleReporte->SearchReporteFechaByUsuario($conn,$idUsuario,$fecha_actual);
 $detalleReporte->SearchReporteById($conn, $idUsuario);
 $habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detalleReporte->reporte['ReporteApertura']>$fecha_actual ? FALSE :TRUE ) : TRUE;
+
+$detalleReporte->SearchDetallesReporteHabilitados($conn,$_SESSION["myuser_obj"]->getId(),$detalleReporte->reporte['idReporte']);
+$habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
+
 ?>
 
 
@@ -34,44 +38,26 @@ $habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detall
         <?php require '../partials/navbar.php' ?>
         <div class="main-panel">
 
-            <!-- 
-            <div class="contenedor_add">
-                <button class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
-            </div>
-            Modal Registrar 
-            <div class="modal fade m_1" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog m_2">
-                    <div class="modal-content m_3">
-                        <div class="modal-header m_4">
-                            <h5 class="modal-title" id="exampleModalLabel">Registrar nueva Biologico</h5>
+            <!-- Modal Archivo -->
+            <div class="modal fade" id="modalArchivo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Observaciones</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body m_4_1">
-                            <form class="formularioRegistrar" action="../../Functions/AddDetalleReporte.php" method="post" enctype="multipart/form-data">
-
-                            </form>
+                        <div class="modal-body">
+                            <img id ="imagenmodal" src="" alt="">
+                            <p id="parrafo" ></p>
                         </div>
-                    </div>
-                </div>
-            </div>
-            Modal Editar 
-            <div class="modal fade me_1" id="modalEditForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog m_2">
-                    <div class="modal-content m_3">
-                        <div class="modal-header m_4">
-                            <h5 class="modal-title" id="exampleModalLabel">Editar Biologico</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body m_4_1">
-                            <form action="../../Functions/EditDetalleReporte.php" method="post">
-                            </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             
-            -->
             <div>
                 <label class="form-label">Buscar Reporte por Fecha</label>
                 <select class="comboboxFecha" name="ReporteDiario" id="ReporteDiario">
@@ -96,7 +82,6 @@ $habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detall
 
                             <th scope="rowgroup" rowspan="3">Requerimiento mes</th>
                             <th scope="rowgroup" rowspan="3">Observaciones</th>
-                            <th scope="rowgroup" rowspan="3">Archivos</th>
                         </tr>
                         <tr class="fil_2">
                             <th scope="rowgroup" rowspan="2">Saldo anterior (frascos)</th>
@@ -122,6 +107,7 @@ $habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detall
                     </thead>
                     <tbody class="datosreportediario" id="datosreportediario" name="datosreportediario">
                         
+                        
 
                     </tbody>
                 </table>
@@ -137,6 +123,7 @@ $habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detall
         <script src="../assets/js/jquery.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
         <script src="../assets/js/vistaReporteDiario.js"></script>
+        <script src="../assets/js/archivos.js"></script>
 
     <?php endif; ?>
     </body>

@@ -26,11 +26,14 @@ foreach($detalleReporte->lista as $valor=>$value){
     $detalleReporte->UltimaFechaAndObservacion($conn,$nombreBiologico,$idReporte,$idUsuario);
     $arrayUltimaFilaExpiracion[$valor]=$detalleReporte->ultimo['ReportesExpiracionBiologico'];
     $arrayUltimaFilaObservacion[$valor]=$detalleReporte->ultimo['ReporteObservaciones'];
+    $arrayUltimaFilaArchivo[$valor]=$detalleReporte->ultimo['ReportesArchivo'];
 }
 
 $habilitar = $detalleReporte->SearchReporteByIdBool($conn,$idUsuario) ? ($detalleReporte->reporte['ReporteApertura']>$fecha_actual ? FALSE :TRUE ) : TRUE;
 $habilitar ?  header('Location:') :header('Location:../../index.php');
 
+$detalleReporte->SearchDetallesReporteHabilitados($conn,$_SESSION["myuser_obj"]->getId(),$detalleReporte->reporte['idReporte']);
+$habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
 ?>
 
 <?php require '../partials/headerhtml.php' ?>
@@ -43,89 +46,20 @@ $habilitar ?  header('Location:') :header('Location:../../index.php');
 
         <?php require '../partials/navbar.php' ?>
         <div class="main-panel">
-            <!-- Modal Editar -->
-            <div class="modal fade me_1" id="modalEditForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog m_2">
-                    <div class="modal-content m_3">
-                        <div class="modal-header m_4">
-                            <h5 class="modal-title" id="exampleModalLabel">Editar Biologico</h5>
+            <!-- Modal Archivo -->
+            <div class="modal fade" id="modalArchivo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Observaciones</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body m_4_1">
-                            <form action="../../Functions/EditDetalleReporte.php" method="post">
-                                <input type="hidden" id="idEditarDetalles" name="idEditarDetalles" />
-                                <div class="mb-3">
-                                    <label class="form-label">Descripcion Biologico</label>
-                                    <select class="comboboxRegistrar1" name="DetalleBiologico1" id="DetalleBiologico1">
-                                        <option class="opcion">SELECCIONAR UN BIOLOGICO</option>
-                                        <?php foreach ($productos->productos as $valor => $value) { ?>
-                                            <option class="opcion1">
-                                                <?php echo $productos->getNombre($valor) ?></option>
-                                        <?php } ?>
-                                    </select>
-                                    <div class="validarErrores" id="MensajeError1">Selecciona un biologico</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Lote</label>
-                                    <input type="text" class="form-control  lotes" id="lote1" name="lote1" placeholder="Lote..." required />
-                                    <div id="MensajeErrorLote1" class="validarErrores">No se a especificado un lote</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Stock</label>
-                                    <input type="number" class="form-control  display  sumIngreso sumTotal1 verificarLote1 MensajeError1" id="stock1" name="stock1" placeholder="stock..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Ingresos</label>
-                                    <input type="number" class="form-control  sumIngreso1  sumTotal1 verificarLote1 MensajeError1" id="ingreso1" name="ingreso1" min="0" placeholder="Ingresos..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Ingresos Extra</label>
-                                    <input type="number" class="form-control  sumIngreso1 sumTotal1 verificarLote1 MensajeError1" id="ingresoextra1" name="ingresoextra1" min="0" placeholder="Ingresos Extra..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Ingresos total + Stock</label>
-                                    <input type="number" class=" form-control display  MensajeError1" id="stockIngreso1" name="stockIngreso1" placeholder="Total Stock..." />
-                                    <div id="MensajeErrorStock1" class="validarErrores">El Stock del biologico es insuficiente </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Frascos Abiertos</label>
-                                    <input type="number" class="form-control verificarLote1 frascoabiertos sumSalida1 sumTotal1 MensajeError1" id="frascoabierto1" min="0" name="frascoabierto1" placeholder="Frascos Abiertos..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Dosis</label>
-                                    <input type="number" class="form-control verificarLote1 " id="dosis1" name="dosis1" min="0" max="1000" placeholder="Dosis..." />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Devolución</label>
-                                    <input type="number" class="form-control verificarLote1  sumSalida1 sumTotal1 MensajeError1" id="devolucion1" name="devolucion1" min="0" placeholder="Devolución...">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Total Salida</label>
-                                    <input type="number" class=" form-control display MensajeError1" id="salidaTotal1" name="salidaTotal1" placeholder="Total Salida..." />
-                                    <div id="MensajeErrorSalida" class="validarErrores">El total de salida excede el saldo de biologicos</div>
-                                </div>
-                                <input type="number" class="form-control display MensajeError1" id="stockNuevo1" name="stockNuevo1" placeholder="Total" />
-                                <div class="mb-3">
-                                    <label class="form-label">Expiracion</label>
-                                    <input type="date" class="form-control verificarLote1 " id="expiracion1" name="expiracion1" placeholder="Expiración..." required />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Requerimientos</label>
-                                    <input type="number" class="form-control verificarLote1" id="requerimientos1" name="requerimientos1" min="0" placeholder="Requerimientos..." />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Observaciones</label>
-                                    <input type="text" class="form-control verificarLote1" id="observaciones1" name="observaciones1" placeholder="Observaciones..." />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Archivo</label>
-                                    <input type="file" class="form-control verificarLote1    " id="archivo1" name="archivo1" placeholder="Archivo..." />
-                                </div>
-
-                                <div class="modal-footer d-block btn-block">
-                                    <button type="submit" class="editaDetalle"><i class="fas fa-plus"></i>&nbsp&nbspEditar</button>
-                                </div>
-                            </form>
+                        <div class="modal-body">
+                            <img id ="imagenmodal" src="" alt="">
+                            <p id="parrafo" ></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -146,7 +80,6 @@ $habilitar ?  header('Location:') :header('Location:../../index.php');
 
                             <th scope="rowgroup" rowspan="3">Requerimiento mes</th>
                             <th scope="rowgroup" rowspan="3">Observaciones</th>
-                            <th scope="rowgroup" rowspan="3">Archivos</th>
                         </tr>
                         <tr class="fil_2">
                             <th scope="rowgroup" rowspan="2">Saldo anterior (frascos)</th>
@@ -173,16 +106,16 @@ $habilitar ?  header('Location:') :header('Location:../../index.php');
                     <tbody>
                         <?php foreach ($detalleReporte->vistadetallReporte as $valor => $value) { ?>
                             <tr>
-                                <td class="fil_1_dat">
+                            <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>" >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'];
                                     ?>
                                 </td>
-                                <td class="fil_2_dat">
+                                <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>
-                                </td>
-                                <td class="fil_3_dat">
+                                </td  >
+                                <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosUnidad'] ?>
-                                </td>
+                                </td >
                                 <td class="fil_4_dat">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['StockAnterior'] ?>
                                 </td>
@@ -219,20 +152,34 @@ $habilitar ?  header('Location:') :header('Location:../../index.php');
                                 <td class="fil_15_dat">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['Requerimientos'] ?>
                                 </td>
-                                <td class="fil_16_dat">
-                                    <?php echo $arrayUltimaFilaObservacion[$valor]?>
-                                </td>
-                                <td class="fil_17_dat">
+                                <td class="fil_16_dat   ">
+                                    <div class="contenedorObservaciones">
+                                        <div>
+                                            <?php echo $arrayUltimaFilaObservacion[$valor] ?>
+                                        </div>
+
+                                        <?php if ($arrayUltimaFilaArchivo[$valor] != '') { ?>
+                                            
+
+                                            <?php if (substr($arrayUltimaFilaArchivo[$valor], -3) == 'jpg' or substr($arrayUltimaFilaArchivo[$valor], -3) == 'png'  or substr($arrayUltimaFilaArchivo[$valor], -4) == 'jpeg') { ?>
+                                                <button type="button"  aux="<?= '../../archives/'.$idUsuario.'/'.$fecha_actual.'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$arrayUltimaFilaArchivo[$valor] ?>"   observacion="<?= $arrayUltimaFilaObservacion[$valor] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
+                                                    Ver Imagen
+                                                </button>
+                                            <?php }else { ?>
+                                                <a href="<?= '../../archives/'.$idUsuario.'/'.$fecha_actual.'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$arrayUltimaFilaArchivo[$valor] ?>" download="<?= $arrayUltimaFilaArchivo[$valor]?>">descargar archivo</a>
+                                            <?php } ?>
+                                        <?php } ?>
+
+                                    </div>
 
                                 </td>
-
                             </tr>
                         <?php } ?>
 
                     </tbody>
                 </table>
             </div>
-            <?php if (date("d")< 5 and date("d")>0) { ?>    
+            <?php if (date("d")<= 5 and date("d")>0) { ?>    
                 
             <div>
                 <a class="" href="../../Functions/AddReporte.php">Cierre Mensual</a>
@@ -251,6 +198,7 @@ $habilitar ?  header('Location:') :header('Location:../../index.php');
         <script src="../assets/js/jquery.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
         <script src="../assets/js/EditarDetalle.js"></script>
+        <script src="../assets/js/archivos.js"></script>
 
 
     <?php endif; ?>

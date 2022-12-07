@@ -75,7 +75,7 @@
             $stmt->bindParam(':usuarioid', $usuarioid);
 
             return $stmt->execute() ? TRUE : FALSE;
-
+                                        
         }
 
         public function SearchIdUsuBio($conn,$idusuario,$idbiologico){

@@ -6,10 +6,12 @@ $(document).ready(function () {
 		let ingresoextra = parseInt($(this).attr('param3'), 10);
 		let frasabiertos = parseInt($(this).attr('param4'), 10);
 		let devoluciones = parseInt($(this).attr('param6'), 10);
+		
 
 
 		$('#idEditarDetalles').val($(this).attr('id'));
-		$('#DetalleBiologico1').val($(this).attr('param1'));
+		$('#DetalleBiologico1').text($(this).attr('param1'));
+		$('#idBiologicos').val($(this).attr('param1id'));
 		$('#ingreso1').val($(this).attr('param2'));
 		$('#ingresoextra1').val($(this).attr('param3'));
 		$('#frascoabierto1').val($(this).attr('param4'));
@@ -24,14 +26,14 @@ $(document).ready(function () {
 		$("#salidaTotal1").val(frasabiertos + devoluciones);
 		$("#stockNuevo1").val((stockAnterior + ingreso + ingresoextra) - (frasabiertos + devoluciones));
 		//Pendiente cuando creamos la carpeta para archivos
-		//$('#archivo1').val($(this).attr('param11'));
+		
 
 		$.ajax(
             {
                 url: '../../Functions/ObtenerProporcion.php',
                 method: "POST",
                 data: {
-                    proporcion: $("#DetalleBiologico1").val(),
+                    proporcion: $("#idBiologicos").val(),
                 }
             }).done(function (res) {
 
@@ -121,7 +123,7 @@ $(document).ready(function () {
 				url: '../../Functions/ObtenerProporcion.php',
 				method: "POST",
 				data: {
-					proporcion: $("#DetalleBiologico1").val(),
+					proporcion: $("#idBiologicos").val(),
 				}
 			}).done(function (res) {
 				let link = document.getElementById("dosis1");
@@ -186,6 +188,7 @@ $(document).ready(function () {
 		let devolucion = parseInt($("#devolucion1").val(), 10);
 		let sumIngreso = stock + ingreso + ingresoextra;
 		let sumSalida = frascoabierto + devolucion;
+		let extPermitidas = /(.pdf|.PDF|.jpg|.JPG|.jpeg|.JPEG|.png|.PNG|.mp4|.MP4|.mp3|.MP3|.XLSX|.xlsx|.csv|.CSV|.docx|.DOCX)$/i;
 
 		if ($("#DetalleBiologico1").val() == "SELECCIONAR UN BIOLOGICO") {
 			$("#MensajeError1").fadeIn();
@@ -196,6 +199,14 @@ $(document).ready(function () {
 			return false;
 		}
 
+		if ($('#archivo1').val() != '') {
+            if (!extPermitidas.exec($('#archivo1').val())) {
+                $("#MensajeErrorArchivo1").fadeIn();
+                $('#archivo1').val('');
+                return false;
+            }
+        }   
+
 		if($("#ingreso1").val()==""){$("#ingreso1").val(0);}
         if($("#ingresoextra1").val()==""){$("#ingresoextra1").val(0);}
         if($("#frascoabierto1").val()==""){$("#frascoabierto1").val(0);}
@@ -203,6 +214,8 @@ $(document).ready(function () {
         if($("#devolucion1").val()==""){$("#devolucion1").val(0);}
         if($("#requerimientos1").val()==""){$("#requerimientos1").val(0);}
         if($("#observaciones1").val()==""){$("#observaciones").val("Sin Observaciones1");}
+
+		
 
 
 	})

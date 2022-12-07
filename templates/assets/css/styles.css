@@ -1,35 +1,39 @@
-.fil_1 th, 
-.fil_2 th,
-.fil_3 th{
-    border: solid 4px;
-    text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
+
+.conteiner-tabla{
+    width: 95%;
+}
+table{
+    background-color: white;
+    text-align: left;
+    border-collapse: collapse   ;
+}
+th,td{
+    border: solid 1px black;
+    padding: 0px 5px 0px 5px;
+}
+thead{
+    border-bottom: solid 5px white;
+}
+table tbody tr:nth-child(even){
+    background-color: rgb(243, 239, 239);
 }
 
-.fil_1_dat , 
-.fil_2_dat ,
-.fil_3_dat ,
-.fil_4_dat ,
-.fil_5_dat ,
-.fil_6_dat ,
-.fil_7_dat ,
-.fil_8_dat ,
-.fil_9_dat ,
-.fil_10_dat ,
-.fil_11_dat ,
-.fil_12_dat ,
-.fil_13_dat ,
-.fil_14_dat ,
-.fil_15_dat ,
-.fil_16_dat ,
-.fil_17_dat,
-.fil_18_dat{
-    border: solid 4px;
-    text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
+table tbody tr:hover{
+    background-color: rgb(208, 243, 248);
 }
+.fil1{
+    background-color: #FFE699;
+}   
+.fil2{
+    background-color: #DDEBF7;
+}   
+.fil3{
+    background-color: #E2EFDA;
+}
+.fil4{
+    background-color: #D9D9D9;
+}
+
 
 .datosreporte{
     margin: 1% 5% 1% 5%;

@@ -54,24 +54,24 @@
         }   
 
         public function SearchIdByName($conn,$BiologicosNom){
-            $productos_select = $conn->prepare("SELECT idBiologicos FROM biologicos WHERE BiologicosNom = :BiologicosNom");
+            $productos_select = $conn->prepare("SELECT * FROM biologicos WHERE BiologicosNom = :BiologicosNom");
             $productos_select->bindParam(':BiologicosNom', $BiologicosNom);
             $productos_select->execute();
             $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
     
         }
-        public function SearchProporcionByName($conn,$BiologicosNom){
-            $productos_select = $conn->prepare("SELECT BiologicosProporcion FROM biologicos WHERE BiologicosNom = :BiologicosNom");
-            $productos_select->bindParam(':BiologicosNom', $BiologicosNom);
+        public function SearchProporcionById($conn,$BiologicosId){
+            $productos_select = $conn->prepare("SELECT BiologicosProporcion FROM biologicos WHERE idBiologicos = :BiologicosId");
+            $productos_select->bindParam(':BiologicosId', $BiologicosId);
             $productos_select->execute();
             $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);
     
         }
 
-        public function SearchStockName($conn,$BiologicosNom,$idUsuario){
+        public function SearchStockId($conn,$idBiologicos,$idUsuario){
             $productos_select = $conn->prepare("SELECT *FROM biologicos bio 
-            INNER JOIN usuariobiologico usu ON bio.idBiologicos=usu.Biologicos_idBiologicos WHERE bio.BiologicosNom = :BiologicosNom AND usu.Usuarios_idUsuarios=:idUsuario");
-            $productos_select->bindParam(':BiologicosNom', $BiologicosNom);
+            INNER JOIN usuariobiologico usu ON bio.idBiologicos=usu.Biologicos_idBiologicos WHERE bio.idBiologicos = :idBiologicos AND usu.Usuarios_idUsuarios=:idUsuario");
+            $productos_select->bindParam(':idBiologicos', $idBiologicos);
             $productos_select->bindParam(':idUsuario', $idUsuario);
             $productos_select->execute();
             $this->producto_seleccionado = $productos_select->fetch(PDO::FETCH_ASSOC);

@@ -22,6 +22,8 @@ $detalleReporte->VistaDetalleReporte($conn, $idUsuario, $fecha_actual, $idReport
 $habilitar = $detalleReporte->SearchReporteByIdBool($conn, $idUsuario) ? ($detalleReporte->reporte['ReporteApertura'] > $fecha_actual ? FALSE : TRUE) : TRUE;
 $habilitar ?  header('Location:') : header('Location:../../index.php');
 
+$detalleReporte->SearchDetallesReporteHabilitados($conn,$_SESSION["myuser_obj"]->getId(),$detalleReporte->reporte['idReporte']);
+$habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
 ?>
 
 <?php require '../partials/headerhtml.php' ?>
@@ -32,7 +34,7 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
 
     <body>
         <?php require '../partials/navbar.php' ?>
-        <div class="main-panel">
+        <div class="main-panel navbar-nav-scroll">
             <div class="contenedor_add">
                 <button class="ref" data-bs-toggle="modal" data-bs-target="#modalForm"><i class="fas fa-plus"></i>&nbsp&nbspAgregar Biologico</button>
             </div>
@@ -92,7 +94,7 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
                                     <input type="number" class=" form-control display MensajeError" id="salidaTotal" name="salidaTotal" placeholder="Total Salida..." />
                                     <div id="MensajeErrorSalida" class="validarErrores">El total de salida excede el saldo de biologicos</div>
                                 </div>
-                                <input type="hidden" class="form-control  MensajeError" value="2" id="stockNuevo" name="stockNuevo" placeholder="Total" />
+                                <input type="number" class="form-control  MensajeError"  id="stockNuevo" name="stockNuevo" placeholder="Total" />
                                 <div class="mb-3">
                                     <label class="form-label">Expiracion</label>
                                     <input type="date" class="form-control verificarStock " id="expiracion" name="expiracion" placeholder="Expiración..." />
@@ -113,10 +115,11 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
                                 <div class="mb-3">
                                     <label class="form-label">Archivo</label>
                                     <input type="file" class="form-control verificarStock   " id="archivo" name="archivo" placeholder="Archivo..." />
+                                    <div class="validarErrores" id="MensajeErrorArchivo">Archivo ingresado no Permitido</div>
                                 </div>
 
                                 <div class="modal-footer d-block btn-block">
-                                    <button type="submit" class="agregaDetalle" id="agregaDetalle"><i class="fas fa-plus"></i>&nbsp&nbspAgregar</button>
+                                    <button type="" class="agregaDetalle" id="agregaDetalle"><i class="fas fa-plus"></i>&nbsp&nbspAgregar</button>
                                 </div>
                             </form>
                         </div>
@@ -132,11 +135,12 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body m_4_1">
-                            <form action="../../Functions/EditDetalleReporte.php" method="post">
+                            <form action="../../Functions/EditDetalleReporte.php" method="post" enctype="multipart/form-data">
+                                <input type="hidden" value="1" id="pagina" name="pagina" >
                                 <input type="hidden" id="idEditarDetalles" name="idEditarDetalles" />
                                 <div class="mb-3">
-                                    <label class="form-label">Descripcion Biologico</label>
-                                    <input class="comboboxRegistrar1 display" name="DetalleBiologico1" id="DetalleBiologico1" />
+                                    <label class="form-label" name="DetalleBiologico1" id="DetalleBiologico1">Descripcion Biologico</label>
+                                    <input type="text" id="idBiologicos" name="idBiologicos" /> 
                                     <div class="validarErrores" id="MensajeError1">Selecciona un biologico</div>
                                 </div>
                                 <div class="mb-3">
@@ -193,7 +197,8 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Archivo</label>
-                                    <input type="file" class="form-control verificarLote1    " id="archivo1" name="archivo1" placeholder="Archivo..." />
+                                    <input type="file" class="form-control verificarLote1" id="archivo1" name="archivo1" placeholder="Archivo..." />
+                                    <div class="validarErrores" id="MensajeErrorArchivo1">Archivo ingresado no Permitido</div>
                                 </div>
 
                                 <div class="modal-footer d-block btn-block">
@@ -204,8 +209,26 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
                     </div>
                 </div>
             </div>
+            <!-- Modal Archivo -->
+            <div class="modal fade" id="modalArchivo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Observaciones</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img id ="imagenmodal" src="" alt="">
+                            <p id="parrafo" ></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div>
+            <div class="conteiner-tabla">
                 <table class="datosreporte">
                     <thead>
                         <tr class="fil_1">
@@ -220,7 +243,6 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
 
                             <th scope="rowgroup" rowspan="3">Requerimiento mes</th>
                             <th scope="rowgroup" rowspan="3">Observaciones</th>
-                            <th scope="rowgroup" rowspan="3">Archivos</th>
                             <th scope="rowgroup" rowspan="3">Acciones</th>
                         </tr>
                         <tr class="fil_2">
@@ -248,64 +270,79 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
                     <tbody>
                         <?php foreach ($detalleReporte->vistadetallReporte as $valor => $value) { ?>
                             <tr>
-                                <td class="fil_1_dat">
+                                <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>" >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosCod'];
                                     ?>
                                 </td>
-                                <td class="fil_2_dat">
+                                <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>
-                                </td>
-                                <td class="fil_3_dat">
+                                </td  >
+                                <td class="fil<?= $detalleReporte->vistadetallReporte[$valor]['Categoria_idCategoria'] ?>">
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['BiologicosUnidad'] ?>
-                                </td>
-                                <td class="fil_4_dat">
+                                </td >
+                                <td  >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>
                                 </td>
-                                <td class="fil_5_dat">
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>
                                 </td>
-                                <td class="fil_6_dat">
+                                <td >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
                                 </td>
-                                <td class="fil_7_dat">
+                                <td >
                                     <?php $aux = $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
 
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>
 
                                 </td>
-                                <td class="fil_8_dat">
+                                <td>
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>
                                 </td>
-                                <td class="fil_9_dat">
+                                <td >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>
                                 </td>
-                                <td class="fil_10_dat">
+                                <td >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>
                                 </td>
-                                <td class="fil_11_dat">
+                                <td >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>
                                 </td>
-                                <td class="fil_12_dat">
+                                <td >
                                     <?php echo $aux - ($detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] + $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion']) ?>
                                 </td>
-                                <td class="fil_13_dat">
+                                <td >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>
                                 </td>
-                                <td class="fil_14_dat">
+                                <td >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesLote'] ?>
                                 </td>
-                                <td class="fil_15_dat">
+                                <td >
                                     <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>
                                 </td>
-                                <td class="fil_16_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>
+                                <td >
+                                    <div class="contenedorObservaciones">
+                                        <div>
+                                            <?php echo $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>
+                                        </div>
+
+                                        <?php if ($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] != '') { ?>
+                                            
+
+                                            <?php if (substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'jpg' or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -3) == 'png'  or substr($detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'], -4) == 'jpeg') { ?>
+                                                <button type="button"  aux="<?= '../../archives/'.$idUsuario.'/'.$fecha_actual.'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>"   observacion="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" class="verArchivos" data-bs-toggle="modal" data-bs-target="#modalArchivo">
+                                                    Ver Imagen
+                                                </button>
+                                            <?php }else { ?>
+                                                <a href="<?= '../../archives/'.$idUsuario.'/'.$fecha_actual.'/'.$detalleReporte->vistadetallReporte[$valor]['BiologicosCod'].'/'.$detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" download="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo']?>">descargar archivo</a>
+                                            <?php } ?>
+                                        <?php } ?>
+
+                                    </div>
+
                                 </td>
-                                <td class="fil_17_dat">
-                                    <?php echo $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>
-                                </td>
-                                <td class="fil_18_dat">
-                                    <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>" param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" param8="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesLote'] ?>" param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
-                                    <a class="btneliminar" href="../../Functions/DeleteDetalleReporte.php?id=<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" onclick="return confirm('DESEA ELIMINAR?')"><img src="../assets/bootstrap-icons-1.10.1/trash.svg"></a>
+                                <td >
+                                <a href="" id="<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" param="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesStockAnterior'] ?>" param1="<?= $detalleReporte->vistadetallReporte[$valor]['BiologicosNom'] ?>" param1id="<?= $detalleReporte->vistadetallReporte[$valor]['idBiologicos'] ?>"  param2="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresos'] ?>" param3="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesIngresosExtra'] ?>" param4="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesFrascosAbiertos'] ?>" param5="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDosis'] ?>" param6="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesDevolucion'] ?>" param7="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesExpiracionBiologico'] ?>" param9="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesRequerimientoMes'] ?>" param10="<?= $detalleReporte->vistadetallReporte[$valor]['ReporteObservaciones'] ?>" param11="<?= $detalleReporte->vistadetallReporte[$valor]['ReportesArchivo'] ?>" class="editarDetalleReporte" data-bs-toggle="modal" data-bs-target="#modalEditForm"><img src="../assets/bootstrap-icons-1.10.1/pen-fill.svg"></a>
+                                <a class="btneliminar" href="../../Functions/DeleteDetalleReporte.php?id=<?= $detalleReporte->vistadetallReporte[$valor]['idReportes'] ?>" onclick="return confirm('DESEA ELIMINAR?')"><img src="../assets/bootstrap-icons-1.10.1/trash.svg"></a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -328,6 +365,7 @@ $habilitar ?  header('Location:') : header('Location:../../index.php');
         <script src="../assets/js/funcionDosis.js"></script>
         <script src="../assets/js/RestriccionesRegistrarReporte.js"></script>
         <script src="../assets/js/EditarDetalle.js"></script>
+        <script src="../assets/js/archivos.js"></script>
 
     <?php endif; ?>
     </body>

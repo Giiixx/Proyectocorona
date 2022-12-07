@@ -20,8 +20,8 @@ if (!isset($_SESSION['user_id'])) {
     } catch (\Throwable $th) {
         echo "no ingreso"; //$_POST['password'] == null ? $mensaje_page->setAll(null, null) : $mensaje_page->setAll("Ha ingresado un dato incorrecto", "warning");
     }
-}
-
+}  
+$_SESSION['myuser_obj']->getRol() == 3 ? header('Location: templates/configuracion/vistasAllReportes.php') : header('Location:');
 //$alerta = new Alert($mensaje_page->getMessage(), $mensaje_page->getType());
 ?>
 
@@ -37,10 +37,10 @@ if (!isset($_SESSION['user_id'])) {
     $idUsuario = $_SESSION["myuser_obj"]->getId();
 
     $detalleReporte->SearchReporteById($conn, $_SESSION["myuser_obj"]->getId());
-
     $habilitar = $detalleReporte->SearchReporteByIdBool($conn, $idUsuario) ? ($detalleReporte->reporte['ReporteApertura'] > $fecha_actual ? FALSE : TRUE) : TRUE;
 
-
+    $detalleReporte->SearchDetallesReporteHabilitados($conn, $_SESSION["myuser_obj"]->getId(), $detalleReporte->reporte['idReporte']);
+    $habilitar2 = empty($detalleReporte->lista) ? FALSE : TRUE;
 
     ?>
 
@@ -83,9 +83,11 @@ if (!isset($_SESSION['user_id'])) {
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
+                            <?php if ($_SESSION['myuser_obj']->getRol() == 1 ) { ?>
+                            <a class="dropdown-item" href="templates/configuracion/vistasAllReportes.php">
+                                <i class="mdi mdi-cached me-2 text-success"></i> Configuracion </a>
                             <div class="dropdown-divider"></div>
+                            <?php } ?>
                             <a class="dropdown-item" href="Functions/sesion/logout.php">
                                 <i class="mdi mdi-logout me-2 text-primary"></i> Cerrar Sesion </a>
                         </div>
@@ -123,9 +125,12 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <?php if ($habilitar) { ?>
-                                    <li><i> <a class="nav-link" href="templates/datosReporte/reporteMes.php">Reportes Mensual</a></li>
-                                    <li><i></i><a class="nav-link" href="templates/datosReporte/reporteDiario.php">Reporte Diario</a></li>
-                                    <li><i></i><a class="nav-link" href="templates/datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="templates/datosReporte/reporteMes.php">Reportes Mensual</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="templates/datosReporte/reporteDiario.php">Reporte Diario</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="templates/datosReporte/editarReporteDiario.php">Editar Reporte del dia Anterior</a></li>
+                                    <?php if ($habilitar2) { ?>
+                                        <li class="nav-item"><a class="nav-link" href="templates  /datosReporte/editarReporteHabilitado.php">Editar Reportes Habilitado</a></li>
+                                    <?php } ?>
                                 <?php } ?>
                             </ul>
                         </div>
@@ -139,9 +144,8 @@ if (!isset($_SESSION['user_id'])) {
                         </a>
                         <div class="collapse" id="general-pages">
                             <ul class="nav flex-column sub-menu">
-                                <li><i class="nav-item"> <a class="nav-link" href="templates/vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
-                                <li><i class="nav-item"> <a class="nav-link" href="templates/vistas/vistaReporteMes.php">Vista Reportes Mensuales</a></li>
-                                <li><i class="nav-item"> <a class="nav-link" href="templates/datosBiologico/registrarBiologicos.php">Registrar Biologico</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="templates/vistas/vistaReporteDiario.php">Vista Reportes Diarios</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="templates/vistas/vistaReporteMes.php">Vista Reportes Mensuales</a></li>
                             </ul>
                         </div>
                     </li>
@@ -150,6 +154,7 @@ if (!isset($_SESSION['user_id'])) {
                 </ul>
             </nav>
             <div class="main-panel">
+                <embed src="archives/e-commerce.pdf" type="application/pdf" width="320px" height="630px">
 
             </div>
         </div>
